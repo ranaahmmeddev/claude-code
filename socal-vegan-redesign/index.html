@@ -1,0 +1,897 @@
+<title>The SoCal Vegan Homepage</title>
+<meta name="description" content="Homepage redesign preview for The SoCal Vegan — weekly vegan meal prep in North County San Diego.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,600..900,100,1&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/* Brand tokens (from client questionnaire). Single deliberate light look, matching the live store. */
+:root{
+  color-scheme: light;
+  --red:#cf2122; --red-dark:#a8181a;
+  --yellow:#f9cb38; --teal:#4dc0bf; --teal-ink:#17706f;
+  --orange:#f28141; --tan:#cca673; --tan-soft:#f6ecdc; --tan-line:#e6d3b3;
+  --ink:#2b1d16; --ink-2:#5b4a3f; --paper:#ffffff; --paper-2:#fffaf2;
+  --display:"Fraunces","Roxborough CF",Georgia,"Times New Roman",serif;
+  --body:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --shadow:4px 4px 0 var(--ink);
+  --r:14px;
+  --gutter:clamp(16px,4vw,40px);
+  --max:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--body);-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.wrap>*{min-width:0}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.16em;text-transform:uppercase}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:14px 26px;border-radius:999px;border:2px solid var(--ink);font:700 14px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .15s,box-shadow .15s;white-space:nowrap}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.btn-red{background:var(--red);color:#fff;box-shadow:var(--shadow)}
+.btn-yellow{background:var(--yellow);color:var(--ink);box-shadow:var(--shadow)}
+.btn-ghost{background:var(--paper);color:var(--ink);box-shadow:var(--shadow)}
+.btn-sm{padding:10px 18px;font-size:12px}
+
+/* Announcement marquee */
+.ticker{background:var(--yellow);border-bottom:2px solid var(--ink);overflow:hidden;font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase}
+.ticker-track{display:flex;gap:48px;padding-block:11px;width:max-content;animation:tick 38s linear infinite}
+.ticker-track span{display:inline-flex;gap:48px;align-items:center}
+.ticker-track i{font-style:normal;color:var(--red)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* Header */
+.header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--paper);border-bottom:2px solid var(--ink)}
+.header .wrap{display:flex;align-items:center;gap:24px;min-height:78px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-mark{width:48px;height:48px}
+.logo-text{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:800;font-size:22px;line-height:.95;color:var(--red)}
+.logo-text small{display:block;font:600 9px/1.4 var(--body);letter-spacing:.2em;color:var(--teal-ink);text-transform:uppercase}
+.nav{display:flex;gap:2px;margin-left:auto}
+.header-actions{margin-left:8px}
+.nav a{font:600 12.5px/1 var(--body);letter-spacing:.08em;white-space:nowrap;text-transform:uppercase;text-decoration:none;padding:10px 10px;border-radius:999px}
+.nav a:hover{background:var(--tan-soft);color:var(--red)}
+.header-actions{display:flex;align-items:center;gap:10px}
+.order-strip{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 14px;background:var(--ink);color:#fff;padding:9px var(--gutter);font:500 13px/1.3 var(--body);text-decoration:none;border-top:2px solid var(--ink)}
+.order-strip b{font-variant-numeric:tabular-nums;color:var(--yellow);font-weight:700}
+.order-strip .sep{opacity:.35}
+.order-strip .go{font-weight:700;color:var(--yellow);letter-spacing:.06em;text-transform:uppercase;font-size:12px}
+.order-strip:hover .go{text-decoration:underline}
+.order-strip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(77,192,191,.35)}
+.is-closed .order-strip .dot{background:var(--orange);box-shadow:0 0 0 3px rgba(242,129,65,.35)}
+.is-urgent .order-strip{background:var(--red)}
+.is-urgent .order-strip .dot{background:#fff;animation:pulse 1.2s infinite}
+.is-urgent .order-strip b,.is-urgent .order-strip .go{color:#fff}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(255,255,255,0)}}
+@media (max-width:700px){.order-strip{display:none}}
+.icon-btn{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--ink);background:var(--paper);position:relative;text-decoration:none}
+.icon-btn svg{width:20px;height:20px}
+.icon-btn .badge{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;border-radius:999px;font:700 10px/18px var(--body);min-width:18px;text-align:center;border:2px solid var(--paper)}
+.menu-toggle{display:none}
+@media (max-width:1200px){.nav{display:none}.menu-toggle{display:grid}.header-actions{margin-left:auto}}
+@media (max-width:560px){.logo-text{font-size:19px}.header .wrap{gap:12px;min-height:66px}.icon-btn.account{display:none}}
+.mobile-nav{border-top:2px solid var(--ink);background:var(--paper)}
+.mobile-nav a{display:block;padding:14px var(--gutter);font:600 15px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--tan-line)}
+
+/* Hero — SoCal sunset */
+.hero{position:relative;overflow:hidden;background:var(--paper-2);border-bottom:2px solid var(--ink)}
+.hero-sun{position:absolute;inset:auto -10% -55% auto;width:min(900px,120vw);aspect-ratio:1;border-radius:50%;
+  background:repeating-linear-gradient(180deg,var(--yellow) 0 13%,var(--orange) 13% 26%,var(--red) 26% 39%,var(--paper-2) 39% 41%);
+  opacity:.95;pointer-events:none;max-width:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:64px 72px}
+.hero h1{font-size:clamp(44px,7vw,92px);font-weight:900;color:var(--ink)}
+.hero h1 em{font-style:italic;color:var(--red)}
+.hero-sub{font-size:clamp(17px,1.6vw,20px);max-width:34ch;margin-top:20px;color:var(--ink-2)}
+.slogan{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:22px;font:700 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase}
+.slogan span{padding:8px 12px;border:2px solid var(--ink);border-radius:999px;background:var(--paper)}
+.slogan span:nth-child(1){background:var(--teal)}
+.slogan span:nth-child(3){background:var(--yellow)}
+.slogan span:nth-child(5){background:var(--orange)}
+.slogan b{color:var(--red);font-size:18px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:22px;font-size:14px;color:var(--ink-2)}
+.hero-meta span::before{content:"✓";color:var(--teal-ink);font-weight:700;margin-right:6px}
+
+/* Countdown card */
+.order-card{background:var(--paper);border:2px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--ink);padding:26px;position:relative}
+.order-card .status{display:inline-flex;align-items:center;gap:8px;font:700 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;border-radius:999px;background:#e3f6f5;color:var(--teal-ink)}
+.order-card .status::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.is-closed .order-card .status{background:#fde9dc;color:#b04d14}
+.is-urgent .order-card .status{background:#fbe0e0;color:var(--red)}
+.order-card h2{font-size:28px;margin-top:14px}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.cd-cell{background:var(--ink);color:#fff;border-radius:12px;text-align:center;padding:12px 4px 10px}
+.cd-cell b{display:block;font:800 clamp(28px,3.4vw,40px)/1 var(--display);font-variation-settings:"SOFT" 100;font-variant-numeric:tabular-nums;color:var(--yellow)}
+.is-urgent .cd-cell b{color:#ff8a8a}
+.cd-cell small{font:600 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+.order-rows{margin-top:18px;display:grid;gap:0;border-top:1px dashed var(--tan-line)}
+.order-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed var(--tan-line);font-size:14px}
+.order-row span{color:var(--ink-2)}
+.order-row strong{text-align:right}
+.order-card .btn{width:100%;margin-top:18px}
+.order-note{font-size:12.5px;color:var(--ink-2);margin-top:12px;text-align:center}
+
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-block:44px 56px}.hero-sun{inset:auto -40% -20% auto;width:150vw}}
+
+/* Section scaffolding */
+section{scroll-margin-top:90px}
+.sec{padding-block:clamp(64px,8vw,104px)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px 40px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(34px,4.6vw,56px);font-weight:850}
+.sec-head p{max-width:46ch;color:var(--ink-2)}
+.sec-head .eyebrow{color:var(--red);margin-bottom:12px;display:block}
+
+/* Weekly rhythm */
+.rhythm{background:var(--ink);color:#fff}
+.rhythm .sec-head p{color:#d8cabd}
+.rhythm .sec-head .eyebrow{color:var(--yellow)}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;counter-reset:none}
+.timeline::before{content:"";position:absolute;left:4%;right:4%;top:31px;height:3px;background:repeating-linear-gradient(90deg,var(--tan) 0 10px,transparent 10px 18px)}
+.tl{position:relative;padding-right:18px}
+.tl-dot{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;border:2px solid #fff;position:relative;z-index:1}
+.tl-dot svg{width:28px;height:28px}
+.tl:nth-child(1) .tl-dot{background:var(--teal)}
+.tl:nth-child(2) .tl-dot{background:var(--yellow)}
+.tl:nth-child(3) .tl-dot{background:var(--red)}
+.tl:nth-child(4) .tl-dot{background:var(--orange)}
+.tl-day{font:800 26px/1 var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;margin-top:18px}
+.tl-time{font:600 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-top:8px}
+.tl p{margin-top:10px;color:#d8cabd;font-size:14.5px;max-width:28ch}
+.tl.now .tl-dot{outline:3px solid var(--yellow);outline-offset:5px}
+.tl .now-tag{display:none;position:absolute;top:-10px;left:44px;z-index:2;background:var(--yellow);color:var(--ink);font:700 10px/1 var(--body);letter-spacing:.12em;padding:5px 8px;border-radius:999px;text-transform:uppercase}
+.tl.now .now-tag{display:block}
+@media (max-width:820px){
+  .timeline{grid-template-columns:1fr;gap:28px}
+  .timeline::before{left:31px;right:auto;top:10px;bottom:10px;width:3px;height:auto;background:repeating-linear-gradient(180deg,var(--tan) 0 10px,transparent 10px 18px)}
+  .tl{display:grid;grid-template-columns:64px 1fr;column-gap:20px}
+  .tl-dot{grid-row:span 3}
+  .tl-day{margin-top:4px}
+}
+
+/* How it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step{border:2px solid var(--ink);border-radius:var(--r);padding:28px;background:var(--paper)}
+.step-num{font:900 64px/1 var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;color:var(--tan)}
+.step h3{font-size:30px;margin-top:10px}
+.step h3 span{color:var(--red)}
+.step p{margin-top:10px;color:var(--ink-2)}
+.step:nth-child(1){background:#e9f7f7}
+.step:nth-child(2){background:#fff6d9}
+.step:nth-child(3){background:#fdebe0}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+
+/* Plans */
+.plans-sec{background:var(--tan-soft);border-block:2px solid var(--ink)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.plan{position:relative;background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px;transition:transform .15s,box-shadow .15s}
+.plan:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--ink)}
+.plan.popular{background:var(--yellow);box-shadow:var(--shadow)}
+.plan .pop{position:absolute;top:-14px;right:20px;background:var(--red);color:#fff;border:2px solid var(--ink);border-radius:999px;font:700 11px/1 var(--body);letter-spacing:.12em;padding:7px 12px;text-transform:uppercase}
+.plan-top{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.plan h3{font-size:28px}
+.plan-count{flex-shrink:0;width:62px;height:62px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;text-align:center;background:var(--teal);line-height:1}
+.plan-count b{font:900 24px/1 var(--display);display:block}
+.plan-count small{font:600 9px/1 var(--body);letter-spacing:.1em;text-transform:uppercase}
+.plan-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.plan-price b{font:800 38px/1 var(--display);font-variant-numeric:tabular-nums}
+.plan-price span{color:var(--ink-2);font-size:14px}
+.plan-per{display:inline-block;font:700 12px/1 var(--body);letter-spacing:.06em;background:var(--paper);border:1.5px solid var(--ink);border-radius:999px;padding:6px 10px;font-variant-numeric:tabular-nums}
+.plan p{color:var(--ink-2);font-size:15px;flex:1}
+.plan.popular p,.plan.popular .plan-price span{color:var(--ink)}
+.plan .btn{width:100%}
+.plans-foot{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:center;margin-top:34px;font:600 13px/1.4 var(--body);letter-spacing:.1em;text-transform:uppercase}
+.plans-foot span::before{content:"●";color:var(--red);margin-right:8px}
+@media (max-width:960px){.plans{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.plans{grid-template-columns:1fr}}
+
+/* Menu */
+.menu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.meal{display:flex;flex-direction:column;border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--paper)}
+.meal-img{aspect-ratio:1;max-width:100%;display:block;border-bottom:2px solid var(--ink);position:relative}
+.meal-img svg{display:block;width:100%;height:100%}
+.meal-tag{position:absolute;top:10px;left:10px;background:var(--paper);border:1.5px solid var(--ink);border-radius:999px;font:700 10px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px}
+.meal-body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.meal h3{font-size:20px;font-weight:750}
+.meal p{font-size:13.5px;color:var(--ink-2);flex:1}
+.meal-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px}
+.meal-foot b{font:800 18px/1 var(--display)}
+.meal-foot a{font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.menu-note{margin-top:22px;font-size:13px;color:var(--ink-2);max-width:80ch}
+@media (max-width:1100px){.menu-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:700px){.menu-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;margin-inline:calc(var(--gutter)*-1);padding-inline:var(--gutter)}.meal{flex:0 0 74%;scroll-snap-align:start}}
+
+/* À la carte */
+.alc{background:var(--teal);border-block:2px solid var(--ink)}
+.alc .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.alc h2{font-size:clamp(36px,5vw,62px);font-weight:900}
+.alc h2 em{display:block;font-style:italic;color:var(--paper);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill}
+.alc p{margin-top:16px;max-width:44ch;font-size:17px}
+.alc-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-block:26px}
+.fact{background:var(--paper);border:2px solid var(--ink);border-radius:12px;padding:14px;text-align:center}
+.fact b{display:block;font:900 30px/1 var(--display);font-variant-numeric:tabular-nums;color:var(--red)}
+.fact small{font:600 11px/1.3 var(--body);letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:6px}
+.alc-art{border:2px solid var(--ink);border-radius:24px;overflow:hidden;background:var(--yellow);box-shadow:8px 8px 0 var(--ink);aspect-ratio:5/4;max-width:100%;position:relative}
+.alc-art svg{width:100%;height:100%;display:block}
+.alc-art .stamp{position:absolute;right:18px;bottom:18px;background:var(--red);color:#fff;border:2px solid var(--ink);border-radius:50%;width:104px;height:104px;display:grid;place-items:center;text-align:center;font:700 11px/1.25 var(--body);letter-spacing:.1em;text-transform:uppercase;transform:rotate(-10deg)}
+@media (max-width:860px){.alc .wrap{grid-template-columns:1fr}}
+
+/* Delivery */
+.delivery .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.map-card{border:2px solid var(--ink);border-radius:22px;overflow:hidden;background:#dff3f3;position:relative}
+.map-card svg{display:block;width:100%;height:auto}
+.map-legend{display:flex;flex-wrap:wrap;gap:8px 18px;padding:14px 18px;border-top:2px solid var(--ink);background:var(--paper);font-size:13px}
+.map-legend span{display:inline-flex;align-items:center;gap:8px}
+.lg{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink)}
+.town{cursor:pointer}
+.town circle{transition:r .15s}
+.town:hover circle,.town.active circle{r:11}
+.town.active text{font-weight:700;fill:var(--red)}
+.zip-check{border:2px solid var(--ink);border-radius:18px;padding:22px;background:var(--paper-2);box-shadow:var(--shadow)}
+.zip-check label{font:700 13px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:12px}
+.zip-row{display:flex;gap:10px}
+.zip-row input{flex:1;min-width:0;border:2px solid var(--ink);border-radius:999px;padding:13px 18px;font:500 17px/1 var(--body);letter-spacing:.1em;background:var(--paper);color:var(--ink)}
+.zip-result{margin-top:14px;font-size:15px;min-height:1.6em}
+.zip-result.ok{color:var(--teal-ink);font-weight:600}
+.zip-result.no{color:var(--red);font-weight:600}
+.areas{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px}
+.area{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px dashed var(--tan-line);cursor:pointer}
+.area strong{font-weight:600}
+.area span{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;text-align:right}
+.area.active strong{color:var(--red)}
+.fees{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.fee{border:2px solid var(--ink);border-radius:14px;padding:16px}
+.fee b{font:900 28px/1 var(--display);display:block}
+.fee small{display:block;font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.4}
+.fee:nth-child(1){background:#e9f7f7}.fee:nth-child(2){background:#fff6d9}.fee:nth-child(3){background:#fdebe0}
+.pickups{margin-top:28px}
+.pickups h3{font-size:24px;margin-bottom:10px}
+.pickups ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.pickups li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;padding:12px 14px;border:1.5px solid var(--tan-line);border-radius:12px}
+.pickups li svg{flex-shrink:0;width:18px;height:18px;margin-top:3px;color:var(--red)}
+.pickups li small{display:block;color:var(--ink-2)}
+.pickups .note{margin-top:12px;font-size:13px;color:var(--ink-2)}
+@media (max-width:920px){.delivery .wrap{grid-template-columns:1fr}}
+@media (max-width:560px){.areas,.pickups ul{grid-template-columns:1fr}.fees{grid-template-columns:1fr}}
+
+/* Sharon */
+.sharon{background:var(--paper-2);border-top:2px solid var(--ink)}
+.sharon .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.portrait{aspect-ratio:4/5;max-width:100%;border:2px solid var(--ink);border-radius:200px 200px 22px 22px;background:linear-gradient(180deg,var(--orange),var(--red));position:relative;overflow:hidden;box-shadow:8px 8px 0 var(--ink)}
+.portrait svg{position:absolute;inset:0;width:100%;height:100%}
+.portrait span{position:absolute;left:0;right:0;bottom:16px;text-align:center;font:600 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.sharon h2{font-size:clamp(40px,5vw,64px);font-weight:900;color:var(--red)}
+.sharon .tagline{font:italic 500 22px/1.35 var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;margin-top:12px}
+.sharon .bio{margin-top:16px;max-width:52ch;color:var(--ink-2);display:grid;gap:10px}
+.benefits{display:flex;flex-wrap:wrap;gap:10px;margin-block:26px}
+.benefit{display:flex;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:999px;padding:8px 16px 8px 8px;background:var(--paper);font:600 13px/1.2 var(--body)}
+.benefit i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--teal);font-style:normal}
+.benefit i svg{width:16px;height:16px}
+.benefit small{display:block;font-weight:400;color:var(--ink-2);font-size:12px}
+.sharon-ctas{display:flex;flex-wrap:wrap;gap:14px}
+@media (max-width:860px){.sharon .wrap{grid-template-columns:1fr}.portrait{max-width:380px}}
+
+/* FAQ */
+.faq .wrap{display:grid;grid-template-columns:.75fr 1.25fr;gap:56px;align-items:start}
+.faq-side h2{font-size:clamp(38px,4.6vw,56px);font-weight:900}
+.faq-side p{margin-top:14px;color:var(--ink-2);max-width:34ch}
+.faq-side .btn{margin-top:24px}
+.faq-side .mail{margin-top:18px;font-size:14px;color:var(--ink-2)}
+.faq-side .mail b{color:var(--ink);user-select:all}
+.faq-list{border-top:2px solid var(--ink)}
+.faq-list details{border-bottom:2px solid var(--ink)}
+.faq-list summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 4px;font:600 17px/1.35 var(--body)}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary .pm{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font:700 18px/1 var(--body);transition:transform .2s,background .2s}
+.faq-list details[open] summary .pm{transform:rotate(45deg);background:var(--yellow)}
+.faq-list .ans{padding:0 4px 22px;color:var(--ink-2);max-width:62ch;display:grid;gap:8px}
+@media (max-width:860px){.faq .wrap{grid-template-columns:1fr;gap:28px}}
+
+/* Reviews + newsletter band */
+.loop{background:var(--red);color:#fff;border-block:2px solid var(--ink)}
+.loop .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.loop h2{font-size:clamp(38px,5vw,60px);font-weight:900;color:var(--yellow)}
+.loop p{margin-top:12px;max-width:44ch;opacity:.95}
+.nl-form{display:flex;gap:10px;flex-wrap:wrap}
+.nl-form input{flex:1 1 240px;min-width:0;border:2px solid var(--ink);border-radius:999px;padding:14px 20px;font:500 16px/1 var(--body);background:#fff;color:var(--ink)}
+.nl-msg{margin-top:10px;font-size:14px;min-height:1.4em}
+.reviews-link{display:inline-flex;align-items:center;gap:10px;margin-top:22px;color:#fff;font:600 14px/1 var(--body);letter-spacing:.06em}
+.reviews-link .stars{color:var(--yellow);letter-spacing:2px}
+@media (max-width:860px){.loop .wrap{grid-template-columns:1fr}}
+
+/* Footer */
+.footer{background:var(--ink);color:#e6d9cc;padding-block:64px 32px;font-size:14px}
+.footer .grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.footer h4{font:700 12px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin-bottom:16px}
+.footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.footer a{text-decoration:none}
+.footer a:hover{color:var(--yellow)}
+.footer .brand .logo-text{color:#fff}
+.footer .brand p{margin-top:14px;max-width:34ch;color:#cdbfb2}
+.footer .legal{margin-top:44px;padding-top:22px;border-top:1px solid #4a3a30;display:grid;gap:14px;font-size:12px;color:#b3a496}
+.footer .legal p{max-width:110ch}
+.footer .legal .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+.stripe{height:14px;background:linear-gradient(90deg,var(--teal) 0 25%,var(--yellow) 25% 50%,var(--orange) 50% 75%,var(--red) 75%)}
+@media (max-width:860px){.footer .grid{grid-template-columns:1fr 1fr}.footer .brand{grid-column:1/-1}}
+
+/* Mobile sticky order bar */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:45;gap:12px;align-items:center;justify-content:space-between;background:var(--ink);color:#fff;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));border-top:2px solid var(--yellow)}
+  .mbar small{display:block;font:600 10px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:#cdbfb2}
+  .mbar b{font:800 18px/1.1 var(--display);color:var(--yellow);font-variant-numeric:tabular-nums}
+  body{padding-bottom:72px}
+}
+
+/* Preview-only state switcher */
+.preview-ctl{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--paper);border:2px solid var(--ink);border-radius:14px;box-shadow:var(--shadow);padding:10px 12px;font:500 12px/1.3 var(--body);max-width:calc(100vw - 32px)}
+.preview-ctl summary{cursor:pointer;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.preview-ctl .opts{display:grid;gap:6px;margin-top:10px}
+.preview-ctl button{font:600 12px/1 var(--body);text-align:left;padding:9px 10px;border-radius:8px;border:1.5px solid var(--tan-line);background:var(--paper-2);cursor:pointer;color:var(--ink)}
+.preview-ctl button[aria-pressed="true"]{background:var(--yellow);border-color:var(--ink)}
+.preview-ctl p{margin-top:8px;color:var(--ink-2);max-width:220px}
+@media (max-width:700px){.preview-ctl{bottom:84px}}
+</style>
+
+<!-- ANNOUNCEMENT -->
+<div class="ticker" aria-label="Announcements">
+  <div class="ticker-track" aria-hidden="true">
+    <span>Fresh <i>•</i> Plant-based <i>•</i> Made weekly <i>✦</i> Free local delivery for subscribers <i>✦</i> Monday morning delivery, 4–7:30 AM <i>✦</i> Selections close Thursday 2 PM PT <i>✦</i></span>
+    <span>Fresh <i>•</i> Plant-based <i>•</i> Made weekly <i>✦</i> Free local delivery for subscribers <i>✦</i> Monday morning delivery, 4–7:30 AM <i>✦</i> Selections close Thursday 2 PM PT <i>✦</i></span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="The SoCal Vegan home">
+      <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" fill="#f9cb38" stroke="#2b1d16" stroke-width="2"/>
+        <rect x="2" y="26" width="44" height="4" fill="#f28141"/><rect x="2" y="33" width="44" height="4" fill="#cf2122"/>
+        <path d="M24 10c6 4 8 10 4 16-2-5-5-8-10-10 1-3 3-5 6-6z" fill="#4dc0bf" stroke="#2b1d16" stroke-width="1.6"/>
+        <circle cx="24" cy="24" r="22" fill="none" stroke="#2b1d16" stroke-width="2"/>
+      </svg>
+      <span class="logo-text">The SoCal<br>Vegan<small>North County SD</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#top">Home</a>
+      <a href="#plans">Subscriptions</a>
+      <a href="#alc">À la carte</a>
+      <a href="#how">How it works</a>
+      <a href="#footer">Gift cards</a>
+      <a href="#sharon">About us</a>
+      <a href="#footer">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-btn account" href="#footer" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+      <a class="icon-btn" href="#plans" aria-label="Cart, 0 items"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.5 12h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge">0</span></a>
+      <button class="icon-btn menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <a class="order-strip" href="#order"><span class="dot"></span><span><span data-strip-status>Ordering open</span> · <span data-strip-text>Order for Monday delivery</span></span><span class="sep" aria-hidden="true">|</span><span><span data-chip-label>Closes in</span> <b data-cd-short>—</b></span><span class="go">Details →</span></a>
+  <nav class="mobile-nav" id="mobileNav" hidden aria-label="Mobile">
+    <a href="#top">Home</a><a href="#plans">Subscriptions</a><a href="#alc">À la carte</a><a href="#how">How it works</a><a href="#footer">Gift cards</a><a href="#sharon">About us</a><a href="#footer">Contact</a>
+  </nav>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="hero-sun" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow" style="color:var(--teal-ink);margin-bottom:18px">Weekly vegan meal prep · Carlsbad, CA</p>
+      <h1 id="heroTitle">Fresh vegan meals made for <em>your week.</em></h1>
+      <p class="hero-sub">Chef-crafted, plant-based meals prepared fresh each week and made to fit your lifestyle.</p>
+      <div class="slogan" aria-label="You choose, we cook, we deliver">
+        <span>You choose</span><b aria-hidden="true">→</b><span>We cook</span><b aria-hidden="true">→</b><span>We deliver</span>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-red" href="#plans">View subscriptions</a>
+        <a class="btn btn-ghost" href="#alc">Shop à la carte</a>
+      </div>
+      <div class="hero-meta"><span>100% vegan</span><span>5 new meals every week</span><span>Skip any week</span></div>
+    </div>
+
+    <!-- Order countdown -->
+    <aside class="order-card" id="order" aria-labelledby="orderTitle">
+      <span class="status" data-status>Ordering open</span>
+      <h2 id="orderTitle" data-order-title>Order for Monday delivery</h2>
+      <div class="cd-grid" role="timer" aria-label="Time remaining" data-cd-grid>
+        <div class="cd-cell"><b data-cd-d>0</b><small>Days</small></div>
+        <div class="cd-cell"><b data-cd-h>00</b><small>Hours</small></div>
+        <div class="cd-cell"><b data-cd-m>00</b><small>Mins</small></div>
+        <div class="cd-cell"><b data-cd-s>00</b><small>Secs</small></div>
+      </div>
+      <div class="order-rows">
+        <div class="order-row"><span data-row1-label>Selections close</span><strong data-row1>—</strong></div>
+        <div class="order-row"><span>Your delivery</span><strong data-delivery>—</strong></div>
+        <div class="order-row"><span>Delivery window</span><strong>4:00 – 7:30 AM</strong></div>
+      </div>
+      <a class="btn btn-red" href="#menu" data-order-cta>Choose your meals</a>
+      <p class="order-note" data-order-note>Subscribers are charged Thursday at 2:00 PM PT. Skip before then and you won't be charged.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- WEEKLY RHYTHM -->
+<section class="sec rhythm" aria-labelledby="rhythmTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">The weekly rhythm</span><h2 id="rhythmTitle">Same schedule, every week.</h2></div>
+      <p>No delivery-date picker to think about. Orders placed before the Thursday cutoff arrive the following Monday morning.</p>
+    </div>
+    <ol class="timeline" style="list-style:none;padding:0;margin:0">
+      <li class="tl" data-tl="open"><span class="now-tag">You are here</span>
+        <div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+        <div class="tl-day">Tuesday</div><div class="tl-time">8:00 AM</div>
+        <p>The new five-meal menu goes live. Pick your meals or order à la carte.</p></li>
+      <li class="tl" data-tl="cutoff"><span class="now-tag">You are here</span>
+        <div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></div>
+        <div class="tl-day">Thursday</div><div class="tl-time">2:00 PM PT</div>
+        <p>Selections, skips and cancellations close. Subscriptions are charged.</p></li>
+      <li class="tl" data-tl="cook"><span class="now-tag">You are here</span>
+        <div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M6 14h12v3a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z"/><path d="M4 14h16M9 10c0-2 2-2 2-4M13 10c0-2 2-2 2-4"/></svg></div>
+        <div class="tl-day">Fri – Sun</div><div class="tl-time">In the kitchen</div>
+        <p>Sharon and the team shop, prep and cook your meals fresh.</p></li>
+      <li class="tl" data-tl="deliver"><span class="now-tag">You are here</span>
+        <div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></div>
+        <div class="tl-day">Monday</div><div class="tl-time">4:00 – 7:30 AM</div>
+        <p>Delivered to your door or your pickup spot before most people wake up.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec" id="how" aria-labelledby="howTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">How it works</span><h2 id="howTitle">Three steps to a stocked fridge.</h2></div>
+      <p>The SoCal Vegan makes weekly plant-based eating easy, by subscription or à la carte, with local delivery and pickup across North County San Diego.</p>
+    </div>
+    <div class="steps">
+      <article class="step"><div class="step-num">1</div><h3>You <span>choose</span></h3><p>Pick a weekly subscription plan or order à la carte, then choose from five rotating weekly meals.</p></article>
+      <article class="step"><div class="step-num">2</div><h3>We <span>cook</span></h3><p>Your meals are prepared fresh for the upcoming Monday fulfillment.</p></article>
+      <article class="step"><div class="step-num">3</div><h3>We <span>deliver</span></h3><p>Monday morning local delivery, or pick up at a participating drop location.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="sec plans-sec" id="plans" aria-labelledby="plansTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Weekly subscriptions</span><h2 id="plansTitle">Choose your plan.</h2></div>
+      <p>Choose the plan that fits your week. The menu changes weekly, so there's always something fresh to look forward to.</p>
+    </div>
+    <div class="plans" id="planGrid"></div>
+    <div class="plans-foot"><span>Free local delivery or pickup</span><span>Skip any week before Thu 2 PM</span><span>Last week's picks carry over</span></div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="sec" id="menu" aria-labelledby="menuTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow" data-menu-eyebrow>This week's menu</span><h2 id="menuTitle">Five meals. New every Tuesday.</h2></div>
+      <p>Pick any mix for your plan, or several of the same meal. Every dish is 100% vegan.</p>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+    <p class="menu-note">Allergens and nutrition are listed on each meal. Our kitchen handles wheat, soy, sesame, peanuts and tree nuts, so we can't guarantee any meal is free from allergens or cross-contact.</p>
+  </div>
+</section>
+
+<!-- À LA CARTE -->
+<section class="sec alc" id="alc" aria-labelledby="alcTitle">
+  <div class="wrap">
+    <div>
+      <h2 id="alcTitle">Not ready to subscribe? <em>Order à la carte!</em></h2>
+      <p>Try our chef-crafted vegan meals with no weekly commitment. Same five meals as subscribers, ordered whenever you want.</p>
+      <div class="alc-facts">
+        <div class="fact"><b>$18</b><small>Per meal</small></div>
+        <div class="fact"><b>2</b><small>Meal minimum</small></div>
+        <div class="fact"><b>$5</b><small>Home delivery<br>Pickup free</small></div>
+      </div>
+      <a class="btn btn-yellow" href="#menu">Shop à la carte</a>
+    </div>
+    <div class="alc-art" aria-hidden="true">
+      <svg viewBox="0 0 500 400" id="alcArt"></svg>
+      <div class="stamp">100%<br>plant-<br>based</div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY AREA -->
+<section class="sec delivery" id="delivery" aria-labelledby="delTitle">
+  <div class="wrap">
+    <div>
+      <div class="sec-head" style="margin-bottom:24px"><div><span class="eyebrow">Delivery area</span><h2 id="delTitle">We deliver across North County.</h2></div></div>
+      <div class="map-card">
+        <svg viewBox="0 0 400 460" role="img" aria-label="Map of the North County San Diego delivery area from Oceanside to Del Mar">
+          <defs><pattern id="waves" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 8q6-6 12 0t12 0" fill="none" stroke="#9fdcdb" stroke-width="1.5"/></pattern></defs>
+          <rect width="400" height="460" fill="#bfe8e7"/>
+          <rect width="400" height="460" fill="url(#waves)"/>
+          <!-- land -->
+          <path d="M92 0 L140 60 L160 110 L180 170 L196 230 L214 290 L226 340 L240 400 L252 460 L400 460 L400 0Z" fill="#fbf1de" stroke="#2b1d16" stroke-width="2"/>
+          <!-- service area -->
+          <path d="M122 30 L330 40 L350 150 L300 200 L280 300 L300 430 L246 430 L232 350 L218 295 L200 235 L184 175 L166 115 L146 62Z" fill="#f9cb38" fill-opacity=".45" stroke="#cf2122" stroke-width="2" stroke-dasharray="7 6"/>
+          <!-- roads -->
+          <path d="M150 0 L200 180 L236 330 L262 460" fill="none" stroke="#cca673" stroke-width="3"/>
+          <path d="M165 70 L330 100" fill="none" stroke="#cca673" stroke-width="3"/>
+          <text x="206" y="210" font-family="Poppins,sans-serif" font-size="10" fill="#8a6f4b" transform="rotate(68 206 210)">I-5</text>
+          <text x="248" y="92" font-family="Poppins,sans-serif" font-size="10" fill="#8a6f4b" transform="rotate(10 248 92)">SR-78</text>
+          <text x="36" y="250" font-family="Fraunces,Georgia,serif" font-style="italic" font-size="20" fill="#17706f" transform="rotate(-72 36 250)">Pacific Ocean</text>
+          <!-- towns -->
+          <g class="town" data-town="Oceanside" tabindex="0"><circle cx="165" cy="72" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="178" y="64" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Oceanside</text></g>
+          <g class="town" data-town="Vista" tabindex="0"><circle cx="300" cy="110" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="296" y="136" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Vista</text></g>
+          <g class="town" data-town="Carlsbad" tabindex="0"><circle cx="195" cy="178" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="208" y="172" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Carlsbad</text></g>
+          <g class="town" data-town="Leucadia / Encinitas" tabindex="0"><circle cx="214" cy="262" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="228" y="258" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Leucadia / Encinitas</text></g>
+          <g class="town" data-town="Cardiff-by-the-Sea" tabindex="0"><circle cx="226" cy="318" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="240" y="322" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Cardiff</text></g>
+          <g class="town" data-town="Del Mar" tabindex="0"><circle cx="244" cy="402" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="258" y="406" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Del Mar</text></g>
+          <!-- pickup pins -->
+          <g fill="#cf2122" stroke="#2b1d16" stroke-width="1.6">
+            <path d="M318 96c0-6 9-6 9 0 0 5-4.5 10-4.5 10S318 101 318 96z"/>
+            <path d="M282 88c0-6 9-6 9 0 0 5-4.5 10-4.5 10S282 93 282 88z"/>
+            <path d="M306 146c0-6 9-6 9 0 0 5-4.5 10-4.5 10S306 151 306 146z"/>
+            <path d="M232 190c0-6 9-6 9 0 0 5-4.5 10-4.5 10S232 195 232 190z"/>
+          </g>
+          <!-- compass -->
+          <g transform="translate(360 420)"><circle r="18" fill="#fff" stroke="#2b1d16" stroke-width="2"/><path d="M0-12 5 4 0 1-5 4z" fill="#cf2122"/><text y="-22" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="700" fill="#2b1d16">N</text></g>
+        </svg>
+        <div class="map-legend">
+          <span><i class="lg" style="background:#4dc0bf"></i>Delivery town</span>
+          <span><i class="lg" style="background:#cf2122;border-radius:50% 50% 50% 0"></i>Pickup spot</span>
+          <span><i class="lg" style="background:rgba(249,203,56,.6);border-style:dashed;border-color:#cf2122"></i>Service area</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="zip-check">
+        <label for="zipInput">Do we deliver to you?</label>
+        <form class="zip-row" id="zipForm" novalidate>
+          <input id="zipInput" inputmode="numeric" maxlength="5" placeholder="Enter ZIP, e.g. 92008" autocomplete="postal-code">
+          <button class="btn btn-red" type="submit">Check</button>
+        </form>
+        <p class="zip-result" id="zipResult" aria-live="polite">Monday morning home delivery, 4:00–7:30 AM.</p>
+      </div>
+
+      <div class="areas" id="areaList"></div>
+
+      <div class="fees">
+        <div class="fee"><b>Free</b><small>Home delivery for subscribers</small></div>
+        <div class="fee"><b>$5</b><small>Flat home delivery for à la carte orders</small></div>
+        <div class="fee"><b>Free</b><small>Pickup at any drop location, for everyone</small></div>
+      </div>
+
+      <div class="pickups">
+        <h3>Pickup locations</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>CrossFit Trifecta<small>Vista</small></div></li>
+          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>FLXR CrossFit<small>Carlsbad</small></div></li>
+          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>North County Fitness &amp; Performance<small>Vista</small></div></li>
+          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>Thousand Petal Lotus Vegan Market<small>Vista</small></div></li>
+        </ul>
+        <p class="note">Orders arrive at your pickup spot Monday. Hours vary by location, so check the spot's business hours before you go. Just give your name.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEET SHARON -->
+<section class="sec sharon" id="sharon" aria-labelledby="sharonTitle">
+  <div class="wrap">
+    <div class="portrait" aria-hidden="true">
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice">
+        <circle cx="200" cy="200" r="150" fill="#f9cb38" opacity=".9"/>
+        <rect x="0" y="230" width="400" height="18" fill="#f28141"/><rect x="0" y="262" width="400" height="18" fill="#f28141" opacity=".7"/>
+        <path d="M110 500c0-80 40-130 90-130s90 50 90 130z" fill="#2b1d16"/>
+        <circle cx="200" cy="300" r="62" fill="#e7b88f"/>
+        <path d="M136 290c0-48 30-78 64-78s66 30 66 78c-12-24-36-38-66-38s-52 14-64 38z" fill="#2b1d16"/>
+      </svg>
+      <span>Photo: Sharon King</span>
+    </div>
+    <div>
+      <span class="eyebrow" style="color:var(--teal-ink)">Chef &amp; founder</span>
+      <h2 id="sharonTitle" style="margin-top:12px">Meet Sharon</h2>
+      <p class="tagline">Vegan eats specialist. Recipe whisperer. Spice fanatic.</p>
+      <div class="bio">
+        <p>I'm here to make plant-based eating simple, satisfying, and full of flavor.</p>
+        <p>Every meal is crafted with whole ingredients, bold flavors, and a whole lot of love.</p>
+      </div>
+      <div class="benefits">
+        <div class="benefit"><i><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14zM5 19l7-7"/></svg></i><span>100% plant-based<small>Wholesome ingredients</small></span></div>
+        <div class="benefit"><i style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M7 14a4 4 0 1 1 2-7 4 4 0 0 1 6 0 4 4 0 1 1 2 7v5H7z"/></svg></i><span>Chef crafted<small>Made with care</small></span></div>
+        <div class="benefit"><i style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></i><span>Fresh weekly menu<small>New meals each week</small></span></div>
+        <div class="benefit"><i><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></i><span>Local delivery &amp; pickup<small>Convenient local service</small></span></div>
+        <div class="benefit"><i style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2M20 4v5h-5M4 20v-5h5"/></svg></i><span>Skip a week anytime<small>Flexible subscriptions</small></span></div>
+      </div>
+      <div class="sharon-ctas">
+        <a class="btn btn-red" href="#sharon">More about us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (short) -->
+<section class="sec faq" id="faq" aria-labelledby="faqTitle">
+  <div class="wrap">
+    <div class="faq-side">
+      <span class="eyebrow" style="color:var(--red);display:block;margin-bottom:12px">Quick answers</span>
+      <h2 id="faqTitle">Good questions.</h2>
+      <p>The ones we hear most before a first order. Everything else lives on the full FAQ page.</p>
+      <a class="btn btn-ghost" href="#faq">See all FAQs</a>
+      <p class="mail">Still stuck? Email <b>hello@thesocalvegan.com</b><br>Mon–Fri, 8 AM – 5 PM</p>
+    </div>
+    <div class="faq-list">
+      <details open><summary>When does the menu open, and when is the cutoff?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>The new menu opens every <strong>Tuesday at 8:00 AM</strong>. Meal selections, skips and cancellations close <strong>Thursday at 2:00 PM Pacific</strong>. Subscriptions are charged at the cutoff and meals arrive the following Monday.</p></div></details>
+      <details><summary>What if I forget to choose my meals?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>Your subscription still goes through. If you don't pick anything new, last week's selections repeat. If any slots are still open after the cutoff, Sharon fills just those with Chef's Choice meals from that week's menu.</p></div></details>
+      <details><summary>Can I skip a week?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>Yes. Skip the upcoming week in your account before Thursday 2:00 PM and you won't be charged. Your subscription picks back up automatically the week after.</p></div></details>
+      <details><summary>Where and when do you deliver?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>Monday mornings between about 4:00 and 7:30 AM, to Oceanside, Vista, Carlsbad, Leucadia/Encinitas, Cardiff-by-the-Sea and Del Mar. Delivery day is fixed, so there's no date to pick. Add a gate code or drop-off note at checkout.</p></div></details>
+      <details><summary>How much is delivery?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>Free for subscribers. À la carte home delivery is a flat $5. Pickup at any of our drop locations is always free.</p></div></details>
+      <details><summary>Is there a minimum for à la carte?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>Two meals. À la carte meals are $18 each and come from the same five-meal weekly menu.</p></div></details>
+      <details><summary>Are all meals vegan? What about allergens?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>Every meal is 100% vegan, so everything is dairy-free. Some weeks include gluten-free dishes, marked on the meal. Our kitchen handles wheat, soy, sesame, peanuts and tree nuts, so please check each meal's allergen list before ordering.</p></div></details>
+      <details><summary>How long do meals keep?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>Keep them at 41°F or below. Salads are best within 3–4 days and reheatable meals within 4–5 days. Many prepared meals freeze well if you freeze them while fresh.</p></div></details>
+      <details><summary>How do I cancel?<span class="pm" aria-hidden="true">+</span></summary>
+        <div class="ans"><p>Email hello@thesocalvegan.com before Thursday 2:00 PM to stop the upcoming order. Requests after the cutoff take effect the following week.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- STAY IN THE LOOP -->
+<section class="sec loop" aria-labelledby="loopTitle">
+  <div class="wrap">
+    <div>
+      <h2 id="loopTitle">Stay in the loop</h2>
+      <p>Sign up for SoCal Vegan news, new menu item updates, and occasional special offers.</p>
+      <a class="reviews-link" href="#faq"><span class="stars" aria-hidden="true">★★★★★</span> Read our Google reviews →</a>
+    </div>
+    <div>
+      <form class="nl-form" id="nlForm" novalidate>
+        <label for="nlEmail" class="eyebrow" style="flex-basis:100%;color:#fff">Your email</label>
+        <input id="nlEmail" type="email" placeholder="you@example.com" autocomplete="email">
+        <button class="btn btn-yellow" type="submit">Sign up</button>
+      </form>
+      <p class="nl-msg" id="nlMsg" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="stripe" aria-hidden="true"></div>
+<footer class="footer" id="footer">
+  <div class="wrap">
+    <div class="grid">
+      <div class="brand">
+        <span class="logo-text">The SoCal Vegan<small style="color:var(--teal)">Good food. Kind people. Brighter days.</small></span>
+        <p>Locally prepared, fully vegan weekly meal prep from Carlsbad, serving North County San Diego since 2023.</p>
+      </div>
+      <div><h4>Order</h4><ul><li><a href="#plans">Subscriptions</a></li><li><a href="#alc">À la carte</a></li><li><a href="#how">How it works</a></li><li><a href="#footer">Gift cards</a></li></ul></div>
+      <div><h4>The SoCal Vegan</h4><ul><li><a href="#sharon">About us</a></li><li><a href="#footer">Contact</a></li><li style="user-select:all">hello@thesocalvegan.com</li><li>Mon–Fri, 8 AM – 5 PM</li></ul></div>
+      <div><h4>Policies</h4><ul><li><a href="#footer">Refund policy</a></li><li><a href="#footer">Delivery &amp; pickup policy</a></li><li><a href="#footer">Privacy policy</a></li><li><a href="#footer">Terms of service</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <p><strong>Allergen notice:</strong> Meals are prepared in a kitchen that handles wheat, soy, sesame, peanuts and tree nuts. We cannot guarantee that any meal is completely free from allergens or cross-contact. Nutrition information is an estimate for informational purposes only.</p>
+      <div class="row"><span>© 2026 The SoCal Vegan · King of the Castle, Inc. · Carlsbad, CA</span><span>Plants fuel a brighter tomorrow</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile sticky order bar -->
+<div class="mbar" role="region" aria-label="Order countdown">
+  <div><small data-mbar-label>Order closes in</small><b data-cd-short>—</b></div>
+  <a class="btn btn-yellow btn-sm" href="#menu" data-mbar-cta>Choose meals</a>
+</div>
+
+<!-- Preview-only: lets the client see each weekly state -->
+<details class="preview-ctl" id="previewCtl">
+  <summary>Preview state</summary>
+  <div class="opts">
+    <button type="button" data-sim="live" aria-pressed="true">Live (real Pacific time)</button>
+    <button type="button" data-sim="open">Menu open · Wed 10 AM</button>
+    <button type="button" data-sim="urgent">Closing soon · Thu 12:45 PM</button>
+    <button type="button" data-sim="closed">Closed · Sat 11 AM</button>
+  </div>
+  <p>Preview only. Not part of the live site.</p>
+</details>
+
+<script>
+(function(){
+  /* ---------- Data (from the client questionnaire) ---------- */
+  var PLANS=[
+    {name:"The Taste",meals:3,price:52.50,note:"Perfect for trying us out"},
+    {name:"The Weekday",meals:5,price:85.00,note:"Lunch or dinner covered for the workweek",popular:true},
+    {name:"The Daily",meals:7,price:117.25,note:"One fresh meal for every day of the week"},
+    {name:"The Mix",meals:10,price:165.00,note:"A flexible mix of lunches and dinners"},
+    {name:"The Stock Up",meals:12,price:195.00,note:"Stock the fridge and make the week easy"},
+    {name:"The SoCal Spread",meals:14,price:224.00,note:"Two meals a day for the ultimate weekly setup"}
+  ];
+  var MEALS=[
+    {name:"Glass Noodle Bowl (Japchae)",tag:"Noodle",desc:"Glass noodles, tofu, shiitake, edamame, sesame carrots and spinach in a savory-sweet soy sauce.",base:"#ecd9ae",noodle:true,top:["#f5e6bf","#7a4a2a","#6bbf59","#f28141","#2f7a3a"]},
+    {name:"Jerk Tofu Bowl",tag:"Feature entrée",desc:"Caribbean red beans and rice in coconut milk with jerk tofu and buttered Calabrian chili cabbage.",base:"#f3ead6",noodle:false,top:["#8c2f24","#c7632f","#b8d67a","#8c2f24","#e0a43a"]},
+    {name:"Dan Dan Tempeh Noodles",tag:"Noodle",desc:"Udon, shredded cabbage, Dan Dan tempeh crumbles, cucumber, peanuts and spicy peanut sauce.",base:"#f0d9a2",noodle:true,top:["#9b5a2c","#a8d38a","#d9a46a","#cf2122","#4f9a4a"]},
+    {name:"Creamy Mapo Tofu Udon",tag:"Comfort",desc:"Udon noodles, spicy mapo tofu crumbles, cucumber, scallions and chili crisp with miso-tofu sauce.",base:"#f6e2b5",noodle:true,top:["#c8421f","#f5ebd0","#8fcf7a","#c8421f","#3f8a3a"]},
+    {name:"Korean-Style Cold Noodles",tag:"Chilled bowl",desc:"Buckwheat soba, baked tofu, edamame, shiitake, cucumber, carrots and gochujang sauce.",base:"#8a6a55",noodle:true,top:["#e7c07a","#6bbf59","#f28141","#a3d98f","#cf2122"]}
+  ];
+  var AREAS=[
+    {town:"Oceanside",zips:["92054","92056","92057","92058"]},
+    {town:"Vista",zips:["92081","92083","92084"]},
+    {town:"Carlsbad",zips:["92008","92009","92010","92011"]},
+    {town:"Leucadia / Encinitas",zips:["92024"]},
+    {town:"Cardiff-by-the-Sea",zips:["92007"]},
+    {town:"Del Mar",zips:["92014"]}
+  ];
+
+  function money(n){return "$"+n.toFixed(2)}
+
+  /* ---------- Plans ---------- */
+  document.getElementById("planGrid").innerHTML=PLANS.map(function(p){
+    return '<article class="plan'+(p.popular?' popular':'')+'">'+
+      (p.popular?'<span class="pop">Most popular</span>':'')+
+      '<div class="plan-top"><h3>'+p.name+'</h3><div class="plan-count"><div><b>'+p.meals+'</b><small>meals</small></div></div></div>'+
+      '<div class="plan-price"><b>'+money(p.price)+'</b><span>/ week</span></div>'+
+      '<div><span class="plan-per">'+money(p.price/p.meals)+' per meal</span></div>'+
+      '<p>'+p.note+'</p>'+
+      '<a class="btn '+(p.popular?'btn-red':'btn-ghost')+'" href="#menu">Choose plan</a></article>';
+  }).join("");
+
+  /* ---------- Illustrated bowls (placeholders for Shopify meal photos) ---------- */
+  function rng(seed){return function(){seed=(seed*9301+49297)%233280;return seed/233280}}
+  function bowl(m,i,bg){
+    var r=rng(i*97+13),s='<svg viewBox="0 0 300 300" aria-hidden="true"><rect width="300" height="300" fill="'+bg+'"/>';
+    s+='<circle cx="150" cy="158" r="118" fill="#fff" stroke="#2b1d16" stroke-width="3"/>';
+    s+='<circle cx="150" cy="158" r="96" fill="'+m.base+'" stroke="#2b1d16" stroke-width="2"/>';
+    if(m.noodle){for(var k=0;k<9;k++){var y=100+k*13,a=r()*20;s+='<path d="M'+(70+a)+' '+y+' q20 -12 40 0 t40 0 t40 0 t40 0" fill="none" stroke="'+(m.base==="#8a6a55"?"#5e4536":"#d9b872")+'" stroke-width="5" stroke-linecap="round" opacity=".9"/>'}}
+    else{for(var k=0;k<70;k++){var an=r()*6.28,rd=Math.sqrt(r())*86;s+='<ellipse cx="'+(150+Math.cos(an)*rd)+'" cy="'+(158+Math.sin(an)*rd)+'" rx="4" ry="2.6" fill="#e7dcc4" transform="rotate('+(r()*180)+' '+(150+Math.cos(an)*rd)+' '+(158+Math.sin(an)*rd)+')"/>'}}
+    m.top.forEach(function(c,j){
+      var ang=j/m.top.length*6.28+0.4,cx=150+Math.cos(ang)*52,cy=158+Math.sin(ang)*52;
+      for(var q=0;q<6;q++){var dx=(r()-.5)*44,dy=(r()-.5)*44;
+        if(j%2===0)s+='<rect x="'+(cx+dx-7)+'" y="'+(cy+dy-7)+'" width="14" height="14" rx="3" fill="'+c+'" stroke="#2b1d16" stroke-width="1.2" transform="rotate('+(r()*60)+' '+(cx+dx)+' '+(cy+dy)+')"/>';
+        else s+='<circle cx="'+(cx+dx)+'" cy="'+(cy+dy)+'" r="'+(5+r()*4)+'" fill="'+c+'" stroke="#2b1d16" stroke-width="1.2"/>';}
+    });
+    for(var k=0;k<14;k++){s+='<circle cx="'+(90+r()*120)+'" cy="'+(100+r()*120)+'" r="1.8" fill="#fff8e0"/>'}
+    s+='<path d="M232 60 l40 -40" stroke="#2b1d16" stroke-width="5" stroke-linecap="round"/><path d="M244 70 l40 -40" stroke="#2b1d16" stroke-width="5" stroke-linecap="round"/>';
+    return s+'</svg>';
+  }
+  var BG=["#4dc0bf","#f9cb38","#f28141","#cca673","#f7a8a8"];
+  document.getElementById("menuGrid").innerHTML=MEALS.map(function(m,i){
+    return '<article class="meal"><div class="meal-img">'+bowl(m,i,BG[i])+'<span class="meal-tag">'+m.tag+'</span></div>'+
+      '<div class="meal-body"><h3>'+m.name+'</h3><p>'+m.desc+'</p>'+
+      '<div class="meal-foot"><b>$18</b><a href="#menu">View details →</a></div></div></article>';
+  }).join("");
+  var art=document.getElementById("alcArt");
+  art.innerHTML='<rect width="500" height="400" fill="#f9cb38"/>'+
+    '<g transform="translate(-10 40) scale(1.05)">'+bowl(MEALS[1],1,"#f9cb38").replace(/^<svg[^>]*>|<\/svg>$/g,"")+'</g>'+
+    '<g transform="translate(250 -20) scale(.85)">'+bowl(MEALS[0],0,"none").replace(/^<svg[^>]*>|<\/svg>$/g,"").replace('<rect width="300" height="300" fill="none"/>','')+'</g>';
+
+  /* ---------- Delivery area ---------- */
+  var areaList=document.getElementById("areaList");
+  areaList.innerHTML=AREAS.map(function(a){return '<div class="area" data-town="'+a.town+'" tabindex="0"><strong>'+a.town+'</strong><span>'+a.zips.join(", ")+'</span></div>'}).join("");
+  function highlight(town){
+    document.querySelectorAll("[data-town]").forEach(function(el){
+      var t=el.getAttribute("data-town");
+      el.classList.toggle("active",t===town||(town==="Cardiff-by-the-Sea"&&t==="Cardiff-by-the-Sea"));
+    });
+  }
+  document.querySelectorAll("[data-town]").forEach(function(el){
+    el.addEventListener("click",function(){highlight(el.getAttribute("data-town"))});
+    el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();highlight(el.getAttribute("data-town"))}});
+  });
+  var zipForm=document.getElementById("zipForm"),zipInput=document.getElementById("zipInput"),zipResult=document.getElementById("zipResult");
+  zipInput.addEventListener("input",function(){zipInput.value=zipInput.value.replace(/\D/g,"").slice(0,5)});
+  zipForm.addEventListener("submit",function(e){
+    e.preventDefault();
+    var z=zipInput.value.trim();
+    if(!/^\d{5}$/.test(z)){zipResult.className="zip-result no";zipResult.textContent="Enter a 5-digit ZIP code.";return}
+    var hit=AREAS.filter(function(a){return a.zips.indexOf(z)>-1})[0];
+    if(hit){zipResult.className="zip-result ok";zipResult.textContent="Yes! We deliver to "+z+" ("+hit.town+") every Monday, 4:00–7:30 AM. Free for subscribers.";highlight(hit.town)}
+    else{zipResult.className="zip-result no";zipResult.textContent=z+" is outside our delivery area for now. You can still order for free pickup at one of our drop locations below.";highlight("")}
+  });
+
+  /* ---------- Mobile nav ---------- */
+  var mt=document.getElementById("menuToggle"),mn=document.getElementById("mobileNav");
+  mt.addEventListener("click",function(){var open=mn.hidden;mn.hidden=!open;mt.setAttribute("aria-expanded",String(open))});
+  mn.addEventListener("click",function(e){if(e.target.tagName==="A"){mn.hidden=true;mt.setAttribute("aria-expanded","false")}});
+
+  /* ---------- Newsletter (preview only) ---------- */
+  document.getElementById("nlForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=document.getElementById("nlEmail").value.trim(),msg=document.getElementById("nlMsg");
+    msg.textContent=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?"Thanks for subscribing! (Preview: no email was sent.)":"Enter a valid email address.";
+  });
+
+  /* ---------- Order countdown (America/Los_Angeles) ----------
+     Menu opens Tue 08:00, closes Thu 14:00, delivery Mon 04:00–07:30.
+     Times are handled as Pacific wall-clock values stored in UTC fields. */
+  var H=36e5,DAY=24*H,TZ="America/Los_Angeles";
+  var fmt=new Intl.DateTimeFormat("en-US",{timeZone:TZ,year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",hourCycle:"h23"});
+  function pacificWall(d){
+    var p={};fmt.formatToParts(d).forEach(function(x){p[x.type]=+x.value});
+    return Date.UTC(p.year,p.month-1,p.day,p.hour%24,p.minute,p.second);
+  }
+  function fmtDate(ms,opts){return new Date(ms).toLocaleDateString("en-US",Object.assign({timeZone:"UTC"},opts))}
+  var simOffset=0;
+  function cycle(wall){
+    var dow=new Date(wall).getUTCDay(),dayStart=wall-wall%DAY;
+    var cutoff=dayStart+((4-dow+7)%7)*DAY+14*H;
+    if(cutoff<=wall)cutoff+=7*DAY;
+    var opens=cutoff-2*DAY-6*H;           // Tuesday 08:00
+    var open=wall>=opens;
+    return {open:open,cutoff:cutoff,opens:opens,delivery:cutoff+4*DAY-10*H /* Mon 04:00 */,target:open?cutoff:opens};
+  }
+  function pad(n){return String(n).padStart(2,"0")}
+  var $=function(s){return document.querySelectorAll(s)};
+  function setText(sel,v){$(sel).forEach(function(el){if(el.textContent!==v)el.textContent=v})}
+  function tick(){
+    var wall=pacificWall(new Date())+simOffset,c=cycle(wall);
+    var left=Math.max(0,c.target-wall),d=Math.floor(left/DAY),h=Math.floor(left%DAY/H),m=Math.floor(left%H/6e4),s=Math.floor(left%6e4/1e3);
+    var urgent=c.open&&left<3*H;
+    document.body.classList.toggle("is-closed",!c.open);
+    document.body.classList.toggle("is-urgent",urgent);
+    setText("[data-cd-d]",String(d));setText("[data-cd-h]",pad(h));setText("[data-cd-m]",pad(m));setText("[data-cd-s]",pad(s));
+    setText("[data-cd-short]",(d?d+"d ":"")+pad(h)+"h "+pad(m)+"m"+(d?"":" "+pad(s)+"s"));
+    var delivery=fmtDate(c.delivery,{weekday:"long",month:"short",day:"numeric"});
+    setText("[data-delivery]",delivery);
+    if(c.open){
+      setText("[data-status]",urgent?"Closing soon":"Ordering open");
+      setText("[data-order-title]","Order now for "+fmtDate(c.delivery,{weekday:"long",month:"long",day:"numeric"}));
+      setText("[data-row1-label]","Selections close");
+      setText("[data-row1]",fmtDate(c.cutoff,{weekday:"short",month:"short",day:"numeric"})+", 2:00 PM PT");
+      setText("[data-order-cta]","Choose your meals");
+      setText("[data-order-note]","Subscribers are charged Thursday at 2:00 PM PT. Skip before then and you won't be charged.");
+      setText("[data-chip-label]","Closes in");setText("[data-strip-status]",urgent?"Closing soon":"Ordering open");setText("[data-strip-text]","Order for "+delivery+", 4–7:30 AM");setText("[data-mbar-label]","Order closes in");setText("[data-mbar-cta]","Choose meals");
+      setText("[data-menu-eyebrow]","This week's menu · order by Thu 2 PM");
+    }else{
+      setText("[data-status]","This week's orders are closed");
+      setText("[data-order-title]","Next menu opens "+fmtDate(c.opens,{weekday:"long"})+" at 8 AM");
+      setText("[data-row1-label]","Menu opens");
+      setText("[data-row1]",fmtDate(c.opens,{weekday:"short",month:"short",day:"numeric"})+", 8:00 AM PT");
+      setText("[data-order-cta]","Start a subscription");
+      setText("[data-order-note]","Already ordered? Your meals arrive "+fmtDate(c.cutoff-7*DAY+4*DAY-10*H,{weekday:"long",month:"short",day:"numeric"})+" between 4:00 and 7:30 AM.");
+      setText("[data-chip-label]","Next menu opens in");setText("[data-strip-status]","This week's orders are closed");setText("[data-strip-text]","Next delivery "+delivery);setText("[data-mbar-label]","Next menu opens in");setText("[data-mbar-cta]","See plans");
+      setText("[data-menu-eyebrow]","Last week's menu · new meals Tuesday");
+    }
+    $("[data-order-cta]").forEach(function(a){a.setAttribute("href",c.open?"#menu":"#plans")});
+    // highlight where we are in the weekly rhythm
+    var dow=new Date(wall).getUTCDay(),hr=new Date(wall).getUTCHours(),stage;
+    if(c.open)stage="open";
+    else if(dow===1&&hr<8)stage="deliver";
+    else if(dow===4||dow===5||dow===6||dow===0)stage=(dow===4&&hr<14)?"cutoff":"cook";
+    else stage="deliver";
+    if(urgent)stage="cutoff";
+    $("[data-tl]").forEach(function(el){el.classList.toggle("now",el.getAttribute("data-tl")===stage)});
+  }
+  tick();setInterval(tick,1000);
+
+  /* ---------- Preview state switcher ---------- */
+  var SIM={open:[3,10,0],urgent:[4,12,45],closed:[6,11,0]};
+  $("[data-sim]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var k=b.getAttribute("data-sim"),real=pacificWall(new Date());
+      if(k==="live")simOffset=0;
+      else{
+        var dow=new Date(real).getUTCDay(),dayStart=real-real%DAY,t=SIM[k];
+        // most recent Tuesday as week anchor, then target day/time in that cycle
+        var tue=dayStart-((dow-2+7)%7)*DAY,target=tue+((t[0]-2+7)%7)*DAY+t[1]*H+t[2]*6e4;
+        simOffset=target-real;
+      }
+      $("[data-sim]").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});
+      tick();
+    });
+  });
+})();
+</script>
