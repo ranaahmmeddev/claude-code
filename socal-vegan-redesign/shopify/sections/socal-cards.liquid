@@ -1,0 +1,343 @@
+{%- comment -%}
+  SoCal Cards — SoCal section for the Local theme (v4.2.1).
+  Built on the theme's typography, color, border and spacing variables with one accent.
+{%- endcomment -%}
+
+{{ 'socal-sections.css' | asset_url | stylesheet_tag }}
+
+<div class="{% render 'socal-section-wrapper', section: section %}">
+  <div class="socal-section socal-cards" style="{% render 'socal-section-style', section: section %} --socal-columns: {{ section.settings.columns }}; --socal-columns-mobile: {{ section.settings.columns_mobile }};">
+
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="socal-cards__head">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}
+  <p class="socal-eyebrow text-size--small text-weight--bold">{{ section.settings.eyebrow | escape }}</p>
+{%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <{{ section.settings.heading_tag }} class="{{ section.settings.heading_size }} socal-heading">{{ section.settings.heading | escape }}</{{ section.settings.heading_tag }}>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.text != blank -%}
+          <div class="socal-copy rte text-color--secondary">{{ section.settings.text }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="socal-cards__grid">
+      {%- for block in section.blocks -%}
+        <article class="socal-card" {{ block.shopify_attributes }}>
+          {%- if section.settings.card_media == 'image' -%}
+            <div class="socal-card__media">
+              {%- if block.settings.image != blank -%}
+                {%- render 'lazy-image', image: block.settings.image, alt: block.settings.title, ratio: '1', sizes: '(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) 33vw, 20vw' -%}
+              {%- else -%}
+                <span class="socal-placeholder">{{ 'product-1' | placeholder_svg_tag }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          <div class="socal-card__body">
+            {%- if section.settings.card_media == 'icon' and block.settings.icon != 'none' -%}
+              <span class="socal-card__icon">{% render 'socal-icon', icon: block.settings.icon %}</span>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="h4 socal-card__title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="socal-card__text rte text-size--small text-color--secondary">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- render 'socal-section-background', section: section -%}
+
+{% schema %}
+{
+  "name": "SoCal Cards",
+  "class": "socal-cards-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What we cook"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A balanced five, every week."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag (SEO)",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Extra large"
+        },
+        {
+          "value": "h2",
+          "label": "Large"
+        },
+        {
+          "value": "h3",
+          "label": "Medium"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Creative, globally inspired vegan cooking with bold flavors.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "select",
+      "id": "card_media",
+      "label": "Card media",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "icon",
+          "label": "Icon"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "info": "Leave empty to use the theme's accent color.",
+      "default": "#cf2122"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Spacing & visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "descrease_margin",
+      "label": "Decrease top margin",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove top margin",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_visibility",
+      "label": "Visibility",
+      "options": [
+        {
+          "value": "always",
+          "label": "Always"
+        },
+        {
+          "value": "mobile",
+          "label": "Mobile only"
+        },
+        {
+          "value": "desktop",
+          "label": "Desktop only"
+        }
+      ],
+      "default": "always"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Used when Card media is Image."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Used when Card media is Icon.",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "chef",
+              "label": "Chef hat"
+            },
+            {
+              "value": "calendar",
+              "label": "Calendar"
+            },
+            {
+              "value": "pin",
+              "label": "Map pin"
+            },
+            {
+              "value": "refresh",
+              "label": "Repeat"
+            },
+            {
+              "value": "truck",
+              "label": "Delivery"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "clock",
+              "label": "Clock"
+            }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Card title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Short description.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SoCal Cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Noodles & pasta",
+            "text": "<p>Japchae, dan dan, udon, cold soba and comfort-food pastas.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Feature entrée",
+            "text": "<p>The week's centerpiece, from jerk tofu to Southern black-eyed pea bowls.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Salad",
+            "text": "<p>Big, crunchy, dressed-to-impress salads that eat like a meal.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Nourish bowl",
+            "text": "<p>Grains, beans, roasted veg and a homemade sauce.</p>"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Soup, curry or stew",
+            "text": "<p>Warming, spoonable and made to reheat beautifully.</p>"
+          }
+        }
+      ]
+    }
+  ],
+  "tag": "section"
+}
+{% endschema %}

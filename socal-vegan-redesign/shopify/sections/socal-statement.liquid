@@ -1,0 +1,160 @@
+{%- comment -%}
+  SoCal Statement — SoCal section for the Local theme (v4.2.1).
+  Built on the theme's typography, color, border and spacing variables with one accent.
+{%- endcomment -%}
+
+{{ 'socal-sections.css' | asset_url | stylesheet_tag }}
+
+<div class="{% render 'socal-section-wrapper', section: section %}">
+  <div class="socal-section socal-statement socal-statement--{{ section.settings.style }}" style="{% render 'socal-section-style', section: section %}">
+
+    {%- if section.settings.eyebrow != blank -%}
+  <p class="socal-eyebrow text-size--small text-weight--bold">{{ section.settings.eyebrow | escape }}</p>
+{%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <{{ section.settings.heading_tag }} class="{{ section.settings.heading_size }} socal-statement__text">{{ section.settings.text | escape }}</{{ section.settings.heading_tag }}>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- render 'socal-section-background', section: section -%}
+
+{% schema %}
+{
+  "name": "SoCal Statement",
+  "class": "socal-statement-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our mission"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Statement",
+      "default": "Make delicious plant-based meals easy and convenient for busy people in North County San Diego."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag (SEO)",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Extra large"
+        },
+        {
+          "value": "h2",
+          "label": "Large"
+        },
+        {
+          "value": "h3",
+          "label": "Medium"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "accent",
+          "label": "Accent background"
+        },
+        {
+          "value": "plain",
+          "label": "Outlined"
+        }
+      ],
+      "default": "accent"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "info": "Leave empty to use the theme's accent color.",
+      "default": "#cf2122"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Spacing & visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "descrease_margin",
+      "label": "Decrease top margin",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove top margin",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_visibility",
+      "label": "Visibility",
+      "options": [
+        {
+          "value": "always",
+          "label": "Always"
+        },
+        {
+          "value": "mobile",
+          "label": "Mobile only"
+        },
+        {
+          "value": "desktop",
+          "label": "Desktop only"
+        }
+      ],
+      "default": "always"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SoCal Statement"
+    }
+  ],
+  "tag": "section"
+}
+{% endschema %}

@@ -1,0 +1,13 @@
+{%- comment -%}
+  Paints the optional section background, like the theme's own sections.
+
+  Accepts:
+  - section: {Object} the section object.
+{%- endcomment -%}
+{%- if section.settings.section_background_color != blank and section.settings.section_background_color != 'rgba(0,0,0,0)' -%}
+  {% style %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.section_background_color }};
+    }
+  {% endstyle %}
+{%- endif -%}

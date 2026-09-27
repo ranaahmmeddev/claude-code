@@ -1,0 +1,333 @@
+/*
+  SoCal sections for the Local theme (v4.2.1).
+  Built only on the theme's own variables (typography, colors, borders,
+  radii, spacing). Each section sets one accent as --socal-accent.
+*/
+
+/* ---------- Shared ---------- */
+.socal-section {
+  color: var(--color-text-main);
+}
+.socal-eyebrow {
+  display: block;
+  margin: 0 0 0.75rem;
+  color: var(--socal-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.socal-accent-text {
+  color: var(--socal-accent);
+}
+.socal-heading {
+  margin-bottom: 0;
+}
+.socal-copy {
+  margin-top: 1rem;
+  max-width: 36em;
+}
+.socal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+.socal-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.socal-media {
+  border-radius: var(--border-radius-cards);
+  overflow: hidden;
+}
+.socal-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--color-secondary-background-main);
+}
+.socal-placeholder svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--color-secondary-text-main);
+  opacity: 0.35;
+}
+
+/* ---------- About hero ---------- */
+.socal-about-hero {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media screen and (min-width: 1024px) {
+  .socal-about-hero {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 4rem;
+  }
+  .socal-about-hero--image-left {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+  .socal-about-hero--image-left .socal-about-hero__media {
+    order: -1;
+  }
+}
+.socal-about-hero__title {
+  margin-bottom: 0;
+}
+.socal-about-hero__media .socal-placeholder {
+  aspect-ratio: 4 / 5;
+}
+
+/* ---------- Stats ---------- */
+.socal-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--color-borders-main);
+  border-bottom: 1px solid var(--color-borders-main);
+}
+@media screen and (min-width: 768px) {
+  .socal-stats {
+    grid-template-columns: repeat(var(--socal-columns, 5), minmax(0, 1fr));
+  }
+}
+.socal-stats__item {
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+  padding: 1.5rem 1.25rem;
+  border-inline-start: 1px solid var(--color-borders-main);
+}
+.socal-stats__item:first-child {
+  border-inline-start: 0;
+}
+@media screen and (max-width: 767px) {
+  .socal-stats__item:nth-child(odd) {
+    border-inline-start: 0;
+  }
+  .socal-stats__item:nth-child(n + 3) {
+    border-top: 1px solid var(--color-borders-main);
+  }
+}
+.socal-stats__value {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.socal-stats--accent .socal-stats__value {
+  color: var(--socal-accent);
+}
+
+/* ---------- Story ---------- */
+.socal-story {
+  display: grid;
+  gap: 2rem;
+}
+@media screen and (min-width: 1024px) {
+  .socal-story {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 4rem;
+    align-items: start;
+  }
+  .socal-story__side {
+    position: sticky;
+    top: 2rem;
+  }
+}
+.socal-story__tagline {
+  margin-top: 1rem;
+  font-style: italic;
+}
+.socal-story__photo {
+  margin-top: 2rem;
+  max-width: 22rem;
+}
+.socal-story__body {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 40em;
+}
+.socal-story__lead {
+  margin: 0;
+}
+.socal-story__quote {
+  margin: 0.5rem 0;
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  border-inline-start: 3px solid var(--socal-accent);
+}
+.socal-story__quote p {
+  margin: 0;
+}
+.socal-story__signature {
+  margin: 0;
+  color: var(--socal-accent);
+}
+
+/* ---------- Statement ---------- */
+.socal-statement {
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 4vw, 4rem);
+  border-radius: var(--border-radius-cards);
+}
+.socal-statement__text {
+  margin: 0;
+  max-width: 22em;
+}
+.socal-statement--accent {
+  background: var(--socal-accent);
+  color: var(--socal-accent-foreground);
+}
+.socal-statement--accent .socal-eyebrow {
+  color: inherit;
+  opacity: 0.85;
+}
+.socal-statement--plain {
+  border: var(--border-width-cards) solid var(--color-borders-main);
+}
+
+/* ---------- Cards ---------- */
+.socal-cards__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem 3rem;
+  margin-bottom: 2.25rem;
+}
+.socal-cards__head .socal-copy {
+  margin-top: 0;
+  max-width: 30em;
+}
+.socal-cards__grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(var(--socal-columns-mobile, 1), minmax(0, 1fr));
+}
+@media screen and (min-width: 768px) {
+  .socal-cards__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media screen and (min-width: 1024px) {
+  .socal-cards__grid {
+    grid-template-columns: repeat(var(--socal-columns, 4), minmax(0, 1fr));
+  }
+}
+.socal-card {
+  display: flex;
+  flex-direction: column;
+  border: var(--border-width-cards) solid var(--color-borders-main);
+  border-radius: var(--border-radius-cards);
+  overflow: hidden;
+  background: var(--color-background-main);
+}
+.socal-card__media .socal-placeholder {
+  aspect-ratio: 1;
+}
+.socal-card__media {
+  border-bottom: var(--border-width-cards) solid var(--color-borders-main);
+}
+.socal-card__body {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  align-content: start;
+}
+.socal-card__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-borders-main);
+  color: var(--socal-accent);
+}
+.socal-card__title {
+  margin: 0;
+}
+.socal-card__text {
+  margin: 0;
+}
+
+/* ---------- Partners ---------- */
+.socal-partners {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media screen and (min-width: 1024px) {
+  .socal-partners {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+.socal-partners__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-borders-main);
+}
+.socal-partners__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-borders-main);
+}
+.socal-partners__item .socal-icon {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--socal-accent);
+}
+.socal-partners__name {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.socal-partners__city {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* ---------- CTA ---------- */
+.socal-cta {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem);
+  border: var(--border-width-cards) solid var(--color-borders-main);
+  border-radius: var(--border-radius-cards);
+  background: var(--color-third-background-main);
+}
+@media screen and (min-width: 1024px) {
+  .socal-cta {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 4rem;
+  }
+}
+.socal-cta__actions .socal-buttons {
+  margin-top: 0;
+}
+.socal-cta__meta {
+  margin-top: 1rem;
+}
+.socal-cta__review {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  color: var(--color-text-main);
+}
+.socal-cta__stars {
+  color: var(--socal-accent);
+  letter-spacing: 0.1em;
+}

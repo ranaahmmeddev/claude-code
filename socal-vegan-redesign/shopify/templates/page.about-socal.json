@@ -1,0 +1,374 @@
+/*
+ * ------------------------------------------------------------
+ * The SoCal Vegan — About page template (Local theme 4.2.1)
+ * Assign it in Online Store > Pages > About > Template: about-socal
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "about_hero": {
+      "type": "socal-about-hero",
+      "settings": {
+        "accent_color": "#cf2122",
+        "section_background_color": "rgba(0,0,0,0)",
+        "descrease_margin": false,
+        "remove_margin": false,
+        "section_visibility": "always",
+        "eyebrow": "About The SoCal Vegan",
+        "heading": "Real food.",
+        "heading_highlight": "Plant-powered.",
+        "heading_end": "Made for your week.",
+        "heading_tag": "h1",
+        "heading_size": "h1",
+        "text": "<p>Meet Sharon, the founder and cook behind The SoCal Vegan, creating flavorful, satisfying plant-based meals that make eating well feel easy.</p>",
+        "button_label": "Shop this week's menu",
+        "button_link": "shopify://pages/a-la-carte",
+        "button_2_label": "Explore subscriptions",
+        "button_2_link": "shopify://pages/subscriptions",
+        "image": "shopify://shop_images/the_woman.png",
+        "image_position": "right"
+      }
+    },
+    "about_stats": {
+      "type": "socal-stats",
+      "settings": {
+        "accent_color": "#cf2122",
+        "section_background_color": "rgba(0,0,0,0)",
+        "descrease_margin": true,
+        "remove_margin": false,
+        "section_visibility": "always",
+        "accent_values": true
+      },
+      "blocks": {
+        "about_stats_0": {
+          "type": "stat",
+          "settings": {
+            "value": "2023",
+            "label": "Cooking for North County since"
+          }
+        },
+        "about_stats_1": {
+          "type": "stat",
+          "settings": {
+            "value": "5",
+            "label": "New meals every Tuesday"
+          }
+        },
+        "about_stats_2": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Vegan, every single dish"
+          }
+        },
+        "about_stats_3": {
+          "type": "stat",
+          "settings": {
+            "value": "6",
+            "label": "Towns on our Monday route"
+          }
+        },
+        "about_stats_4": {
+          "type": "stat",
+          "settings": {
+            "value": "4",
+            "label": "Partner pickup spots"
+          }
+        }
+      },
+      "block_order": [
+        "about_stats_0",
+        "about_stats_1",
+        "about_stats_2",
+        "about_stats_3",
+        "about_stats_4"
+      ]
+    },
+    "about_story": {
+      "type": "socal-story",
+      "settings": {
+        "accent_color": "#cf2122",
+        "section_background_color": "rgba(0,0,0,0)",
+        "descrease_margin": false,
+        "remove_margin": false,
+        "section_visibility": "always",
+        "eyebrow": "Founder & cook",
+        "heading": "Hi, I'm Sharon.",
+        "heading_tag": "h2",
+        "heading_size": "h1",
+        "tagline": "Vegan eats specialist. Recipe whisperer. Spice fanatic.",
+        "image": "shopify://shop_images/50EE844A-8923-4B52-A591-620A6F3DD3B6.webp"
+      },
+      "blocks": {
+        "about_story_0": {
+          "type": "lead",
+          "settings": {
+            "text": "I'm the face, cook, recipe tinkerer, and plant-powered foodie behind The SoCal Vegan."
+          }
+        },
+        "about_story_1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>What started from a love of good food, plants, flavor, and the Southern California lifestyle has grown into something I'm incredibly proud to share with my community in North County San Diego.</p>"
+          }
+        },
+        "about_story_2": {
+          "type": "quote",
+          "settings": {
+            "text": "I believe eating plant-based shouldn't mean settling for boring salads or spending your entire Sunday meal-prepping."
+          }
+        },
+        "about_story_3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>It should be colorful, satisfying, flavorful, convenient, and something you actually look forward to eating.</p><p>That's why I create rotating weekly menus filled with thoughtfully prepared vegan meals designed to make your busy week a little easier.</p>"
+          }
+        },
+        "about_story_4": {
+          "type": "signature",
+          "settings": {
+            "text": "— Sharon King, Carlsbad, CA"
+          }
+        }
+      },
+      "block_order": [
+        "about_story_0",
+        "about_story_1",
+        "about_story_2",
+        "about_story_3",
+        "about_story_4"
+      ]
+    },
+    "about_mission": {
+      "type": "socal-statement",
+      "settings": {
+        "accent_color": "#cf2122",
+        "section_background_color": "rgba(0,0,0,0)",
+        "descrease_margin": false,
+        "remove_margin": false,
+        "section_visibility": "always",
+        "eyebrow": "Our mission",
+        "text": "Make delicious plant-based meals easy and convenient for busy people in North County San Diego.",
+        "heading_tag": "h2",
+        "heading_size": "h2",
+        "style": "accent"
+      }
+    },
+    "about_menu_mix": {
+      "type": "socal-cards",
+      "settings": {
+        "accent_color": "#cf2122",
+        "section_background_color": "rgba(0,0,0,0)",
+        "descrease_margin": false,
+        "remove_margin": false,
+        "section_visibility": "always",
+        "eyebrow": "What we cook",
+        "heading": "A balanced five, every week.",
+        "heading_tag": "h2",
+        "heading_size": "h2",
+        "text": "<p>Creative, globally inspired vegan cooking with bold flavors. Each weekly menu is built around a mix like this, so there's always something for lunch, dinner and in-between.</p>",
+        "card_media": "image",
+        "columns": 5,
+        "columns_mobile": "2"
+      },
+      "blocks": {
+        "about_menu_mix_0": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/9D19333C-47E5-4922-98BF-56F5904DF9C8.jpg",
+            "icon": "none",
+            "title": "Noodles & pasta",
+            "text": "<p>Japchae, dan dan, udon, cold soba and comfort-food pastas.</p>"
+          }
+        },
+        "about_menu_mix_1": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/3FA30179-CE02-4BFD-B708-749A7561B272.png",
+            "icon": "none",
+            "title": "Feature entrée",
+            "text": "<p>The week's centerpiece, from jerk tofu to Southern black-eyed pea bowls.</p>"
+          }
+        },
+        "about_menu_mix_2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/IMG_5141-q7mp3oinu7ril37jdrlgdf2pdvixgc8agnqi8d9ho8.jpg",
+            "icon": "none",
+            "title": "Salad",
+            "text": "<p>Big, crunchy, dressed-to-impress salads that eat like a meal.</p>"
+          }
+        },
+        "about_menu_mix_3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/IMG_5136-1024x1024.jpg",
+            "icon": "none",
+            "title": "Nourish bowl",
+            "text": "<p>Grains, beans, roasted veg and a homemade sauce.</p>"
+          }
+        },
+        "about_menu_mix_4": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "title": "Soup, curry or stew",
+            "text": "<p>Warming, spoonable and made to reheat beautifully.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "about_menu_mix_0",
+        "about_menu_mix_1",
+        "about_menu_mix_2",
+        "about_menu_mix_3",
+        "about_menu_mix_4"
+      ]
+    },
+    "about_values": {
+      "type": "socal-cards",
+      "settings": {
+        "accent_color": "#cf2122",
+        "section_background_color": "rgba(0,0,0,0)",
+        "descrease_margin": false,
+        "remove_margin": false,
+        "section_visibility": "always",
+        "eyebrow": "What we stand for",
+        "heading": "Why North County eats with us.",
+        "heading_tag": "h2",
+        "heading_size": "h2",
+        "text": "<p>Making flavorful plant-based eating convenient, approachable and enjoyable for our community.</p>",
+        "card_media": "icon",
+        "columns": 4,
+        "columns_mobile": "1"
+      },
+      "blocks": {
+        "about_values_0": {
+          "type": "card",
+          "settings": {
+            "icon": "leaf",
+            "title": "100% plant-based",
+            "text": "<p>Flavorful meals made entirely from plant-based ingredients.</p>"
+          }
+        },
+        "about_values_1": {
+          "type": "card",
+          "settings": {
+            "icon": "chef",
+            "title": "Chef-crafted",
+            "text": "<p>Thoughtfully prepared weekly meals with variety built into every menu.</p>"
+          }
+        },
+        "about_values_2": {
+          "type": "card",
+          "settings": {
+            "icon": "calendar",
+            "title": "Fresh weekly variety",
+            "text": "<p>A rotating selection of meals so your menu never gets boring.</p>"
+          }
+        },
+        "about_values_3": {
+          "type": "card",
+          "settings": {
+            "icon": "pin",
+            "title": "Local & convenient",
+            "text": "<p>Local delivery and pickup options designed around your week.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "about_values_0",
+        "about_values_1",
+        "about_values_2",
+        "about_values_3"
+      ]
+    },
+    "about_partners": {
+      "type": "socal-partners",
+      "settings": {
+        "accent_color": "#cf2122",
+        "section_background_color": "rgba(0,0,0,0)",
+        "descrease_margin": false,
+        "remove_margin": false,
+        "section_visibility": "always",
+        "eyebrow": "Rooted in North County",
+        "heading": "Cooked in Carlsbad. Delivered up and down the coast.",
+        "heading_tag": "h2",
+        "heading_size": "h2",
+        "text": "<p>Every Monday before sunrise, meals head out to Oceanside, Vista, Carlsbad, Leucadia/Encinitas, Cardiff-by-the-Sea and Del Mar, plus four local partners who host our pickup spots.</p>",
+        "button_label": "See the delivery area",
+        "button_link": "shopify://pages/a-la-carte",
+        "button_2_label": "",
+        "button_2_link": ""
+      },
+      "blocks": {
+        "about_partners_0": {
+          "type": "partner",
+          "settings": {
+            "name": "CrossFit Trifecta",
+            "city": "Vista"
+          }
+        },
+        "about_partners_1": {
+          "type": "partner",
+          "settings": {
+            "name": "FLXR CrossFit",
+            "city": "Carlsbad"
+          }
+        },
+        "about_partners_2": {
+          "type": "partner",
+          "settings": {
+            "name": "North County Fitness & Performance",
+            "city": "Vista"
+          }
+        },
+        "about_partners_3": {
+          "type": "partner",
+          "settings": {
+            "name": "Thousand Petal Lotus Vegan Market",
+            "city": "Vista"
+          }
+        }
+      },
+      "block_order": [
+        "about_partners_0",
+        "about_partners_1",
+        "about_partners_2",
+        "about_partners_3"
+      ]
+    },
+    "about_cta": {
+      "type": "socal-cta",
+      "settings": {
+        "accent_color": "#cf2122",
+        "section_background_color": "rgba(0,0,0,0)",
+        "descrease_margin": false,
+        "remove_margin": false,
+        "section_visibility": "always",
+        "eyebrow": "",
+        "heading": "Ready to make plant-based eating easier?",
+        "heading_tag": "h2",
+        "heading_size": "h2",
+        "text": "<p>Explore this week's menu and choose the option that works best for your lifestyle.</p>",
+        "button_label": "View this week's menu",
+        "button_link": "shopify://pages/a-la-carte",
+        "button_2_label": "Explore subscriptions",
+        "button_2_link": "shopify://pages/subscriptions",
+        "meta": "<p>Questions? Email <strong>hello@thesocalvegan.com</strong></p>",
+        "review_label": "See what customers say on Google",
+        "review_link": ""
+      }
+    }
+  },
+  "order": [
+    "about_hero",
+    "about_stats",
+    "about_story",
+    "about_mission",
+    "about_menu_mix",
+    "about_values",
+    "about_partners",
+    "about_cta"
+  ]
+}

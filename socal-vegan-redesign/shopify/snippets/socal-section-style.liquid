@@ -1,0 +1,21 @@
+{%- comment -%}
+  Outputs the inline style for a SoCal section: the single accent (falls back
+  to the theme accent) mapped onto the theme's accent variables, so theme
+  buttons and links hover in the same accent.
+
+  Accepts:
+  - section: {Object} the section object.
+{%- endcomment -%}
+{%- liquid
+  assign accent = section.settings.accent_color
+  if accent == blank or accent == 'rgba(0,0,0,0)'
+    assign accent = settings.color_accent_main
+  endif
+  assign accent_brightness = accent | color_brightness
+  if accent_brightness > 150
+    assign accent_foreground = settings.color_text_main
+  else
+    assign accent_foreground = '#ffffff'
+  endif
+-%}
+--socal-accent: {{ accent }}; --socal-accent-foreground: {{ accent_foreground }}; --color-accent-main: {{ accent }}; --color-foreground-accent-main: {{ accent_foreground }};

@@ -1,0 +1,24 @@
+{%- comment -%}
+  Small line icons for SoCal sections. Stroke uses currentColor.
+
+  Accepts:
+  - icon: {String} leaf | chef | calendar | pin | refresh | truck | heart | clock | none
+{%- endcomment -%}
+{%- case icon -%}
+  {%- when 'leaf' -%}
+    <svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14zM5 19l7-7"/></svg>
+  {%- when 'chef' -%}
+    <svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 14a4 4 0 1 1 2-7 4 4 0 0 1 6 0 4 4 0 1 1 2 7v5H7zM7 16h10"/></svg>
+  {%- when 'calendar' -%}
+    <svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+  {%- when 'pin' -%}
+    <svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+  {%- when 'refresh' -%}
+    <svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2M20 4v5h-5M4 20v-5h5"/></svg>
+  {%- when 'truck' -%}
+    <svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+  {%- when 'heart' -%}
+    <svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>
+  {%- when 'clock' -%}
+    <svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+{%- endcase -%}

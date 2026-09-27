@@ -1,0 +1,218 @@
+{%- comment -%}
+  SoCal Call to action — SoCal section for the Local theme (v4.2.1).
+  Built on the theme's typography, color, border and spacing variables with one accent.
+{%- endcomment -%}
+
+{{ 'socal-sections.css' | asset_url | stylesheet_tag }}
+
+<div class="{% render 'socal-section-wrapper', section: section %}">
+  <div class="socal-section socal-cta" style="{% render 'socal-section-style', section: section %}">
+
+    <div>
+      {%- if section.settings.eyebrow != blank -%}
+  <p class="socal-eyebrow text-size--small text-weight--bold">{{ section.settings.eyebrow | escape }}</p>
+{%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <{{ section.settings.heading_tag }} class="{{ section.settings.heading_size }} socal-heading">{{ section.settings.heading | escape }}</{{ section.settings.heading_tag }}>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="socal-copy rte text-color--secondary">{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- if section.settings.review_label != blank -%}
+        <a class="socal-cta__review text-size--small text-weight--bold" href="{{ section.settings.review_link | default: '#' }}" {% if section.settings.review_link != blank %}target="_blank" rel="noopener"{% endif %}>
+          <span class="socal-cta__stars" aria-hidden="true">★★★★★</span>{{ section.settings.review_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+    <div class="socal-cta__actions">
+      {%- if section.settings.button_label != blank or section.settings.button_2_label != blank -%}
+  <div class="socal-buttons">
+    {%- if section.settings.button_label != blank -%}
+      <a class="button button--solid button--regular" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label | escape }}</a>
+    {%- endif -%}
+    {%- if section.settings.button_2_label != blank -%}
+      <a class="button button--outline button--regular" href="{{ section.settings.button_2_link | default: '#' }}">{{ section.settings.button_2_label | escape }}</a>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+      {%- if section.settings.meta != blank -%}
+        <div class="socal-cta__meta rte text-size--small text-color--secondary">{{ section.settings.meta }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{%- render 'socal-section-background', section: section -%}
+
+{% schema %}
+{
+  "name": "SoCal Call to action",
+  "class": "socal-cta-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ready to make plant-based eating easier?"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag (SEO)",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Extra large"
+        },
+        {
+          "value": "h2",
+          "label": "Large"
+        },
+        {
+          "value": "h3",
+          "label": "Medium"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Explore this week's menu and choose the option that works best for your lifestyle.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View this week's menu"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Second button label",
+      "default": "Explore subscriptions"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Second button link"
+    },
+    {
+      "type": "richtext",
+      "id": "meta",
+      "label": "Small text",
+      "default": "<p>Questions? Email <strong>hello@thesocalvegan.com</strong></p>"
+    },
+    {
+      "type": "header",
+      "content": "Reviews link"
+    },
+    {
+      "type": "text",
+      "id": "review_label",
+      "label": "Label",
+      "default": "See what customers say on Google"
+    },
+    {
+      "type": "url",
+      "id": "review_link",
+      "label": "Link",
+      "info": "Paste your Google reviews URL."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "info": "Leave empty to use the theme's accent color.",
+      "default": "#cf2122"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Spacing & visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "descrease_margin",
+      "label": "Decrease top margin",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove top margin",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_visibility",
+      "label": "Visibility",
+      "options": [
+        {
+          "value": "always",
+          "label": "Always"
+        },
+        {
+          "value": "mobile",
+          "label": "Mobile only"
+        },
+        {
+          "value": "desktop",
+          "label": "Desktop only"
+        }
+      ],
+      "default": "always"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SoCal Call to action"
+    }
+  ],
+  "tag": "section"
+}
+{% endschema %}

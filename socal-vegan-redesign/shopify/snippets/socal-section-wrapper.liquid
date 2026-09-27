@@ -1,0 +1,14 @@
+{%- comment -%}
+  Outputs the Local theme container classes for a SoCal section
+  (width, top spacing, background flag, visibility).
+
+  Accepts:
+  - section: {Object} the section object.
+{%- endcomment -%}
+container--large
+{%- unless section.settings.remove_margin -%}
+  {%- if section.settings.descrease_margin %} container--vertical-space-grid{% else %} container--vertical-space{% endif -%}
+{%- endunless -%}
+{%- if section.settings.section_background_color != blank and section.settings.section_background_color != 'rgba(0,0,0,0)' %} container--has-background{% endif -%}
+{%- if section.settings.section_visibility == 'mobile' %} element--hide-on-desk{% endif -%}
+{%- if section.settings.section_visibility == 'desktop' %} element--hide-on-small{% endif -%}

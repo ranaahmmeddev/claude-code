@@ -1,0 +1,152 @@
+{%- comment -%}
+  SoCal Stats — SoCal section for the Local theme (v4.2.1).
+  Built on the theme's typography, color, border and spacing variables with one accent.
+{%- endcomment -%}
+
+{{ 'socal-sections.css' | asset_url | stylesheet_tag }}
+
+<div class="{% render 'socal-section-wrapper', section: section %}">
+  <div class="socal-section socal-stats {% if section.settings.accent_values %}socal-stats--accent{% endif %}" style="{% render 'socal-section-style', section: section %} --socal-columns: {{ section.blocks.size | at_least: 1 }};">
+
+    {%- for block in section.blocks -%}
+      <div class="socal-stats__item" {{ block.shopify_attributes }}>
+        <span class="h3 socal-stats__value">{{ block.settings.value | escape }}</span>
+        <span class="text-size--small text-color--secondary">{{ block.settings.label | escape }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{%- render 'socal-section-background', section: section -%}
+
+{% schema %}
+{
+  "name": "SoCal Stats",
+  "class": "socal-stats-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "accent_values",
+      "label": "Show numbers in the accent color",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "info": "Leave empty to use the theme's accent color.",
+      "default": "#cf2122"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Spacing & visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "descrease_margin",
+      "label": "Decrease top margin",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove top margin",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_visibility",
+      "label": "Visibility",
+      "options": [
+        {
+          "value": "always",
+          "label": "Always"
+        },
+        {
+          "value": "mobile",
+          "label": "Mobile only"
+        },
+        {
+          "value": "desktop",
+          "label": "Desktop only"
+        }
+      ],
+      "default": "always"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Number",
+          "default": "5"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "New meals every Tuesday"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SoCal Stats",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": "2023",
+            "label": "Cooking for North County since"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "5",
+            "label": "New meals every Tuesday"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Vegan, every single dish"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "6",
+            "label": "Towns on our Monday route"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "4",
+            "label": "Partner pickup spots"
+          }
+        }
+      ]
+    }
+  ],
+  "tag": "section"
+}
+{% endschema %}
