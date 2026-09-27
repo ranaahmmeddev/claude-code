@@ -1,0 +1,456 @@
+{%- comment -%}
+  SoCal FAQ — homepage FAQ accordion for the Local theme (v4.2.1).
+  Uses the theme's own typography, color and spacing variables. The only
+  extra color is one accent (defaults to the theme's main accent).
+  No JavaScript: native <details>/<summary>; "one open at a time" uses the
+  details `name` attribute.
+{%- endcomment -%}
+
+{%- liquid
+  assign accent = section.settings.accent_color
+  if accent == blank or accent == 'rgba(0,0,0,0)'
+    assign accent = settings.color_accent_main
+  endif
+  assign accent_brightness = accent | color_brightness
+  if accent_brightness > 150
+    assign accent_foreground = settings.color_text_main
+  else
+    assign accent_foreground = '#ffffff'
+  endif
+  assign group_name = 'faq-' | append: section.id
+-%}
+
+<div
+  class="
+    container--large
+    {% unless section.settings.remove_margin %}{% unless section.settings.descrease_margin %} container--vertical-space {% else %} container--vertical-space-grid {% endunless %}{% endunless %}
+    {% if section.settings.section_background_color != 'rgba(0,0,0,0)' %} container--has-background {% endif %}
+    {% if section.settings.section_visibility == 'mobile' %} element--hide-on-desk {% endif %}
+    {% if section.settings.section_visibility == 'desktop' %} element--hide-on-small {% endif %}
+  "
+>
+  <div
+    id="socal-faq-{{ section.id }}"
+    class="socal-faq socal-faq--{{ section.settings.layout }}"
+    style="--faq-accent: {{ accent }}; --faq-accent-foreground: {{ accent_foreground }};"
+  >
+    <div class="socal-faq__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="socal-faq__eyebrow text-size--small text-weight--bold">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <{{ section.settings.heading_tag }} class="h2 socal-faq__heading">{{ section.settings.heading | escape }}</{{ section.settings.heading_tag }}>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="socal-faq__text rte text-color--secondary">{{ section.settings.text }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a
+          class="button button--solid button--regular socal-faq__button"
+          href="{{ section.settings.button_link | default: '#' }}"
+        >
+          {{- section.settings.button_label | escape -}}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.contact_text != blank -%}
+        <div class="socal-faq__contact rte text-size--small text-color--secondary">{{ section.settings.contact_text }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="socal-faq__list">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.question != blank -%}
+          <details
+            class="socal-faq__item"
+            {% if section.settings.single_open %}name="{{ group_name }}"{% endif %}
+            {% if forloop.first and section.settings.open_first %}open{% endif %}
+            {{ block.shopify_attributes }}
+          >
+            <summary class="socal-faq__question text-size--large text-weight--bold">
+              <span>{{ block.settings.question | escape }}</span>
+              <span class="socal-faq__icon" aria-hidden="true"></span>
+            </summary>
+            <div class="socal-faq__answer rte text-color--secondary">
+              {{ block.settings.answer }}
+            </div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.section_background_color != 'rgba(0,0,0,0)' -%}
+  {% style %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.section_background_color }};
+    }
+  {% endstyle %}
+{%- endif -%}
+
+{%- if section.settings.enable_structured_data and section.blocks.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- for block in section.blocks -%}
+          {%- assign faq_answer = block.settings.answer | replace: '</p>', ' ' | replace: '<br>', ' ' | strip_html | strip -%}
+          {
+            "@type": "Question",
+            "name": {{ block.settings.question | json }},
+            "acceptedAnswer": { "@type": "Answer", "text": {{ faq_answer | json }} }
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .socal-faq {
+    display: grid;
+    gap: 2rem;
+    color: var(--color-text-main);
+  }
+  @media screen and (min-width: 1024px) {
+    .socal-faq--split {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 4rem;
+      align-items: start;
+    }
+    .socal-faq--split .socal-faq__intro {
+      position: sticky;
+      top: 2rem;
+    }
+  }
+  .socal-faq--stacked .socal-faq__intro {
+    max-width: 44rem;
+  }
+
+  .socal-faq__eyebrow {
+    color: var(--faq-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0 0 0.75rem;
+  }
+  .socal-faq__heading {
+    margin-bottom: 0;
+  }
+  .socal-faq__text {
+    margin-top: 1rem;
+    max-width: 34em;
+  }
+  .socal-faq__button {
+    margin-top: 1.5rem;
+  }
+  .socal-faq__contact {
+    margin-top: 1.25rem;
+  }
+  .socal-faq__contact a {
+    color: var(--color-text-main);
+  }
+
+  .socal-faq__list {
+    border-top: 1px solid var(--color-borders-main);
+  }
+  .socal-faq__item {
+    border-bottom: 1px solid var(--color-borders-main);
+  }
+  .socal-faq__question {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    line-height: 1.35;
+  }
+  .socal-faq__question::-webkit-details-marker {
+    display: none;
+  }
+  .socal-faq__question:focus-visible {
+    outline: 2px solid var(--faq-accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  .socal-faq__icon {
+    position: relative;
+    flex: 0 0 2rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-borders-main);
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .socal-faq__icon::before,
+  .socal-faq__icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.75rem;
+    height: 1.5px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+  }
+  .socal-faq__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: transform 0.2s;
+  }
+  .socal-faq__item[open] .socal-faq__icon {
+    background: var(--faq-accent);
+    border-color: var(--faq-accent);
+    color: var(--faq-accent-foreground);
+  }
+  .socal-faq__item[open] .socal-faq__icon::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  .socal-faq__question:hover .socal-faq__icon {
+    border-color: var(--faq-accent);
+  }
+  .socal-faq__answer {
+    padding: 0 3.25rem 1.5rem 0;
+    max-width: 40em;
+  }
+  .socal-faq__answer strong {
+    color: var(--color-text-main);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .socal-faq__icon,
+    .socal-faq__icon::after {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SoCal FAQ",
+  "tag": "section",
+  "class": "socal-faq-section",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Quick answers"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Good questions."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag (SEO)",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>The ones we hear most before a first order. Everything else lives on the full FAQ page.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "See all FAQs"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_text",
+      "label": "Contact line",
+      "default": "<p>Still stuck? Email <strong>hello@thesocalvegan.com</strong><br>Mon–Fri, 8 AM – 5 PM</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "split", "label": "Intro beside questions" },
+        { "value": "stacked", "label": "Intro above questions" }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Open first question",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "single_open",
+      "label": "Keep only one question open",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_structured_data",
+      "label": "Add FAQ structured data (SEO)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "info": "Leave empty to use the theme's accent color.",
+      "default": "#cf2122"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Spacing & visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "descrease_margin",
+      "label": "Decrease top margin",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_margin",
+      "label": "Remove top margin",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "section_visibility",
+      "label": "Visibility",
+      "options": [
+        { "value": "always", "label": "Always" },
+        { "value": "mobile", "label": "Mobile only" },
+        { "value": "desktop", "label": "Desktop only" }
+      ],
+      "default": "always"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Your question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Your answer.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SoCal FAQ",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "When does the menu open, and when is the cutoff?",
+            "answer": "<p>The new menu opens every <strong>Tuesday at 8:00 AM</strong>. Meal selections, skips and cancellations close <strong>Thursday at 2:00 PM Pacific</strong>. Subscriptions are charged at the cutoff and meals arrive the following Monday.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "What if I forget to choose my meals?",
+            "answer": "<p>Your subscription still goes through. If you don't pick anything new, last week's selections repeat. If any slots are still open after the cutoff, Sharon fills just those with Chef's Choice meals from that week's menu.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Can I skip a week?",
+            "answer": "<p>Yes. Skip the upcoming week in your account before Thursday 2:00 PM and you won't be charged. Your subscription picks back up automatically the week after.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Where and when do you deliver?",
+            "answer": "<p>Monday mornings between about 4:00 and 7:30 AM, to Oceanside, Vista, Carlsbad, Leucadia/Encinitas, Cardiff-by-the-Sea and Del Mar. Delivery day is fixed, so there's no date to pick. Add a gate code or drop-off note at checkout.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How much is delivery?",
+            "answer": "<p>Free for subscribers. À la carte home delivery is a flat $5. Pickup at any of our drop locations is always free.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Is there a minimum for à la carte?",
+            "answer": "<p>Two meals. À la carte meals are $18 each and come from the same five-meal weekly menu.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Are all meals vegan? What about allergens?",
+            "answer": "<p>Every meal is 100% vegan, so everything is dairy-free. Some weeks include gluten-free dishes, marked on the meal. Our kitchen handles wheat, soy, sesame, peanuts and tree nuts, so please check each meal's allergen list before ordering.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How long do meals keep?",
+            "answer": "<p>Keep them at 41°F or below. Salads are best within 3–4 days and reheatable meals within 4–5 days. Many prepared meals freeze well if you freeze them while fresh.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How do I cancel?",
+            "answer": "<p>Email hello@thesocalvegan.com before Thursday 2:00 PM to stop the upcoming order. Requests after the cutoff take effect the following week.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

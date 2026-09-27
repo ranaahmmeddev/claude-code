@@ -2,7 +2,7 @@
 <meta name="description" content="Homepage redesign preview for The SoCal Vegan — weekly vegan meal prep in North County San Diego.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,600..900,100,1&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:opsz,wght,SOFT,WONK@9..144,600..900,100,1&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
 <style>
 /* Brand tokens (from client questionnaire). Single deliberate light look, matching the live store. */
 :root{
@@ -337,6 +337,157 @@ section{scroll-margin-top:90px}
 .preview-ctl button[aria-pressed="true"]{background:var(--yellow);border-color:var(--ink)}
 .preview-ctl p{margin-top:8px;color:var(--ink-2);max-width:220px}
 @media (max-width:700px){.preview-ctl{bottom:84px}}
+
+/* ===== Local 4.2.1 theme emulation (preview only) for the FAQ section =====
+   Values from the store's settings_data.json: DM Sans 500/400, headings 70, body 17 / 1.4,
+   text #1d1d1d on #ffffff, borders = text at 15%, secondary text = text at 62%. */
+.local-theme{
+  --font-stack-headings:"DM Sans",system-ui,sans-serif; --font-weight-headings:500;
+  --font-stack-body:"DM Sans",system-ui,sans-serif; --font-weight-body:400; --font-weight-body-bold:500; --font-weight-buttons:500;
+  --base-headings-size:70; --base-headings-line:1; --base-body-size:17; --base-body-line:1.4;
+  --color-background-main:#ffffff; --color-text-main:#1d1d1d; --color-foreground-main:#ffffff;
+  --color-secondary-text-main:rgba(29,29,29,.62); --color-borders-main:rgba(29,29,29,.15);
+  --border-radius-buttons:30px; --border-width-buttons:1px;
+  --theme-max-width:1680px; --gutter-container:var(--gutter); --container-vertical-space:clamp(72px,8vw,120px);
+  background:var(--color-background-main);color:var(--color-text-main);
+  font-family:var(--font-stack-body);font-weight:var(--font-weight-body);font-size:calc(var(--base-body-size) * 1px);line-height:var(--base-body-line);
+  padding-bottom:var(--container-vertical-space);
+}
+.local-theme .container--large{margin:0 auto;width:100%;max-width:min(var(--theme-max-width),var(--max));padding-inline:var(--gutter-container)}
+.local-theme .container--vertical-space{margin-top:var(--container-vertical-space)}
+.local-theme .h2{font-family:var(--font-stack-headings);font-weight:var(--font-weight-headings);line-height:var(--base-headings-line);letter-spacing:0;font-variation-settings:normal;font-size:calc(28px / 60 * var(--base-headings-size))}
+.local-theme .text-size--small{font-size:calc(12px / 16 * var(--base-body-size))}
+.local-theme .text-size--large{font-size:calc(16px / 16 * var(--base-body-size))}
+@media (min-width:1024px){
+  .local-theme .h2{font-size:calc(42px / 60 * var(--base-headings-size))}
+  .local-theme .text-size--small{font-size:calc(14px / 16 * var(--base-body-size))}
+  .local-theme .text-size--large{font-size:calc(18px / 16 * var(--base-body-size))}
+}
+.local-theme .text-weight--bold{font-weight:var(--font-weight-body-bold)}
+.local-theme .text-color--secondary{color:var(--color-secondary-text-main)}
+.local-theme .rte p{margin:0 0 .75em}.local-theme .rte p:last-child{margin-bottom:0}
+.local-theme .button{display:inline-block;text-align:center;text-decoration:none;border-style:solid;border-radius:var(--border-radius-buttons);border-width:var(--border-width-buttons);font-weight:var(--font-weight-buttons);line-height:1.25;cursor:pointer}
+.local-theme .button--regular{padding:14px 28px;font-size:calc(15px / 16 * var(--base-body-size))}
+.local-theme .button--solid{background:var(--color-text-main);border-color:var(--color-text-main);color:var(--color-foreground-main)}
+.local-theme .button--solid:hover{opacity:.88}
+.local-theme .socal-faq__intro{top:calc(env(safe-area-inset-top,0px) + 140px)}
+/* section stylesheet, copied verbatim from shopify/sections/socal-faq.liquid */
+
+  .socal-faq {
+    display: grid;
+    gap: 2rem;
+    color: var(--color-text-main);
+  }
+  @media screen and (min-width: 1024px) {
+    .socal-faq--split {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 4rem;
+      align-items: start;
+    }
+    .socal-faq--split .socal-faq__intro {
+      position: sticky;
+      top: 2rem;
+    }
+  }
+  .socal-faq--stacked .socal-faq__intro {
+    max-width: 44rem;
+  }
+
+  .socal-faq__eyebrow {
+    color: var(--faq-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0 0 0.75rem;
+  }
+  .socal-faq__heading {
+    margin-bottom: 0;
+  }
+  .socal-faq__text {
+    margin-top: 1rem;
+    max-width: 34em;
+  }
+  .socal-faq__button {
+    margin-top: 1.5rem;
+  }
+  .socal-faq__contact {
+    margin-top: 1.25rem;
+  }
+  .socal-faq__contact a {
+    color: var(--color-text-main);
+  }
+
+  .socal-faq__list {
+    border-top: 1px solid var(--color-borders-main);
+  }
+  .socal-faq__item {
+    border-bottom: 1px solid var(--color-borders-main);
+  }
+  .socal-faq__question {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    line-height: 1.35;
+  }
+  .socal-faq__question::-webkit-details-marker {
+    display: none;
+  }
+  .socal-faq__question:focus-visible {
+    outline: 2px solid var(--faq-accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+  .socal-faq__icon {
+    position: relative;
+    flex: 0 0 2rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-borders-main);
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .socal-faq__icon::before,
+  .socal-faq__icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.75rem;
+    height: 1.5px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+  }
+  .socal-faq__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: transform 0.2s;
+  }
+  .socal-faq__item[open] .socal-faq__icon {
+    background: var(--faq-accent);
+    border-color: var(--faq-accent);
+    color: var(--faq-accent-foreground);
+  }
+  .socal-faq__item[open] .socal-faq__icon::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  .socal-faq__question:hover .socal-faq__icon {
+    border-color: var(--faq-accent);
+  }
+  .socal-faq__answer {
+    padding: 0 3.25rem 1.5rem 0;
+    max-width: 40em;
+  }
+  .socal-faq__answer strong {
+    color: var(--color-text-main);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .socal-faq__icon,
+    .socal-faq__icon::after {
+      transition: none;
+    }
+  }
 </style>
 
 <!-- ANNOUNCEMENT -->
@@ -619,35 +770,55 @@ section{scroll-margin-top:90px}
   </div>
 </section>
 
-<!-- FAQ (short) -->
-<section class="sec faq" id="faq" aria-labelledby="faqTitle">
-  <div class="wrap">
-    <div class="faq-side">
-      <span class="eyebrow" style="color:var(--red);display:block;margin-bottom:12px">Quick answers</span>
-      <h2 id="faqTitle">Good questions.</h2>
-      <p>The ones we hear most before a first order. Everything else lives on the full FAQ page.</p>
-      <a class="btn btn-ghost" href="#faq">See all FAQs</a>
-      <p class="mail">Still stuck? Email <b>hello@thesocalvegan.com</b><br>Mon–Fri, 8 AM – 5 PM</p>
-    </div>
-    <div class="faq-list">
-      <details open><summary>When does the menu open, and when is the cutoff?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>The new menu opens every <strong>Tuesday at 8:00 AM</strong>. Meal selections, skips and cancellations close <strong>Thursday at 2:00 PM Pacific</strong>. Subscriptions are charged at the cutoff and meals arrive the following Monday.</p></div></details>
-      <details><summary>What if I forget to choose my meals?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Your subscription still goes through. If you don't pick anything new, last week's selections repeat. If any slots are still open after the cutoff, Sharon fills just those with Chef's Choice meals from that week's menu.</p></div></details>
-      <details><summary>Can I skip a week?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Yes. Skip the upcoming week in your account before Thursday 2:00 PM and you won't be charged. Your subscription picks back up automatically the week after.</p></div></details>
-      <details><summary>Where and when do you deliver?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Monday mornings between about 4:00 and 7:30 AM, to Oceanside, Vista, Carlsbad, Leucadia/Encinitas, Cardiff-by-the-Sea and Del Mar. Delivery day is fixed, so there's no date to pick. Add a gate code or drop-off note at checkout.</p></div></details>
-      <details><summary>How much is delivery?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Free for subscribers. À la carte home delivery is a flat $5. Pickup at any of our drop locations is always free.</p></div></details>
-      <details><summary>Is there a minimum for à la carte?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Two meals. À la carte meals are $18 each and come from the same five-meal weekly menu.</p></div></details>
-      <details><summary>Are all meals vegan? What about allergens?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Every meal is 100% vegan, so everything is dairy-free. Some weeks include gluten-free dishes, marked on the meal. Our kitchen handles wheat, soy, sesame, peanuts and tree nuts, so please check each meal's allergen list before ordering.</p></div></details>
-      <details><summary>How long do meals keep?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Keep them at 41°F or below. Salads are best within 3–4 days and reheatable meals within 4–5 days. Many prepared meals freeze well if you freeze them while fresh.</p></div></details>
-      <details><summary>How do I cancel?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Email hello@thesocalvegan.com before Thursday 2:00 PM to stop the upcoming order. Requests after the cutoff take effect the following week.</p></div></details>
+<!-- FAQ (short) — preview of shopify/sections/socal-faq.liquid rendered with the Local 4.2.1 theme settings -->
+<section id="faq" class="local-theme" aria-labelledby="faqTitle">
+  <div class="container--large container--vertical-space">
+    <div class="socal-faq socal-faq--split" style="--faq-accent:#cf2122;--faq-accent-foreground:#ffffff;">
+      <div class="socal-faq__intro">
+        <p class="socal-faq__eyebrow text-size--small text-weight--bold">Quick answers</p>
+        <h2 class="h2 socal-faq__heading" id="faqTitle">Good questions.</h2>
+        <div class="socal-faq__text rte text-color--secondary"><p>The ones we hear most before a first order. Everything else lives on the full FAQ page.</p></div>
+        <a class="button button--solid button--regular socal-faq__button" href="#faq">See all FAQs</a>
+        <div class="socal-faq__contact rte text-size--small text-color--secondary"><p>Still stuck? Email <strong>hello@thesocalvegan.com</strong><br>Mon–Fri, 8 AM – 5 PM</p></div>
+      </div>
+      <div class="socal-faq__list">
+          <details class="socal-faq__item" name="faq-home" open>
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>When does the menu open, and when is the cutoff?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>The new menu opens every <strong>Tuesday at 8:00 AM</strong>. Meal selections, skips and cancellations close <strong>Thursday at 2:00 PM Pacific</strong>. Subscriptions are charged at the cutoff and meals arrive the following Monday.</p></div>
+          </details>
+          <details class="socal-faq__item" name="faq-home">
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>What if I forget to choose my meals?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>Your subscription still goes through. If you don't pick anything new, last week's selections repeat. If any slots are still open after the cutoff, Sharon fills just those with Chef's Choice meals from that week's menu.</p></div>
+          </details>
+          <details class="socal-faq__item" name="faq-home">
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>Can I skip a week?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>Yes. Skip the upcoming week in your account before Thursday 2:00 PM and you won't be charged. Your subscription picks back up automatically the week after.</p></div>
+          </details>
+          <details class="socal-faq__item" name="faq-home">
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>Where and when do you deliver?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>Monday mornings between about 4:00 and 7:30 AM, to Oceanside, Vista, Carlsbad, Leucadia/Encinitas, Cardiff-by-the-Sea and Del Mar. Delivery day is fixed, so there's no date to pick. Add a gate code or drop-off note at checkout.</p></div>
+          </details>
+          <details class="socal-faq__item" name="faq-home">
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>How much is delivery?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>Free for subscribers. À la carte home delivery is a flat $5. Pickup at any of our drop locations is always free.</p></div>
+          </details>
+          <details class="socal-faq__item" name="faq-home">
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>Is there a minimum for à la carte?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>Two meals. À la carte meals are $18 each and come from the same five-meal weekly menu.</p></div>
+          </details>
+          <details class="socal-faq__item" name="faq-home">
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>Are all meals vegan? What about allergens?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>Every meal is 100% vegan, so everything is dairy-free. Some weeks include gluten-free dishes, marked on the meal. Our kitchen handles wheat, soy, sesame, peanuts and tree nuts, so please check each meal's allergen list before ordering.</p></div>
+          </details>
+          <details class="socal-faq__item" name="faq-home">
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>How long do meals keep?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>Keep them at 41°F or below. Salads are best within 3–4 days and reheatable meals within 4–5 days. Many prepared meals freeze well if you freeze them while fresh.</p></div>
+          </details>
+          <details class="socal-faq__item" name="faq-home">
+            <summary class="socal-faq__question text-size--large text-weight--bold"><span>How do I cancel?</span><span class="socal-faq__icon" aria-hidden="true"></span></summary>
+            <div class="socal-faq__answer rte text-color--secondary"><p>Email hello@thesocalvegan.com before Thursday 2:00 PM to stop the upcoming order. Requests after the cutoff take effect the following week.</p></div>
+          </details>
+      </div>
     </div>
   </div>
 </section>
