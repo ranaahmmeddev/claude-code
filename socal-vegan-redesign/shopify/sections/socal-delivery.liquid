@@ -1,0 +1,580 @@
+{%- comment -%}
+  SoCal Delivery Area — for the Local theme (v4.2.1).
+  Uses the theme's typography, color, border and spacing variables plus one
+  accent (defaults to the theme's main accent when left empty).
+  Service towns/ZIPs and pickup spots are blocks, so they can be added,
+  edited or removed in the theme editor without code.
+{%- endcomment -%}
+
+{%- liquid
+  assign accent = section.settings.accent_color
+  if accent == blank or accent == 'rgba(0,0,0,0)'
+    assign accent = settings.color_accent_main
+  endif
+  assign area_blocks = section.blocks | where: 'type', 'area'
+  assign pickup_blocks = section.blocks | where: 'type', 'pickup'
+-%}
+
+<div
+  class="
+    container--large
+    {% unless section.settings.remove_margin %}{% unless section.settings.descrease_margin %} container--vertical-space {% else %} container--vertical-space-grid {% endunless %}{% endunless %}
+    {% if section.settings.section_background_color != 'rgba(0,0,0,0)' %} container--has-background {% endif %}
+    {% if section.settings.section_visibility == 'mobile' %} element--hide-on-desk {% endif %}
+    {% if section.settings.section_visibility == 'desktop' %} element--hide-on-small {% endif %}
+  "
+>
+  <socal-delivery
+    id="socal-delivery-{{ section.id }}"
+    class="socal-delivery"
+    style="--dl-accent: {{ accent }};"
+    data-msg-ok="{{ section.settings.msg_ok | escape }}"
+    data-msg-no="{{ section.settings.msg_no | escape }}"
+    data-msg-invalid="{{ section.settings.msg_invalid | escape }}"
+  >
+    <div class="socal-delivery__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="socal-delivery__eyebrow text-size--small text-weight--bold">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <{{ section.settings.heading_tag }} class="h2 socal-delivery__heading">{{ section.settings.heading | escape }}</{{ section.settings.heading_tag }}>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="socal-delivery__text rte text-color--secondary">{{ section.settings.text }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="socal-delivery__grid">
+      {%- if section.settings.show_map -%}
+        <div class="socal-delivery__map">
+          {%- if section.settings.map_image != blank -%}
+            {%- render 'lazy-image',
+              image: section.settings.map_image,
+              alt: section.settings.heading,
+              sizes: '(max-width: 1023px) calc(100vw - 40px), 40vw'
+            -%}
+          {%- else -%}
+            {%- comment -%} Built-in illustration of the default North County service area {%- endcomment -%}
+            <svg viewBox="0 0 400 460" role="img" aria-label="{{ 'Map of the delivery area from Oceanside to Del Mar' | escape }}">
+              <rect width="400" height="460" class="dl-ocean"/>
+              <path d="M92 0 L140 60 L160 110 L180 170 L196 230 L214 290 L226 340 L240 400 L252 460 L400 460 L400 0Z" class="dl-land"/>
+              <path d="M92 0 L140 60 L160 110 L180 170 L196 230 L214 290 L226 340 L240 400 L252 460" class="dl-coast"/>
+              <path d="M122 30 L330 40 L350 150 L300 200 L280 300 L300 430 L246 430 L232 350 L218 295 L200 235 L184 175 L166 115 L146 62Z" class="dl-zone"/>
+              <path d="M150 0 L200 180 L236 330 L262 460 M165 70 L330 100" class="dl-road"/>
+              <text x="36" y="250" transform="rotate(-72 36 250)" class="dl-sea-label">Pacific Ocean</text>
+              <g class="dl-towns">
+                <circle cx="165" cy="72" r="6"/><text x="176" y="66">Oceanside</text>
+                <circle cx="300" cy="110" r="6"/><text x="292" y="134">Vista</text>
+                <circle cx="195" cy="178" r="6"/><text x="206" y="172">Carlsbad</text>
+                <circle cx="214" cy="262" r="6"/><text x="225" y="258">Leucadia / Encinitas</text>
+                <circle cx="226" cy="318" r="6"/><text x="237" y="322">Cardiff</text>
+                <circle cx="244" cy="402" r="6"/><text x="255" y="406">Del Mar</text>
+              </g>
+              <g class="dl-pins">
+                <path d="M318 96c0-6 9-6 9 0 0 5-4.5 10-4.5 10S318 101 318 96z"/>
+                <path d="M282 88c0-6 9-6 9 0 0 5-4.5 10-4.5 10S282 93 282 88z"/>
+                <path d="M306 146c0-6 9-6 9 0 0 5-4.5 10-4.5 10S306 151 306 146z"/>
+                <path d="M232 190c0-6 9-6 9 0 0 5-4.5 10-4.5 10S232 195 232 190z"/>
+              </g>
+            </svg>
+          {%- endif -%}
+          <div class="socal-delivery__legend text-size--small">
+            <span><i class="dl-key dl-key--town"></i>Delivery town</span>
+            <span><i class="dl-key dl-key--pin"></i>Pickup spot</span>
+            <span><i class="dl-key dl-key--zone"></i>Service area</span>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="socal-delivery__info">
+        {%- if section.settings.show_checker -%}
+          <form class="socal-delivery__check" novalidate data-zip-form>
+            <label for="dl-zip-{{ section.id }}" class="text-weight--bold">{{ section.settings.checker_label | escape }}</label>
+            <div class="socal-delivery__row">
+              <input
+                id="dl-zip-{{ section.id }}"
+                class="field__input"
+                type="text"
+                inputmode="numeric"
+                maxlength="5"
+                autocomplete="postal-code"
+                placeholder="{{ section.settings.checker_placeholder | escape }}"
+                data-zip-input
+              >
+              <button type="submit" class="button button--solid button--regular">{{ section.settings.checker_button | escape }}</button>
+            </div>
+            <p class="socal-delivery__result text-size--small" aria-live="polite" data-zip-result>
+              {{- section.settings.delivery_time | escape -}}
+            </p>
+          </form>
+        {%- endif -%}
+
+        {%- if area_blocks.size > 0 -%}
+          <ul class="socal-delivery__areas" role="list">
+            {%- for block in area_blocks -%}
+              {%- liquid
+                assign zip_list = block.settings.zips | split: ','
+                assign zips_clean = ''
+                for z in zip_list
+                  assign zc = z | strip
+                  if zc != blank
+                    assign zips_clean = zips_clean | append: zc | append: ' '
+                  endif
+                endfor
+                assign zips_clean = zips_clean | strip
+              -%}
+              <li class="socal-delivery__area" data-area data-town="{{ block.settings.town | escape }}" data-zips="{{ zips_clean }}" {{ block.shopify_attributes }}>
+                <span class="text-weight--bold">{{ block.settings.town | escape }}</span>
+                <span class="text-size--small text-color--secondary">{{ zips_clean | replace: ' ', ', ' }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        <div class="socal-delivery__fees">
+          {%- for i in (1..3) -%}
+            {%- liquid
+              assign fee_key = 'fee_' | append: i | append: '_value'
+              assign label_key = 'fee_' | append: i | append: '_label'
+              assign fee_value = section.settings[fee_key]
+              assign fee_label = section.settings[label_key]
+            -%}
+            {%- if fee_value != blank -%}
+              <div class="socal-delivery__fee">
+                <span class="h4 socal-delivery__fee-value">{{ fee_value | escape }}</span>
+                <span class="text-size--small text-color--secondary">{{ fee_label | escape }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if pickup_blocks.size > 0 -%}
+          <div class="socal-delivery__pickups">
+            {%- if section.settings.pickup_heading != blank -%}
+              <h3 class="h4 socal-delivery__subheading">{{ section.settings.pickup_heading | escape }}</h3>
+            {%- endif -%}
+            <ul role="list">
+              {%- for block in pickup_blocks -%}
+                {%- if block.settings.enabled -%}
+                  <li class="socal-delivery__pickup" {{ block.shopify_attributes }}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+                    <span>
+                      <span class="text-weight--bold">{{ block.settings.name | escape }}</span>
+                      {%- if block.settings.city != blank -%}
+                        <span class="text-size--small text-color--secondary">{{ block.settings.city | escape }}</span>
+                      {%- endif -%}
+                    </span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+            {%- if section.settings.pickup_note != blank -%}
+              <div class="socal-delivery__note rte text-size--small text-color--secondary">{{ section.settings.pickup_note }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </socal-delivery>
+</div>
+
+{%- if section.settings.section_background_color != 'rgba(0,0,0,0)' -%}
+  {% style %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.section_background_color }};
+    }
+  {% endstyle %}
+{%- endif -%}
+
+<script>
+  if (!customElements.get('socal-delivery')) {
+    customElements.define(
+      'socal-delivery',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.form = this.querySelector('[data-zip-form]');
+          if (!this.form) return;
+          this.input = this.querySelector('[data-zip-input]');
+          this.result = this.querySelector('[data-zip-result]');
+          this.defaultText = this.result.textContent;
+          this.input.addEventListener('input', () => {
+            this.input.value = this.input.value.replace(/\D/g, '').slice(0, 5);
+          });
+          this.form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            this.check();
+          });
+        }
+        check() {
+          const zip = this.input.value.trim();
+          const areas = Array.from(this.querySelectorAll('[data-area]'));
+          areas.forEach((area) => area.classList.remove('is-match'));
+          this.result.classList.remove('is-ok', 'is-no');
+          if (!/^\d{5}$/.test(zip)) {
+            this.result.textContent = this.dataset.msgInvalid;
+            this.result.classList.add('is-no');
+            return;
+          }
+          const match = areas.find((area) => area.dataset.zips.split(' ').includes(zip));
+          if (match) {
+            match.classList.add('is-match');
+            this.result.textContent = this.dataset.msgOk.replace('{zip}', zip).replace('{town}', match.dataset.town);
+            this.result.classList.add('is-ok');
+          } else {
+            this.result.textContent = this.dataset.msgNo.replace('{zip}', zip);
+            this.result.classList.add('is-no');
+          }
+        }
+      }
+    );
+  }
+</script>
+
+{% stylesheet %}
+  .socal-delivery {
+    display: block;
+    color: var(--color-text-main);
+  }
+  .socal-delivery__head {
+    max-width: 44rem;
+    margin-bottom: 2.5rem;
+  }
+  .socal-delivery__eyebrow {
+    color: var(--dl-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0 0 0.75rem;
+  }
+  .socal-delivery__heading {
+    margin-bottom: 0;
+  }
+  .socal-delivery__text {
+    margin-top: 1rem;
+  }
+  .socal-delivery__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .socal-delivery__grid > * {
+    min-width: 0;
+  }
+  @media screen and (min-width: 1024px) {
+    .socal-delivery__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  /* Map */
+  .socal-delivery__map {
+    border: var(--border-width-cards, 1px) solid var(--color-borders-main);
+    border-radius: var(--border-radius-cards, 12px);
+    overflow: hidden;
+    background: var(--color-background-main);
+  }
+  .socal-delivery__map svg,
+  .socal-delivery__map img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .socal-delivery__map .dl-ocean { fill: var(--color-secondary-background-main); }
+  .socal-delivery__map .dl-land { fill: var(--color-background-main); }
+  .socal-delivery__map .dl-coast { fill: none; stroke: var(--color-text-main); stroke-width: 1.5; }
+  .socal-delivery__map .dl-zone { fill: var(--dl-accent); fill-opacity: 0.1; stroke: var(--dl-accent); stroke-width: 2; stroke-dasharray: 7 6; }
+  .socal-delivery__map .dl-road { fill: none; stroke: var(--color-borders-main); stroke-width: 3; }
+  .socal-delivery__map .dl-sea-label { fill: var(--color-secondary-text-main); font-family: var(--font-stack-headings); font-size: 18px; letter-spacing: 0.08em; }
+  .socal-delivery__map .dl-towns circle { fill: var(--color-text-main); stroke: var(--color-background-main); stroke-width: 2; }
+  .socal-delivery__map .dl-towns text { fill: var(--color-text-main); font-family: var(--font-stack-body); font-weight: var(--font-weight-body-bold); font-size: 13px; }
+  .socal-delivery__map .dl-pins path { fill: var(--dl-accent); }
+  .socal-delivery__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    padding: 0.85rem 1.1rem;
+    border-top: 1px solid var(--color-borders-main);
+    color: var(--color-secondary-text-main);
+  }
+  .socal-delivery__legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .dl-key {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dl-key--town { background: var(--color-text-main); }
+  .dl-key--pin { background: var(--dl-accent); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+  .dl-key--zone { border: 2px dashed var(--dl-accent); }
+
+  /* ZIP checker */
+  .socal-delivery__check {
+    padding: 1.5rem;
+    border-radius: var(--border-radius-cards, 12px);
+    background: var(--color-third-background-main);
+  }
+  .socal-delivery__check label {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .socal-delivery__row {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .socal-delivery__row .field__input {
+    flex: 1;
+    min-width: 0;
+    max-width: 16rem;
+    letter-spacing: 0.08em;
+  }
+  .socal-delivery__result {
+    margin: 0.85rem 0 0;
+    color: var(--color-secondary-text-main);
+  }
+  .socal-delivery__result.is-ok,
+  .socal-delivery__result.is-no {
+    color: var(--color-text-main);
+    font-weight: var(--font-weight-body-bold);
+  }
+  .socal-delivery__result.is-ok::before {
+    content: '';
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-right: 0.5em;
+    border-radius: 50%;
+    background: var(--dl-accent);
+    vertical-align: middle;
+  }
+
+  /* Areas */
+  .socal-delivery__areas {
+    list-style: none;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    display: grid;
+    column-gap: 2rem;
+    border-top: 1px solid var(--color-borders-main);
+  }
+  @media screen and (min-width: 600px) {
+    .socal-delivery__areas { grid-template-columns: 1fr 1fr; }
+  }
+  .socal-delivery__area {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--color-borders-main);
+  }
+  .socal-delivery__area > span:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .socal-delivery__area.is-match > span:first-child {
+    color: var(--dl-accent);
+  }
+
+  /* Fees */
+  .socal-delivery__fees {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+  @media screen and (min-width: 600px) {
+    .socal-delivery__fees { grid-template-columns: repeat(3, 1fr); }
+  }
+  .socal-delivery__fee {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem 1.1rem;
+    border: var(--border-width-cards, 1px) solid var(--color-borders-main);
+    border-radius: var(--border-radius-cards, 12px);
+  }
+  .socal-delivery__fee-value {
+    margin: 0;
+  }
+
+  /* Pickups */
+  .socal-delivery__pickups {
+    margin-top: 2rem;
+  }
+  .socal-delivery__subheading {
+    margin-bottom: 0.9rem;
+  }
+  .socal-delivery__pickups ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  @media screen and (min-width: 600px) {
+    .socal-delivery__pickups ul { grid-template-columns: 1fr 1fr; }
+  }
+  .socal-delivery__pickup {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    padding: 0.8rem 0.9rem;
+    border-radius: var(--border-radius-cards, 12px);
+    background: var(--color-fourth-background-main);
+    border: 1px solid var(--color-borders-main);
+  }
+  .socal-delivery__pickup svg {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    fill: var(--dl-accent);
+  }
+  .socal-delivery__pickup > span {
+    display: grid;
+  }
+  .socal-delivery__note {
+    margin-top: 0.9rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "SoCal Delivery Area",
+  "tag": "section",
+  "class": "socal-delivery-section",
+  "max_blocks": 30,
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Delivery area" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We deliver across North County." },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag (SEO)",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Monday morning home delivery between 4:00 and 7:30 AM, plus free pickup at our partner locations.</p>"
+    },
+    { "type": "header", "content": "Map" },
+    { "type": "checkbox", "id": "show_map", "label": "Show map", "default": true },
+    {
+      "type": "image_picker",
+      "id": "map_image",
+      "label": "Map image",
+      "info": "Optional. Leave empty to use the built-in North County illustration. Upload your own map if the service area changes."
+    },
+    { "type": "header", "content": "ZIP code checker" },
+    { "type": "checkbox", "id": "show_checker", "label": "Show ZIP checker", "default": true },
+    { "type": "text", "id": "checker_label", "label": "Label", "default": "Do we deliver to you?" },
+    { "type": "text", "id": "checker_placeholder", "label": "Placeholder", "default": "Enter ZIP, e.g. 92008" },
+    { "type": "text", "id": "checker_button", "label": "Button label", "default": "Check" },
+    { "type": "text", "id": "delivery_time", "label": "Default message", "default": "Monday morning home delivery, 4:00–7:30 AM." },
+    {
+      "type": "text",
+      "id": "msg_ok",
+      "label": "Message when ZIP is in the area",
+      "info": "Use {zip} and {town}.",
+      "default": "Yes! We deliver to {zip} ({town}) every Monday, 4:00–7:30 AM. Free for subscribers."
+    },
+    {
+      "type": "text",
+      "id": "msg_no",
+      "label": "Message when ZIP is outside the area",
+      "info": "Use {zip}.",
+      "default": "{zip} is outside our delivery area for now. You can still order for free pickup at one of the locations below."
+    },
+    { "type": "text", "id": "msg_invalid", "label": "Message for an invalid ZIP", "default": "Enter a 5-digit ZIP code." },
+    { "type": "header", "content": "Fees" },
+    { "type": "text", "id": "fee_1_value", "label": "Fee 1", "default": "Free" },
+    { "type": "text", "id": "fee_1_label", "label": "Fee 1 description", "default": "Home delivery for subscribers" },
+    { "type": "text", "id": "fee_2_value", "label": "Fee 2", "default": "$5" },
+    { "type": "text", "id": "fee_2_label", "label": "Fee 2 description", "default": "Flat home delivery for à la carte orders" },
+    { "type": "text", "id": "fee_3_value", "label": "Fee 3", "default": "Free" },
+    { "type": "text", "id": "fee_3_label", "label": "Fee 3 description", "default": "Pickup at any drop location, for everyone" },
+    { "type": "header", "content": "Pickup" },
+    { "type": "text", "id": "pickup_heading", "label": "Pickup heading", "default": "Pickup locations" },
+    {
+      "type": "richtext",
+      "id": "pickup_note",
+      "label": "Pickup note",
+      "default": "<p>Orders arrive at your pickup spot Monday. Hours vary by location, so check the spot's business hours before you go. Just give your name.</p>"
+    },
+    { "type": "header", "content": "Colors" },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "info": "Leave empty to use the theme's accent color.",
+      "default": "#cf2122"
+    },
+    { "type": "color", "id": "section_background_color", "label": "Section background", "default": "rgba(0,0,0,0)" },
+    { "type": "header", "content": "Spacing & visibility" },
+    { "type": "checkbox", "id": "descrease_margin", "label": "Decrease top margin", "default": false },
+    { "type": "checkbox", "id": "remove_margin", "label": "Remove top margin", "default": false },
+    {
+      "type": "select",
+      "id": "section_visibility",
+      "label": "Visibility",
+      "options": [
+        { "value": "always", "label": "Always" },
+        { "value": "mobile", "label": "Mobile only" },
+        { "value": "desktop", "label": "Desktop only" }
+      ],
+      "default": "always"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "area",
+      "name": "Delivery town",
+      "settings": [
+        { "type": "text", "id": "town", "label": "Town", "default": "Carlsbad" },
+        {
+          "type": "text",
+          "id": "zips",
+          "label": "ZIP codes",
+          "info": "Separate with commas, e.g. 92008, 92009",
+          "default": "92008, 92009, 92010, 92011"
+        }
+      ]
+    },
+    {
+      "type": "pickup",
+      "name": "Pickup location",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Location name", "default": "Pickup location" },
+        { "type": "text", "id": "city", "label": "City", "default": "Vista" },
+        { "type": "checkbox", "id": "enabled", "label": "Show this location", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SoCal Delivery Area",
+      "blocks": [
+        { "type": "area", "settings": { "town": "Oceanside", "zips": "92054, 92056, 92057, 92058" } },
+        { "type": "area", "settings": { "town": "Vista", "zips": "92081, 92083, 92084" } },
+        { "type": "area", "settings": { "town": "Carlsbad", "zips": "92008, 92009, 92010, 92011" } },
+        { "type": "area", "settings": { "town": "Leucadia / Encinitas", "zips": "92024" } },
+        { "type": "area", "settings": { "town": "Cardiff-by-the-Sea", "zips": "92007" } },
+        { "type": "area", "settings": { "town": "Del Mar", "zips": "92014" } },
+        { "type": "pickup", "settings": { "name": "CrossFit Trifecta", "city": "Vista" } },
+        { "type": "pickup", "settings": { "name": "FLXR CrossFit", "city": "Carlsbad" } },
+        { "type": "pickup", "settings": { "name": "North County Fitness & Performance", "city": "Vista" } },
+        { "type": "pickup", "settings": { "name": "Thousand Petal Lotus Vegan Market", "city": "Vista" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

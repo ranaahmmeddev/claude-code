@@ -367,7 +367,6 @@ section{scroll-margin-top:90px}
 .local-theme .text-color--secondary{color:var(--color-secondary-text-main)}
 .local-theme .rte p{margin:0 0 .75em}.local-theme .rte p:last-child{margin-bottom:0}
 .local-theme .button{display:inline-block;text-align:center;text-decoration:none;border-style:solid;border-radius:var(--border-radius-buttons);border-width:var(--border-width-buttons);font-weight:var(--font-weight-buttons);line-height:1.25;cursor:pointer}
-.local-theme .button--regular{padding:14px 28px;font-size:calc(15px / 16 * var(--base-body-size))}
 .local-theme .button--solid{background:var(--color-text-main);border-color:var(--color-text-main);color:var(--color-foreground-main)}
 .local-theme .button--solid:hover{opacity:.88}
 .local-theme .socal-faq__intro{top:calc(env(safe-area-inset-top,0px) + 140px)}
@@ -487,6 +486,228 @@ section{scroll-margin-top:90px}
     .socal-faq__icon::after {
       transition: none;
     }
+  }
+
+/* Local 4.2.1 emulation additions for the delivery section */
+.local-theme{--color-third-background-main:rgba(29,29,29,.04);--color-fourth-background-main:rgba(29,29,29,.02);--color-secondary-background-main:rgba(29,29,29,.08);
+  --color-borders-forms-primary:rgba(29,29,29,.3);--border-width-forms:1px;--border-radius-forms:5px;--input-padding:.5rem;--button-padding-regular:.5rem 1.5rem;
+  --border-width-cards:1px;--border-radius-cards:12px}
+@media (min-width:1024px){.local-theme{--input-padding:.75rem;--button-padding-regular:.6875rem 2.25rem}}
+.local-theme .h4{font-family:var(--font-stack-headings);font-weight:var(--font-weight-headings);line-height:var(--base-headings-line);font-variation-settings:normal;letter-spacing:0;font-size:calc(20px / 60 * var(--base-headings-size))}
+@media (min-width:1024px){.local-theme .h4{font-size:calc(24px / 60 * var(--base-headings-size))}}
+.local-theme .button--regular{padding:var(--button-padding-regular);font-size:calc(16px / 16 * var(--base-body-size))}
+@media (min-width:1024px){.local-theme .button--regular{font-size:calc(18px / 16 * var(--base-body-size))}}
+.local-theme input{background-color:var(--color-background-main);border:var(--border-width-forms) solid var(--color-borders-forms-primary);border-radius:var(--border-radius-forms);color:var(--color-text-main);padding:var(--input-padding);font:inherit;-webkit-appearance:none;outline:none}
+.local-theme input:hover,.local-theme input:focus{border-color:var(--color-text-main)}
+.local-theme input::placeholder{color:var(--color-text-main);opacity:.66}
+/* section stylesheet, copied verbatim from shopify/sections/socal-delivery.liquid */
+
+  .socal-delivery {
+    display: block;
+    color: var(--color-text-main);
+  }
+  .socal-delivery__head {
+    max-width: 44rem;
+    margin-bottom: 2.5rem;
+  }
+  .socal-delivery__eyebrow {
+    color: var(--dl-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0 0 0.75rem;
+  }
+  .socal-delivery__heading {
+    margin-bottom: 0;
+  }
+  .socal-delivery__text {
+    margin-top: 1rem;
+  }
+  .socal-delivery__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .socal-delivery__grid > * {
+    min-width: 0;
+  }
+  @media screen and (min-width: 1024px) {
+    .socal-delivery__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  /* Map */
+  .socal-delivery__map {
+    border: var(--border-width-cards, 1px) solid var(--color-borders-main);
+    border-radius: var(--border-radius-cards, 12px);
+    overflow: hidden;
+    background: var(--color-background-main);
+  }
+  .socal-delivery__map svg,
+  .socal-delivery__map img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .socal-delivery__map .dl-ocean { fill: var(--color-secondary-background-main); }
+  .socal-delivery__map .dl-land { fill: var(--color-background-main); }
+  .socal-delivery__map .dl-coast { fill: none; stroke: var(--color-text-main); stroke-width: 1.5; }
+  .socal-delivery__map .dl-zone { fill: var(--dl-accent); fill-opacity: 0.1; stroke: var(--dl-accent); stroke-width: 2; stroke-dasharray: 7 6; }
+  .socal-delivery__map .dl-road { fill: none; stroke: var(--color-borders-main); stroke-width: 3; }
+  .socal-delivery__map .dl-sea-label { fill: var(--color-secondary-text-main); font-family: var(--font-stack-headings); font-size: 18px; letter-spacing: 0.08em; }
+  .socal-delivery__map .dl-towns circle { fill: var(--color-text-main); stroke: var(--color-background-main); stroke-width: 2; }
+  .socal-delivery__map .dl-towns text { fill: var(--color-text-main); font-family: var(--font-stack-body); font-weight: var(--font-weight-body-bold); font-size: 13px; }
+  .socal-delivery__map .dl-pins path { fill: var(--dl-accent); }
+  .socal-delivery__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    padding: 0.85rem 1.1rem;
+    border-top: 1px solid var(--color-borders-main);
+    color: var(--color-secondary-text-main);
+  }
+  .socal-delivery__legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .dl-key {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dl-key--town { background: var(--color-text-main); }
+  .dl-key--pin { background: var(--dl-accent); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+  .dl-key--zone { border: 2px dashed var(--dl-accent); }
+
+  /* ZIP checker */
+  .socal-delivery__check {
+    padding: 1.5rem;
+    border-radius: var(--border-radius-cards, 12px);
+    background: var(--color-third-background-main);
+  }
+  .socal-delivery__check label {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .socal-delivery__row {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .socal-delivery__row .field__input {
+    flex: 1;
+    min-width: 0;
+    max-width: 16rem;
+    letter-spacing: 0.08em;
+  }
+  .socal-delivery__result {
+    margin: 0.85rem 0 0;
+    color: var(--color-secondary-text-main);
+  }
+  .socal-delivery__result.is-ok,
+  .socal-delivery__result.is-no {
+    color: var(--color-text-main);
+    font-weight: var(--font-weight-body-bold);
+  }
+  .socal-delivery__result.is-ok::before {
+    content: '';
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-right: 0.5em;
+    border-radius: 50%;
+    background: var(--dl-accent);
+    vertical-align: middle;
+  }
+
+  /* Areas */
+  .socal-delivery__areas {
+    list-style: none;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    display: grid;
+    column-gap: 2rem;
+    border-top: 1px solid var(--color-borders-main);
+  }
+  @media screen and (min-width: 600px) {
+    .socal-delivery__areas { grid-template-columns: 1fr 1fr; }
+  }
+  .socal-delivery__area {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--color-borders-main);
+  }
+  .socal-delivery__area > span:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .socal-delivery__area.is-match > span:first-child {
+    color: var(--dl-accent);
+  }
+
+  /* Fees */
+  .socal-delivery__fees {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+  @media screen and (min-width: 600px) {
+    .socal-delivery__fees { grid-template-columns: repeat(3, 1fr); }
+  }
+  .socal-delivery__fee {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem 1.1rem;
+    border: var(--border-width-cards, 1px) solid var(--color-borders-main);
+    border-radius: var(--border-radius-cards, 12px);
+  }
+  .socal-delivery__fee-value {
+    margin: 0;
+  }
+
+  /* Pickups */
+  .socal-delivery__pickups {
+    margin-top: 2rem;
+  }
+  .socal-delivery__subheading {
+    margin-bottom: 0.9rem;
+  }
+  .socal-delivery__pickups ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  @media screen and (min-width: 600px) {
+    .socal-delivery__pickups ul { grid-template-columns: 1fr 1fr; }
+  }
+  .socal-delivery__pickup {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    padding: 0.8rem 0.9rem;
+    border-radius: var(--border-radius-cards, 12px);
+    background: var(--color-fourth-background-main);
+    border: 1px solid var(--color-borders-main);
+  }
+  .socal-delivery__pickup svg {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    fill: var(--dl-accent);
+  }
+  .socal-delivery__pickup > span {
+    display: grid;
+  }
+  .socal-delivery__note {
+    margin-top: 0.9rem;
   }
 </style>
 
@@ -658,80 +879,80 @@ section{scroll-margin-top:90px}
   </div>
 </section>
 
-<!-- DELIVERY AREA -->
-<section class="sec delivery" id="delivery" aria-labelledby="delTitle">
-  <div class="wrap">
-    <div>
-      <div class="sec-head" style="margin-bottom:24px"><div><span class="eyebrow">Delivery area</span><h2 id="delTitle">We deliver across North County.</h2></div></div>
-      <div class="map-card">
-        <svg viewBox="0 0 400 460" role="img" aria-label="Map of the North County San Diego delivery area from Oceanside to Del Mar">
-          <defs><pattern id="waves" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 8q6-6 12 0t12 0" fill="none" stroke="#9fdcdb" stroke-width="1.5"/></pattern></defs>
-          <rect width="400" height="460" fill="#bfe8e7"/>
-          <rect width="400" height="460" fill="url(#waves)"/>
-          <!-- land -->
-          <path d="M92 0 L140 60 L160 110 L180 170 L196 230 L214 290 L226 340 L240 400 L252 460 L400 460 L400 0Z" fill="#fbf1de" stroke="#2b1d16" stroke-width="2"/>
-          <!-- service area -->
-          <path d="M122 30 L330 40 L350 150 L300 200 L280 300 L300 430 L246 430 L232 350 L218 295 L200 235 L184 175 L166 115 L146 62Z" fill="#f9cb38" fill-opacity=".45" stroke="#cf2122" stroke-width="2" stroke-dasharray="7 6"/>
-          <!-- roads -->
-          <path d="M150 0 L200 180 L236 330 L262 460" fill="none" stroke="#cca673" stroke-width="3"/>
-          <path d="M165 70 L330 100" fill="none" stroke="#cca673" stroke-width="3"/>
-          <text x="206" y="210" font-family="Poppins,sans-serif" font-size="10" fill="#8a6f4b" transform="rotate(68 206 210)">I-5</text>
-          <text x="248" y="92" font-family="Poppins,sans-serif" font-size="10" fill="#8a6f4b" transform="rotate(10 248 92)">SR-78</text>
-          <text x="36" y="250" font-family="Fraunces,Georgia,serif" font-style="italic" font-size="20" fill="#17706f" transform="rotate(-72 36 250)">Pacific Ocean</text>
-          <!-- towns -->
-          <g class="town" data-town="Oceanside" tabindex="0"><circle cx="165" cy="72" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="178" y="64" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Oceanside</text></g>
-          <g class="town" data-town="Vista" tabindex="0"><circle cx="300" cy="110" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="296" y="136" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Vista</text></g>
-          <g class="town" data-town="Carlsbad" tabindex="0"><circle cx="195" cy="178" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="208" y="172" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Carlsbad</text></g>
-          <g class="town" data-town="Leucadia / Encinitas" tabindex="0"><circle cx="214" cy="262" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="228" y="258" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Leucadia / Encinitas</text></g>
-          <g class="town" data-town="Cardiff-by-the-Sea" tabindex="0"><circle cx="226" cy="318" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="240" y="322" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Cardiff</text></g>
-          <g class="town" data-town="Del Mar" tabindex="0"><circle cx="244" cy="402" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="258" y="406" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Del Mar</text></g>
-          <!-- pickup pins -->
-          <g fill="#cf2122" stroke="#2b1d16" stroke-width="1.6">
-            <path d="M318 96c0-6 9-6 9 0 0 5-4.5 10-4.5 10S318 101 318 96z"/>
-            <path d="M282 88c0-6 9-6 9 0 0 5-4.5 10-4.5 10S282 93 282 88z"/>
-            <path d="M306 146c0-6 9-6 9 0 0 5-4.5 10-4.5 10S306 151 306 146z"/>
-            <path d="M232 190c0-6 9-6 9 0 0 5-4.5 10-4.5 10S232 195 232 190z"/>
-          </g>
-          <!-- compass -->
-          <g transform="translate(360 420)"><circle r="18" fill="#fff" stroke="#2b1d16" stroke-width="2"/><path d="M0-12 5 4 0 1-5 4z" fill="#cf2122"/><text y="-22" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="700" fill="#2b1d16">N</text></g>
-        </svg>
-        <div class="map-legend">
-          <span><i class="lg" style="background:#4dc0bf"></i>Delivery town</span>
-          <span><i class="lg" style="background:#cf2122;border-radius:50% 50% 50% 0"></i>Pickup spot</span>
-          <span><i class="lg" style="background:rgba(249,203,56,.6);border-style:dashed;border-color:#cf2122"></i>Service area</span>
+<!-- DELIVERY AREA — preview of shopify/sections/socal-delivery.liquid rendered with the Local 4.2.1 theme settings -->
+<section id="delivery" class="local-theme" aria-labelledby="delTitle">
+  <div class="container--large container--vertical-space">
+    <socal-delivery class="socal-delivery" style="--dl-accent:#cf2122;" data-msg-ok="Yes! We deliver to {zip} ({town}) every Monday, 4:00–7:30 AM. Free for subscribers." data-msg-no="{zip} is outside our delivery area for now. You can still order for free pickup at one of the locations below." data-msg-invalid="Enter a 5-digit ZIP code.">
+      <div class="socal-delivery__head">
+        <p class="socal-delivery__eyebrow text-size--small text-weight--bold">Delivery area</p>
+        <h2 class="h2 socal-delivery__heading" id="delTitle">We deliver across North County.</h2>
+        <div class="socal-delivery__text rte text-color--secondary"><p>Monday morning home delivery between 4:00 and 7:30 AM, plus free pickup at our partner locations.</p></div>
+      </div>
+      <div class="socal-delivery__grid">
+        <div class="socal-delivery__map">
+          <svg viewBox="0 0 400 460" role="img" aria-label="Map of the delivery area from Oceanside to Del Mar">
+              <rect width="400" height="460" class="dl-ocean"/>
+              <path d="M92 0 L140 60 L160 110 L180 170 L196 230 L214 290 L226 340 L240 400 L252 460 L400 460 L400 0Z" class="dl-land"/>
+              <path d="M92 0 L140 60 L160 110 L180 170 L196 230 L214 290 L226 340 L240 400 L252 460" class="dl-coast"/>
+              <path d="M122 30 L330 40 L350 150 L300 200 L280 300 L300 430 L246 430 L232 350 L218 295 L200 235 L184 175 L166 115 L146 62Z" class="dl-zone"/>
+              <path d="M150 0 L200 180 L236 330 L262 460 M165 70 L330 100" class="dl-road"/>
+              <text x="36" y="250" transform="rotate(-72 36 250)" class="dl-sea-label">Pacific Ocean</text>
+              <g class="dl-towns">
+                <circle cx="165" cy="72" r="6"/><text x="176" y="66">Oceanside</text>
+                <circle cx="300" cy="110" r="6"/><text x="292" y="134">Vista</text>
+                <circle cx="195" cy="178" r="6"/><text x="206" y="172">Carlsbad</text>
+                <circle cx="214" cy="262" r="6"/><text x="225" y="258">Leucadia / Encinitas</text>
+                <circle cx="226" cy="318" r="6"/><text x="237" y="322">Cardiff</text>
+                <circle cx="244" cy="402" r="6"/><text x="255" y="406">Del Mar</text>
+              </g>
+              <g class="dl-pins">
+                <path d="M318 96c0-6 9-6 9 0 0 5-4.5 10-4.5 10S318 101 318 96z"/>
+                <path d="M282 88c0-6 9-6 9 0 0 5-4.5 10-4.5 10S282 93 282 88z"/>
+                <path d="M306 146c0-6 9-6 9 0 0 5-4.5 10-4.5 10S306 151 306 146z"/>
+                <path d="M232 190c0-6 9-6 9 0 0 5-4.5 10-4.5 10S232 195 232 190z"/>
+              </g>
+            </svg>
+          <div class="socal-delivery__legend text-size--small">
+            <span><i class="dl-key dl-key--town"></i>Delivery town</span>
+            <span><i class="dl-key dl-key--pin"></i>Pickup spot</span>
+            <span><i class="dl-key dl-key--zone"></i>Service area</span>
+          </div>
+        </div>
+        <div class="socal-delivery__info">
+          <form class="socal-delivery__check" novalidate data-zip-form>
+            <label for="dl-zip-home" class="text-weight--bold">Do we deliver to you?</label>
+            <div class="socal-delivery__row">
+              <input id="dl-zip-home" class="field__input" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="Enter ZIP, e.g. 92008" data-zip-input>
+              <button type="submit" class="button button--solid button--regular">Check</button>
+            </div>
+            <p class="socal-delivery__result text-size--small" aria-live="polite" data-zip-result>Monday morning home delivery, 4:00–7:30 AM.</p>
+          </form>
+          <ul class="socal-delivery__areas" role="list">
+          <li class="socal-delivery__area" data-area data-town="Oceanside" data-zips="92054 92056 92057 92058"><span class="text-weight--bold">Oceanside</span><span class="text-size--small text-color--secondary">92054, 92056, 92057, 92058</span></li>
+          <li class="socal-delivery__area" data-area data-town="Vista" data-zips="92081 92083 92084"><span class="text-weight--bold">Vista</span><span class="text-size--small text-color--secondary">92081, 92083, 92084</span></li>
+          <li class="socal-delivery__area" data-area data-town="Carlsbad" data-zips="92008 92009 92010 92011"><span class="text-weight--bold">Carlsbad</span><span class="text-size--small text-color--secondary">92008, 92009, 92010, 92011</span></li>
+          <li class="socal-delivery__area" data-area data-town="Leucadia / Encinitas" data-zips="92024"><span class="text-weight--bold">Leucadia / Encinitas</span><span class="text-size--small text-color--secondary">92024</span></li>
+          <li class="socal-delivery__area" data-area data-town="Cardiff-by-the-Sea" data-zips="92007"><span class="text-weight--bold">Cardiff-by-the-Sea</span><span class="text-size--small text-color--secondary">92007</span></li>
+          <li class="socal-delivery__area" data-area data-town="Del Mar" data-zips="92014"><span class="text-weight--bold">Del Mar</span><span class="text-size--small text-color--secondary">92014</span></li>
+          </ul>
+          <div class="socal-delivery__fees">
+          <div class="socal-delivery__fee"><span class="h4 socal-delivery__fee-value">Free</span><span class="text-size--small text-color--secondary">Home delivery for subscribers</span></div>
+          <div class="socal-delivery__fee"><span class="h4 socal-delivery__fee-value">$5</span><span class="text-size--small text-color--secondary">Flat home delivery for à la carte orders</span></div>
+          <div class="socal-delivery__fee"><span class="h4 socal-delivery__fee-value">Free</span><span class="text-size--small text-color--secondary">Pickup at any drop location, for everyone</span></div>
+          </div>
+          <div class="socal-delivery__pickups">
+            <h3 class="h4 socal-delivery__subheading">Pickup locations</h3>
+            <ul role="list">
+            <li class="socal-delivery__pickup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span><span class="text-weight--bold">CrossFit Trifecta</span><span class="text-size--small text-color--secondary">Vista</span></span></li>
+            <li class="socal-delivery__pickup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span><span class="text-weight--bold">FLXR CrossFit</span><span class="text-size--small text-color--secondary">Carlsbad</span></span></li>
+            <li class="socal-delivery__pickup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span><span class="text-weight--bold">North County Fitness &amp; Performance</span><span class="text-size--small text-color--secondary">Vista</span></span></li>
+            <li class="socal-delivery__pickup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span><span class="text-weight--bold">Thousand Petal Lotus Vegan Market</span><span class="text-size--small text-color--secondary">Vista</span></span></li>
+            </ul>
+            <div class="socal-delivery__note rte text-size--small text-color--secondary"><p>Orders arrive at your pickup spot Monday. Hours vary by location, so check the spot's business hours before you go. Just give your name.</p></div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div>
-      <div class="zip-check">
-        <label for="zipInput">Do we deliver to you?</label>
-        <form class="zip-row" id="zipForm" novalidate>
-          <input id="zipInput" inputmode="numeric" maxlength="5" placeholder="Enter ZIP, e.g. 92008" autocomplete="postal-code">
-          <button class="btn btn-red" type="submit">Check</button>
-        </form>
-        <p class="zip-result" id="zipResult" aria-live="polite">Monday morning home delivery, 4:00–7:30 AM.</p>
-      </div>
-
-      <div class="areas" id="areaList"></div>
-
-      <div class="fees">
-        <div class="fee"><b>Free</b><small>Home delivery for subscribers</small></div>
-        <div class="fee"><b>$5</b><small>Flat home delivery for à la carte orders</small></div>
-        <div class="fee"><b>Free</b><small>Pickup at any drop location, for everyone</small></div>
-      </div>
-
-      <div class="pickups">
-        <h3>Pickup locations</h3>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>CrossFit Trifecta<small>Vista</small></div></li>
-          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>FLXR CrossFit<small>Carlsbad</small></div></li>
-          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>North County Fitness &amp; Performance<small>Vista</small></div></li>
-          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>Thousand Petal Lotus Vegan Market<small>Vista</small></div></li>
-        </ul>
-        <p class="note">Orders arrive at your pickup spot Monday. Hours vary by location, so check the spot's business hours before you go. Just give your name.</p>
-      </div>
-    </div>
+    </socal-delivery>
   </div>
 </section>
 
@@ -881,6 +1102,49 @@ section{scroll-margin-top:90px}
 </details>
 
 <script>
+  if (!customElements.get('socal-delivery')) {
+    customElements.define(
+      'socal-delivery',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.form = this.querySelector('[data-zip-form]');
+          if (!this.form) return;
+          this.input = this.querySelector('[data-zip-input]');
+          this.result = this.querySelector('[data-zip-result]');
+          this.defaultText = this.result.textContent;
+          this.input.addEventListener('input', () => {
+            this.input.value = this.input.value.replace(/\D/g, '').slice(0, 5);
+          });
+          this.form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            this.check();
+          });
+        }
+        check() {
+          const zip = this.input.value.trim();
+          const areas = Array.from(this.querySelectorAll('[data-area]'));
+          areas.forEach((area) => area.classList.remove('is-match'));
+          this.result.classList.remove('is-ok', 'is-no');
+          if (!/^\d{5}$/.test(zip)) {
+            this.result.textContent = this.dataset.msgInvalid;
+            this.result.classList.add('is-no');
+            return;
+          }
+          const match = areas.find((area) => area.dataset.zips.split(' ').includes(zip));
+          if (match) {
+            match.classList.add('is-match');
+            this.result.textContent = this.dataset.msgOk.replace('{zip}', zip).replace('{town}', match.dataset.town);
+            this.result.classList.add('is-ok');
+          } else {
+            this.result.textContent = this.dataset.msgNo.replace('{zip}', zip);
+            this.result.classList.add('is-no');
+          }
+        }
+      }
+    );
+  }
+</script>
+<script>
 (function(){
   /* ---------- Data (from the client questionnaire) ---------- */
   var PLANS=[
@@ -949,30 +1213,6 @@ section{scroll-margin-top:90px}
   art.innerHTML='<rect width="500" height="400" fill="#f9cb38"/>'+
     '<g transform="translate(-10 40) scale(1.05)">'+bowl(MEALS[1],1,"#f9cb38").replace(/^<svg[^>]*>|<\/svg>$/g,"")+'</g>'+
     '<g transform="translate(250 -20) scale(.85)">'+bowl(MEALS[0],0,"none").replace(/^<svg[^>]*>|<\/svg>$/g,"").replace('<rect width="300" height="300" fill="none"/>','')+'</g>';
-
-  /* ---------- Delivery area ---------- */
-  var areaList=document.getElementById("areaList");
-  areaList.innerHTML=AREAS.map(function(a){return '<div class="area" data-town="'+a.town+'" tabindex="0"><strong>'+a.town+'</strong><span>'+a.zips.join(", ")+'</span></div>'}).join("");
-  function highlight(town){
-    document.querySelectorAll("[data-town]").forEach(function(el){
-      var t=el.getAttribute("data-town");
-      el.classList.toggle("active",t===town||(town==="Cardiff-by-the-Sea"&&t==="Cardiff-by-the-Sea"));
-    });
-  }
-  document.querySelectorAll("[data-town]").forEach(function(el){
-    el.addEventListener("click",function(){highlight(el.getAttribute("data-town"))});
-    el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();highlight(el.getAttribute("data-town"))}});
-  });
-  var zipForm=document.getElementById("zipForm"),zipInput=document.getElementById("zipInput"),zipResult=document.getElementById("zipResult");
-  zipInput.addEventListener("input",function(){zipInput.value=zipInput.value.replace(/\D/g,"").slice(0,5)});
-  zipForm.addEventListener("submit",function(e){
-    e.preventDefault();
-    var z=zipInput.value.trim();
-    if(!/^\d{5}$/.test(z)){zipResult.className="zip-result no";zipResult.textContent="Enter a 5-digit ZIP code.";return}
-    var hit=AREAS.filter(function(a){return a.zips.indexOf(z)>-1})[0];
-    if(hit){zipResult.className="zip-result ok";zipResult.textContent="Yes! We deliver to "+z+" ("+hit.town+") every Monday, 4:00–7:30 AM. Free for subscribers.";highlight(hit.town)}
-    else{zipResult.className="zip-result no";zipResult.textContent=z+" is outside our delivery area for now. You can still order for free pickup at one of our drop locations below.";highlight("")}
-  });
 
   /* ---------- Mobile nav ---------- */
   var mt=document.getElementById("menuToggle"),mn=document.getElementById("mobileNav");
