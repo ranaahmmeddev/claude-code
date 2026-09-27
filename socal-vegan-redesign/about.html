@@ -1,5 +1,10 @@
-<title>The SoCal Vegan Homepage</title>
-<meta name="description" content="Homepage redesign preview for The SoCal Vegan — weekly vegan meal prep in North County San Diego.">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About The SoCal Vegan</title>
+<meta name="description" content="Meet Sharon King and The SoCal Vegan, a weekly vegan meal-prep kitchen in Carlsbad serving North County San Diego.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,600..900,100,1&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
@@ -337,8 +342,81 @@ section{scroll-margin-top:90px}
 .preview-ctl button[aria-pressed="true"]{background:var(--yellow);border-color:var(--ink)}
 .preview-ctl p{margin-top:8px;color:var(--ink-2);max-width:220px}
 @media (max-width:700px){.preview-ctl{bottom:84px}}
-</style>
 
+/* ===== About page ===== */
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nav a[aria-current="page"]{background:var(--yellow);color:var(--ink)}
+.sel{user-select:all}
+.crumbs{font-size:13px;color:var(--ink-2);margin-bottom:14px}
+.crumbs a{color:var(--ink-2)}
+.sub-lede{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:48ch}
+.ab-hero{background:var(--paper-2);border-bottom:2px solid var(--ink);overflow:hidden}
+.ab-hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center;padding-block:52px 64px}
+.ab-hero h1{font-size:clamp(42px,6vw,80px);font-weight:900;margin-top:14px}
+.ab-hero h1 em{color:var(--red)}
+.ab-portrait{max-width:400px;justify-self:end;width:100%}
+@media (max-width:860px){.ab-hero .wrap{grid-template-columns:1fr}.ab-portrait{justify-self:start;max-width:320px}}
+
+.ab-facts{background:var(--yellow);border-bottom:2px solid var(--ink)}
+.ab-facts .wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.ab-facts .wrap>div{padding:22px 16px;border-left:2px solid var(--ink);display:grid;gap:4px}
+.ab-facts .wrap>div:first-child{border-left:0}
+.ab-facts b{font:900 clamp(30px,3.4vw,42px)/1 var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;color:var(--red);font-variant-numeric:tabular-nums}
+.ab-facts span{font:600 12px/1.35 var(--body);letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:820px){.ab-facts .wrap{grid-template-columns:repeat(2,1fr)}.ab-facts .wrap>div{border-left:0;border-top:2px solid var(--ink)}.ab-facts .wrap>div:nth-child(-n+2){border-top:0}.ab-facts .wrap>div:nth-child(even){border-left:2px solid var(--ink)}.ab-facts .wrap>div:last-child{grid-column:1/-1}}
+
+.ab-story .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.story-side{position:sticky;top:150px}
+.story-side h2{font-size:clamp(44px,5.4vw,72px);font-weight:900;margin-top:12px}
+.story-side .tagline{font:italic 500 22px/1.35 var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;margin-top:14px;color:var(--ink-2)}
+.story-body{display:grid;gap:18px;font-size:18px;max-width:62ch}
+.story-body .lead{font-size:22px;font-weight:500;line-height:1.5}
+.story-body blockquote{margin:10px 0;padding:22px 26px;border:2px solid var(--ink);border-radius:18px;background:#e9f7f7;box-shadow:var(--shadow);font:700 clamp(22px,2.4vw,28px)/1.3 var(--display);font-variation-settings:"SOFT" 100,"WONK" 1}
+.story-body .sign{font-weight:600;color:var(--red)}
+@media (max-width:860px){.ab-story .wrap{grid-template-columns:1fr;gap:24px}.story-side{position:static}}
+
+.ab-mission{background:var(--red);color:#fff;border-block:2px solid var(--ink)}
+.ab-mission .wrap{padding-block:clamp(56px,7vw,96px);text-align:center;display:grid;gap:18px;justify-items:center}
+.ab-mission .eyebrow{color:var(--yellow)}
+.ab-mission h2{font-size:clamp(30px,4.4vw,56px);font-weight:900;max-width:22ch}
+
+.slots{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.slot{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--paper)}
+.slot-art{aspect-ratio:1;max-width:100%;border-bottom:2px solid var(--ink)}
+.slot-art svg{width:100%;height:100%;display:block}
+.slot h3{font-size:21px;padding:16px 16px 0}
+.slot p{font-size:14px;color:var(--ink-2);padding:6px 16px 18px}
+@media (max-width:1100px){.slots{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:700px){.slots{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.slots{grid-template-columns:1fr}}
+
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.val{background:var(--paper);border:2px solid var(--ink);border-radius:16px;padding:22px;display:grid;gap:10px;align-content:start}
+.val i{width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center}
+.val i svg{width:24px;height:24px}
+.val h3{font-size:24px}
+.val p{color:var(--ink-2);font-size:15px}
+@media (max-width:960px){.values{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.values{grid-template-columns:1fr}}
+
+.ab-local .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.ab-local h2{font-size:clamp(32px,4vw,50px);font-weight:900;margin-top:12px}
+.ab-local p{margin-block:16px 24px;color:var(--ink-2);max-width:50ch}
+.partners{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.partners li{display:flex;justify-content:space-between;align-items:center;gap:14px;border:2px solid var(--ink);border-radius:999px;padding:14px 22px;background:var(--paper)}
+.partners li:nth-child(odd){background:#e9f7f7}
+.partners span{font:600 12px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+@media (max-width:860px){.ab-local .wrap{grid-template-columns:1fr}}
+
+.ab-cta-btns{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.ab-cta-btns .mail{flex-basis:100%;font-size:14px;opacity:.9}
+.ab-cta{background:var(--teal);color:var(--ink)}
+.ab-cta h2{color:var(--ink)}
+.ab-cta .reviews-link{color:var(--ink)}
+.ab-cta .reviews-link .stars{color:var(--red)}
+</style>
+</head>
+<body>
 <!-- ANNOUNCEMENT -->
 <div class="ticker" aria-label="Announcements">
   <div class="ticker-track" aria-hidden="true">
@@ -350,7 +428,7 @@ section{scroll-margin-top:90px}
 <!-- HEADER -->
 <header class="header" id="top">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="The SoCal Vegan home">
+    <a class="logo" href="index.html" aria-label="The SoCal Vegan home">
       <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
         <circle cx="24" cy="24" r="22" fill="#f9cb38" stroke="#2b1d16" stroke-width="2"/>
         <rect x="2" y="26" width="44" height="4" fill="#f28141"/><rect x="2" y="33" width="44" height="4" fill="#cf2122"/>
@@ -360,234 +438,41 @@ section{scroll-margin-top:90px}
       <span class="logo-text">The SoCal<br>Vegan<small>North County SD</small></span>
     </a>
     <nav class="nav" aria-label="Main">
-      <a href="#top">Home</a>
+      <a href="index.html">Home</a>
       <a href="subscriptions.html">Subscriptions</a>
       <a href="a-la-carte.html">À la carte</a>
-      <a href="#how">How it works</a>
+      <a href="index.html#how">How it works</a>
       <a href="#footer">Gift cards</a>
-      <a href="about.html">About us</a>
+      <a href="about.html" aria-current="page">About us</a>
       <a href="#footer">Contact</a>
     </nav>
     <div class="header-actions">
       <a class="icon-btn account" href="#footer" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
-      <a class="icon-btn" href="#plans" aria-label="Cart, 0 items"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.5 12h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge">0</span></a>
+      <a class="icon-btn" href="index.html#plans" aria-label="Cart, 0 items"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.5 12h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge">0</span></a>
       <button class="icon-btn menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
   <a class="order-strip" href="#order"><span class="dot"></span><span><span data-strip-status>Ordering open</span> · <span data-strip-text>Order for Monday delivery</span></span><span class="sep" aria-hidden="true">|</span><span><span data-chip-label>Closes in</span> <b data-cd-short>—</b></span><span class="go">Details →</span></a>
   <nav class="mobile-nav" id="mobileNav" hidden aria-label="Mobile">
-    <a href="#top">Home</a><a href="subscriptions.html">Subscriptions</a><a href="a-la-carte.html">À la carte</a><a href="#how">How it works</a><a href="#footer">Gift cards</a><a href="about.html">About us</a><a href="#footer">Contact</a>
+    <a href="index.html">Home</a><a href="subscriptions.html">Subscriptions</a><a href="a-la-carte.html">À la carte</a><a href="index.html#how">How it works</a><a href="#footer">Gift cards</a><a href="about.html">About us</a><a href="#footer">Contact</a>
   </nav>
 </header>
 
 <main>
 <!-- HERO -->
-<section class="hero" aria-labelledby="heroTitle">
-  <div class="hero-sun" aria-hidden="true"></div>
+<section class="ab-hero" aria-labelledby="abTitle">
   <div class="wrap">
     <div>
-      <p class="eyebrow" style="color:var(--teal-ink);margin-bottom:18px">Weekly vegan meal prep · Carlsbad, CA</p>
-      <h1 id="heroTitle">Fresh vegan meals made for <em>your week.</em></h1>
-      <p class="hero-sub">Chef-crafted, plant-based meals prepared fresh each week and made to fit your lifestyle.</p>
-      <div class="slogan" aria-label="You choose, we cook, we deliver">
-        <span>You choose</span><b aria-hidden="true">→</b><span>We cook</span><b aria-hidden="true">→</b><span>We deliver</span>
-      </div>
+      <p class="crumbs"><a href="index.html">Home</a> <span aria-hidden="true">/</span> About us</p>
+      <span class="eyebrow" style="color:var(--teal-ink)">About The SoCal Vegan</span>
+      <h1 id="abTitle">Real food. <em>Plant-powered.</em> Made for your week.</h1>
+      <p class="sub-lede">Meet Sharon, the founder and cook behind The SoCal Vegan, creating flavorful, satisfying plant-based meals that make eating well feel easy.</p>
       <div class="hero-ctas">
-        <a class="btn btn-red" href="subscriptions.html">View subscriptions</a>
-        <a class="btn btn-ghost" href="a-la-carte.html">Shop à la carte</a>
-      </div>
-      <div class="hero-meta"><span>100% vegan</span><span>5 new meals every week</span><span>Skip any week</span></div>
-    </div>
-
-    <!-- Order countdown -->
-    <aside class="order-card" id="order" aria-labelledby="orderTitle">
-      <span class="status" data-status>Ordering open</span>
-      <h2 id="orderTitle" data-order-title>Order for Monday delivery</h2>
-      <div class="cd-grid" role="timer" aria-label="Time remaining" data-cd-grid>
-        <div class="cd-cell"><b data-cd-d>0</b><small>Days</small></div>
-        <div class="cd-cell"><b data-cd-h>00</b><small>Hours</small></div>
-        <div class="cd-cell"><b data-cd-m>00</b><small>Mins</small></div>
-        <div class="cd-cell"><b data-cd-s>00</b><small>Secs</small></div>
-      </div>
-      <div class="order-rows">
-        <div class="order-row"><span data-row1-label>Selections close</span><strong data-row1>—</strong></div>
-        <div class="order-row"><span>Your delivery</span><strong data-delivery>—</strong></div>
-        <div class="order-row"><span>Delivery window</span><strong>4:00 – 7:30 AM</strong></div>
-      </div>
-      <a class="btn btn-red" href="#menu" data-order-cta>Choose your meals</a>
-      <p class="order-note" data-order-note>Subscribers are charged Thursday at 2:00 PM PT. Skip before then and you won't be charged.</p>
-    </aside>
-  </div>
-</section>
-
-<!-- WEEKLY RHYTHM -->
-<section class="sec rhythm" aria-labelledby="rhythmTitle">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="eyebrow">The weekly rhythm</span><h2 id="rhythmTitle">Same schedule, every week.</h2></div>
-      <p>No delivery-date picker to think about. Orders placed before the Thursday cutoff arrive the following Monday morning.</p>
-    </div>
-    <ol class="timeline" style="list-style:none;padding:0;margin:0">
-      <li class="tl" data-tl="open"><span class="now-tag">You are here</span>
-        <div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
-        <div class="tl-day">Tuesday</div><div class="tl-time">8:00 AM</div>
-        <p>The new five-meal menu goes live. Pick your meals or order à la carte.</p></li>
-      <li class="tl" data-tl="cutoff"><span class="now-tag">You are here</span>
-        <div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></div>
-        <div class="tl-day">Thursday</div><div class="tl-time">2:00 PM PT</div>
-        <p>Selections, skips and cancellations close. Subscriptions are charged.</p></li>
-      <li class="tl" data-tl="cook"><span class="now-tag">You are here</span>
-        <div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M6 14h12v3a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z"/><path d="M4 14h16M9 10c0-2 2-2 2-4M13 10c0-2 2-2 2-4"/></svg></div>
-        <div class="tl-day">Fri – Sun</div><div class="tl-time">In the kitchen</div>
-        <p>Sharon and the team shop, prep and cook your meals fresh.</p></li>
-      <li class="tl" data-tl="deliver"><span class="now-tag">You are here</span>
-        <div class="tl-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></div>
-        <div class="tl-day">Monday</div><div class="tl-time">4:00 – 7:30 AM</div>
-        <p>Delivered to your door or your pickup spot before most people wake up.</p></li>
-    </ol>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="sec" id="how" aria-labelledby="howTitle">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="eyebrow">How it works</span><h2 id="howTitle">Three steps to a stocked fridge.</h2></div>
-      <p>The SoCal Vegan makes weekly plant-based eating easy, by subscription or à la carte, with local delivery and pickup across North County San Diego.</p>
-    </div>
-    <div class="steps">
-      <article class="step"><div class="step-num">1</div><h3>You <span>choose</span></h3><p>Pick a weekly subscription plan or order à la carte, then choose from five rotating weekly meals.</p></article>
-      <article class="step"><div class="step-num">2</div><h3>We <span>cook</span></h3><p>Your meals are prepared fresh for the upcoming Monday fulfillment.</p></article>
-      <article class="step"><div class="step-num">3</div><h3>We <span>deliver</span></h3><p>Monday morning local delivery, or pick up at a participating drop location.</p></article>
-    </div>
-  </div>
-</section>
-
-<!-- PLANS -->
-<section class="sec plans-sec" id="plans" aria-labelledby="plansTitle">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="eyebrow">Weekly subscriptions</span><h2 id="plansTitle">Choose your plan.</h2></div>
-      <p>Choose the plan that fits your week. The menu changes weekly, so there's always something fresh to look forward to.</p>
-    </div>
-    <div class="plans" id="planGrid"></div>
-    <div class="plans-foot"><span>Free local delivery or pickup</span><span>Skip any week before Thu 2 PM</span><span>Last week's picks carry over</span></div>
-  </div>
-</section>
-
-<!-- MENU -->
-<section class="sec" id="menu" aria-labelledby="menuTitle">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><span class="eyebrow" data-menu-eyebrow>This week's menu</span><h2 id="menuTitle">Five meals. New every Tuesday.</h2></div>
-      <p>Pick any mix for your plan, or several of the same meal. Every dish is 100% vegan.</p>
-    </div>
-    <div class="menu-grid" id="menuGrid"></div>
-    <p class="menu-note">Allergens and nutrition are listed on each meal. Our kitchen handles wheat, soy, sesame, peanuts and tree nuts, so we can't guarantee any meal is free from allergens or cross-contact.</p>
-  </div>
-</section>
-
-<!-- À LA CARTE -->
-<section class="sec alc" id="alc" aria-labelledby="alcTitle">
-  <div class="wrap">
-    <div>
-      <h2 id="alcTitle">Not ready to subscribe? <em>Order à la carte!</em></h2>
-      <p>Try our chef-crafted vegan meals with no weekly commitment. Same five meals as subscribers, ordered whenever you want.</p>
-      <div class="alc-facts">
-        <div class="fact"><b>$18</b><small>Per meal</small></div>
-        <div class="fact"><b>2</b><small>Meal minimum</small></div>
-        <div class="fact"><b>$5</b><small>Home delivery<br>Pickup free</small></div>
-      </div>
-      <a class="btn btn-yellow" href="a-la-carte.html">Shop à la carte</a>
-    </div>
-    <div class="alc-art" aria-hidden="true">
-      <svg viewBox="0 0 500 400" id="alcArt"></svg>
-      <div class="stamp">100%<br>plant-<br>based</div>
-    </div>
-  </div>
-</section>
-
-<!-- DELIVERY AREA -->
-<section class="sec delivery" id="delivery" aria-labelledby="delTitle">
-  <div class="wrap">
-    <div>
-      <div class="sec-head" style="margin-bottom:24px"><div><span class="eyebrow">Delivery area</span><h2 id="delTitle">We deliver across North County.</h2></div></div>
-      <div class="map-card">
-        <svg viewBox="0 0 400 460" role="img" aria-label="Map of the North County San Diego delivery area from Oceanside to Del Mar">
-          <defs><pattern id="waves" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 8q6-6 12 0t12 0" fill="none" stroke="#9fdcdb" stroke-width="1.5"/></pattern></defs>
-          <rect width="400" height="460" fill="#bfe8e7"/>
-          <rect width="400" height="460" fill="url(#waves)"/>
-          <!-- land -->
-          <path d="M92 0 L140 60 L160 110 L180 170 L196 230 L214 290 L226 340 L240 400 L252 460 L400 460 L400 0Z" fill="#fbf1de" stroke="#2b1d16" stroke-width="2"/>
-          <!-- service area -->
-          <path d="M122 30 L330 40 L350 150 L300 200 L280 300 L300 430 L246 430 L232 350 L218 295 L200 235 L184 175 L166 115 L146 62Z" fill="#f9cb38" fill-opacity=".45" stroke="#cf2122" stroke-width="2" stroke-dasharray="7 6"/>
-          <!-- roads -->
-          <path d="M150 0 L200 180 L236 330 L262 460" fill="none" stroke="#cca673" stroke-width="3"/>
-          <path d="M165 70 L330 100" fill="none" stroke="#cca673" stroke-width="3"/>
-          <text x="206" y="210" font-family="Poppins,sans-serif" font-size="10" fill="#8a6f4b" transform="rotate(68 206 210)">I-5</text>
-          <text x="248" y="92" font-family="Poppins,sans-serif" font-size="10" fill="#8a6f4b" transform="rotate(10 248 92)">SR-78</text>
-          <text x="36" y="250" font-family="Fraunces,Georgia,serif" font-style="italic" font-size="20" fill="#17706f" transform="rotate(-72 36 250)">Pacific Ocean</text>
-          <!-- towns -->
-          <g class="town" data-town="Oceanside" tabindex="0"><circle cx="165" cy="72" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="178" y="64" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Oceanside</text></g>
-          <g class="town" data-town="Vista" tabindex="0"><circle cx="300" cy="110" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="296" y="136" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Vista</text></g>
-          <g class="town" data-town="Carlsbad" tabindex="0"><circle cx="195" cy="178" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="208" y="172" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Carlsbad</text></g>
-          <g class="town" data-town="Leucadia / Encinitas" tabindex="0"><circle cx="214" cy="262" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="228" y="258" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Leucadia / Encinitas</text></g>
-          <g class="town" data-town="Cardiff-by-the-Sea" tabindex="0"><circle cx="226" cy="318" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="240" y="322" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Cardiff</text></g>
-          <g class="town" data-town="Del Mar" tabindex="0"><circle cx="244" cy="402" r="8" fill="#4dc0bf" stroke="#2b1d16" stroke-width="2"/><text x="258" y="406" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="#2b1d16">Del Mar</text></g>
-          <!-- pickup pins -->
-          <g fill="#cf2122" stroke="#2b1d16" stroke-width="1.6">
-            <path d="M318 96c0-6 9-6 9 0 0 5-4.5 10-4.5 10S318 101 318 96z"/>
-            <path d="M282 88c0-6 9-6 9 0 0 5-4.5 10-4.5 10S282 93 282 88z"/>
-            <path d="M306 146c0-6 9-6 9 0 0 5-4.5 10-4.5 10S306 151 306 146z"/>
-            <path d="M232 190c0-6 9-6 9 0 0 5-4.5 10-4.5 10S232 195 232 190z"/>
-          </g>
-          <!-- compass -->
-          <g transform="translate(360 420)"><circle r="18" fill="#fff" stroke="#2b1d16" stroke-width="2"/><path d="M0-12 5 4 0 1-5 4z" fill="#cf2122"/><text y="-22" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="700" fill="#2b1d16">N</text></g>
-        </svg>
-        <div class="map-legend">
-          <span><i class="lg" style="background:#4dc0bf"></i>Delivery town</span>
-          <span><i class="lg" style="background:#cf2122;border-radius:50% 50% 50% 0"></i>Pickup spot</span>
-          <span><i class="lg" style="background:rgba(249,203,56,.6);border-style:dashed;border-color:#cf2122"></i>Service area</span>
-        </div>
+        <a class="btn btn-red" href="index.html#menu">Shop this week's menu</a>
+        <a class="btn btn-ghost" href="#story">Meet Sharon</a>
       </div>
     </div>
-
-    <div>
-      <div class="zip-check">
-        <label for="zipInput">Do we deliver to you?</label>
-        <form class="zip-row" id="zipForm" novalidate>
-          <input id="zipInput" inputmode="numeric" maxlength="5" placeholder="Enter ZIP, e.g. 92008" autocomplete="postal-code">
-          <button class="btn btn-red" type="submit">Check</button>
-        </form>
-        <p class="zip-result" id="zipResult" aria-live="polite">Monday morning home delivery, 4:00–7:30 AM.</p>
-      </div>
-
-      <div class="areas" id="areaList"></div>
-
-      <div class="fees">
-        <div class="fee"><b>Free</b><small>Home delivery for subscribers</small></div>
-        <div class="fee"><b>$5</b><small>Flat home delivery for à la carte orders</small></div>
-        <div class="fee"><b>Free</b><small>Pickup at any drop location, for everyone</small></div>
-      </div>
-
-      <div class="pickups">
-        <h3>Pickup locations</h3>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>CrossFit Trifecta<small>Vista</small></div></li>
-          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>FLXR CrossFit<small>Carlsbad</small></div></li>
-          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>North County Fitness &amp; Performance<small>Vista</small></div></li>
-          <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div>Thousand Petal Lotus Vegan Market<small>Vista</small></div></li>
-        </ul>
-        <p class="note">Orders arrive at your pickup spot Monday. Hours vary by location, so check the spot's business hours before you go. Just give your name.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MEET SHARON -->
-<section class="sec sharon" id="sharon" aria-labelledby="sharonTitle">
-  <div class="wrap">
-    <div class="portrait" aria-hidden="true">
+    <div class="portrait ab-portrait" aria-hidden="true">
       <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMax slice">
         <circle cx="200" cy="200" r="150" fill="#f9cb38" opacity=".9"/>
         <rect x="0" y="230" width="400" height="18" fill="#f28141"/><rect x="0" y="262" width="400" height="18" fill="#f28141" opacity=".7"/>
@@ -597,76 +482,110 @@ section{scroll-margin-top:90px}
       </svg>
       <span>Photo: Sharon King</span>
     </div>
-    <div>
-      <span class="eyebrow" style="color:var(--teal-ink)">Chef &amp; founder</span>
-      <h2 id="sharonTitle" style="margin-top:12px">Meet Sharon</h2>
+  </div>
+</section>
+
+<!-- FACTS STRIP -->
+<section class="ab-facts" aria-label="The SoCal Vegan at a glance">
+  <div class="wrap">
+    <div><b>2023</b><span>Cooking for North County since</span></div>
+    <div><b>5</b><span>New meals every Tuesday</span></div>
+    <div><b>100%</b><span>Vegan, every single dish</span></div>
+    <div><b>6</b><span>Towns on our Monday route</span></div>
+    <div><b>4</b><span>Partner pickup spots</span></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="sec ab-story" id="story" aria-labelledby="storyTitle">
+  <div class="wrap">
+    <div class="story-side">
+      <span class="eyebrow" style="color:var(--red)">Founder &amp; cook</span>
+      <h2 id="storyTitle">Hi, I'm Sharon.</h2>
       <p class="tagline">Vegan eats specialist. Recipe whisperer. Spice fanatic.</p>
-      <div class="bio">
-        <p>I'm here to make plant-based eating simple, satisfying, and full of flavor.</p>
-        <p>Every meal is crafted with whole ingredients, bold flavors, and a whole lot of love.</p>
-      </div>
-      <div class="benefits">
-        <div class="benefit"><i><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14zM5 19l7-7"/></svg></i><span>100% plant-based<small>Wholesome ingredients</small></span></div>
-        <div class="benefit"><i style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M7 14a4 4 0 1 1 2-7 4 4 0 0 1 6 0 4 4 0 1 1 2 7v5H7z"/></svg></i><span>Chef crafted<small>Made with care</small></span></div>
-        <div class="benefit"><i style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></i><span>Fresh weekly menu<small>New meals each week</small></span></div>
-        <div class="benefit"><i><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></i><span>Local delivery &amp; pickup<small>Convenient local service</small></span></div>
-        <div class="benefit"><i style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2M20 4v5h-5M4 20v-5h5"/></svg></i><span>Skip a week anytime<small>Flexible subscriptions</small></span></div>
-      </div>
-      <div class="sharon-ctas">
-        <a class="btn btn-red" href="about.html">More about us</a>
-      </div>
+    </div>
+    <div class="story-body">
+      <p class="lead">I'm the face, cook, recipe tinkerer, and plant-powered foodie behind The SoCal Vegan.</p>
+      <p>What started from a love of good food, plants, flavor, and the Southern California lifestyle has grown into something I'm incredibly proud to share with my community in North County San Diego.</p>
+      <blockquote>I believe eating plant-based shouldn't mean settling for boring salads or spending your entire Sunday meal-prepping.</blockquote>
+      <p>It should be colorful, satisfying, flavorful, convenient, and something you actually look forward to eating.</p>
+      <p>That's why I create rotating weekly menus filled with thoughtfully prepared vegan meals designed to make your busy week a little easier.</p>
+      <p class="sign">— Sharon King, Carlsbad, CA</p>
     </div>
   </div>
 </section>
 
-<!-- FAQ (short) -->
-<section class="sec faq" id="faq" aria-labelledby="faqTitle">
+<!-- MISSION -->
+<section class="ab-mission" aria-labelledby="missionTitle">
   <div class="wrap">
-    <div class="faq-side">
-      <span class="eyebrow" style="color:var(--red);display:block;margin-bottom:12px">Quick answers</span>
-      <h2 id="faqTitle">Good questions.</h2>
-      <p>The ones we hear most before a first order. Everything else lives on the full FAQ page.</p>
-      <a class="btn btn-ghost" href="#faq">See all FAQs</a>
-      <p class="mail">Still stuck? Email <b>hello@thesocalvegan.com</b><br>Mon–Fri, 8 AM – 5 PM</p>
+    <span class="eyebrow">Our mission</span>
+    <h2 id="missionTitle">Make delicious plant-based meals easy and convenient for busy people in North County San Diego.</h2>
+  </div>
+</section>
+
+<!-- WHAT WE COOK -->
+<section class="sec" aria-labelledby="cookTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">What we cook</span><h2 id="cookTitle">A balanced five, every week.</h2></div>
+      <p>Creative, globally inspired vegan cooking with bold flavors. Each weekly menu is built around a mix like this, so there's always something for lunch, dinner and in-between.</p>
     </div>
-    <div class="faq-list">
-      <details open><summary>When does the menu open, and when is the cutoff?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>The new menu opens every <strong>Tuesday at 8:00 AM</strong>. Meal selections, skips and cancellations close <strong>Thursday at 2:00 PM Pacific</strong>. Subscriptions are charged at the cutoff and meals arrive the following Monday.</p></div></details>
-      <details><summary>What if I forget to choose my meals?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Your subscription still goes through. If you don't pick anything new, last week's selections repeat. If any slots are still open after the cutoff, Sharon fills just those with Chef's Choice meals from that week's menu.</p></div></details>
-      <details><summary>Can I skip a week?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Yes. Skip the upcoming week in your account before Thursday 2:00 PM and you won't be charged. Your subscription picks back up automatically the week after.</p></div></details>
-      <details><summary>Where and when do you deliver?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Monday mornings between about 4:00 and 7:30 AM, to Oceanside, Vista, Carlsbad, Leucadia/Encinitas, Cardiff-by-the-Sea and Del Mar. Delivery day is fixed, so there's no date to pick. Add a gate code or drop-off note at checkout.</p></div></details>
-      <details><summary>How much is delivery?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Free for subscribers. À la carte home delivery is a flat $5. Pickup at any of our drop locations is always free.</p></div></details>
-      <details><summary>Is there a minimum for à la carte?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Two meals. À la carte meals are $18 each and come from the same five-meal weekly menu.</p></div></details>
-      <details><summary>Are all meals vegan? What about allergens?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Every meal is 100% vegan, so everything is dairy-free. Some weeks include gluten-free dishes, marked on the meal. Our kitchen handles wheat, soy, sesame, peanuts and tree nuts, so please check each meal's allergen list before ordering.</p></div></details>
-      <details><summary>How long do meals keep?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Keep them at 41°F or below. Salads are best within 3–4 days and reheatable meals within 4–5 days. Many prepared meals freeze well if you freeze them while fresh.</p></div></details>
-      <details><summary>How do I cancel?<span class="pm" aria-hidden="true">+</span></summary>
-        <div class="ans"><p>Email hello@thesocalvegan.com before Thursday 2:00 PM to stop the upcoming order. Requests after the cutoff take effect the following week.</p></div></details>
+    <div class="slots">
+      <article class="slot"><div class="slot-art" id="slot0"></div><h3>Noodles &amp; pasta</h3><p>Japchae, dan dan, udon, cold soba and comfort-food pastas.</p></article>
+      <article class="slot"><div class="slot-art" id="slot1"></div><h3>Feature entrée</h3><p>The week's centerpiece, from jerk tofu to Southern black-eyed pea bowls.</p></article>
+      <article class="slot"><div class="slot-art" id="slot2"></div><h3>Salad</h3><p>Big, crunchy, dressed-to-impress salads that eat like a meal.</p></article>
+      <article class="slot"><div class="slot-art" id="slot3"></div><h3>Nourish bowl</h3><p>Grains, beans, roasted veg and a homemade sauce.</p></article>
+      <article class="slot"><div class="slot-art" id="slot4"></div><h3>Soup, curry or stew</h3><p>Warming, spoonable and made to reheat beautifully.</p></article>
     </div>
   </div>
 </section>
 
-<!-- STAY IN THE LOOP -->
-<section class="sec loop" aria-labelledby="loopTitle">
+<!-- VALUES -->
+<section class="sec plans-sec" aria-labelledby="valTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">What we stand for</span><h2 id="valTitle">Why North County eats with us.</h2></div>
+      <p>Making flavorful plant-based eating convenient, approachable and enjoyable for our community.</p>
+    </div>
+    <div class="values">
+      <article class="val"><i style="background:var(--teal)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14zM5 19l7-7"/></svg></i><h3>100% plant-based</h3><p>Flavorful meals made entirely from plant-based ingredients.</p></article>
+      <article class="val"><i style="background:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M7 14a4 4 0 1 1 2-7 4 4 0 0 1 6 0 4 4 0 1 1 2 7v5H7z"/></svg></i><h3>Chef-crafted</h3><p>Thoughtfully prepared weekly meals with variety built into every menu.</p></article>
+      <article class="val"><i style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></i><h3>Fresh weekly variety</h3><p>A rotating selection of meals so your menu never gets boring.</p></article>
+      <article class="val"><i style="background:#f7a8a8"><svg viewBox="0 0 24 24" fill="none" stroke="#2b1d16" stroke-width="2"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></i><h3>Local &amp; convenient</h3><p>Local delivery and pickup options designed around your week.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="sec ab-local" aria-labelledby="localTitle">
   <div class="wrap">
     <div>
-      <h2 id="loopTitle">Stay in the loop</h2>
-      <p>Sign up for SoCal Vegan news, new menu item updates, and occasional special offers.</p>
-      <a class="reviews-link" href="#faq"><span class="stars" aria-hidden="true">★★★★★</span> Read our Google reviews →</a>
+      <span class="eyebrow" style="color:var(--red)">Rooted in North County</span>
+      <h2 id="localTitle">Cooked in Carlsbad. Delivered up and down the coast.</h2>
+      <p>Every Monday before sunrise, meals head out to Oceanside, Vista, Carlsbad, Leucadia/Encinitas, Cardiff-by-the-Sea and Del Mar, plus four local partners who host our pickup spots.</p>
+      <a class="btn btn-ghost" href="index.html#delivery">See the delivery area</a>
     </div>
+    <ul class="partners">
+      <li><b>CrossFit Trifecta</b><span>Vista</span></li>
+      <li><b>FLXR CrossFit</b><span>Carlsbad</span></li>
+      <li><b>North County Fitness &amp; Performance</b><span>Vista</span></li>
+      <li><b>Thousand Petal Lotus Vegan Market</b><span>Vista</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- REVIEWS + CTA -->
+<section class="sec loop ab-cta" aria-labelledby="ctaTitle">
+  <div class="wrap">
     <div>
-      <form class="nl-form" id="nlForm" novalidate>
-        <label for="nlEmail" class="eyebrow" style="flex-basis:100%;color:#fff">Your email</label>
-        <input id="nlEmail" type="email" placeholder="you@example.com" autocomplete="email">
-        <button class="btn btn-yellow" type="submit">Sign up</button>
-      </form>
-      <p class="nl-msg" id="nlMsg" aria-live="polite"></p>
+      <h2 id="ctaTitle">Ready to make plant-based eating easier?</h2>
+      <p>Explore this week's menu and choose the option that works best for your lifestyle.</p>
+      <a class="reviews-link" href="#ctaTitle"><span class="stars" aria-hidden="true">★★★★★</span> See what customers say on Google →</a>
+    </div>
+    <div class="ab-cta-btns">
+      <a class="btn btn-yellow" href="index.html#menu">View this week's menu</a>
+      <a class="btn btn-ghost" href="subscriptions.html">Explore subscriptions</a>
+      <p class="mail">Questions? Email <b class="sel">hello@thesocalvegan.com</b></p>
     </div>
   </div>
 </section>
@@ -680,7 +599,7 @@ section{scroll-margin-top:90px}
         <span class="logo-text">The SoCal Vegan<small style="color:var(--teal)">Good food. Kind people. Brighter days.</small></span>
         <p>Locally prepared, fully vegan weekly meal prep from Carlsbad, serving North County San Diego since 2023.</p>
       </div>
-      <div><h4>Order</h4><ul><li><a href="subscriptions.html">Subscriptions</a></li><li><a href="a-la-carte.html">À la carte</a></li><li><a href="#how">How it works</a></li><li><a href="#footer">Gift cards</a></li></ul></div>
+      <div><h4>Order</h4><ul><li><a href="subscriptions.html">Subscriptions</a></li><li><a href="a-la-carte.html">À la carte</a></li><li><a href="index.html#how">How it works</a></li><li><a href="#footer">Gift cards</a></li></ul></div>
       <div><h4>The SoCal Vegan</h4><ul><li><a href="about.html">About us</a></li><li><a href="#footer">Contact</a></li><li style="user-select:all">hello@thesocalvegan.com</li><li>Mon–Fri, 8 AM – 5 PM</li></ul></div>
       <div><h4>Policies</h4><ul><li><a href="#footer">Refund policy</a></li><li><a href="#footer">Delivery &amp; pickup policy</a></li><li><a href="#footer">Privacy policy</a></li><li><a href="#footer">Terms of service</a></li></ul></div>
     </div>
@@ -694,7 +613,7 @@ section{scroll-margin-top:90px}
 <!-- Mobile sticky order bar -->
 <div class="mbar" role="region" aria-label="Order countdown">
   <div><small data-mbar-label>Order closes in</small><b data-cd-short>—</b></div>
-  <a class="btn btn-yellow btn-sm" href="#menu" data-mbar-cta>Choose meals</a>
+  <a class="btn btn-yellow btn-sm" href="index.html#menu" data-mbar-cta>Choose meals</a>
 </div>
 
 <!-- Preview-only: lets the client see each weekly state -->
@@ -711,7 +630,6 @@ section{scroll-margin-top:90px}
 
 <script>
 (function(){
-  /* ---------- Data (from the client questionnaire) ---------- */
   var PLANS=[
     {name:"The Taste",meals:3,price:52.50,note:"Perfect for trying us out"},
     {name:"The Weekday",meals:5,price:85.00,note:"Lunch or dinner covered for the workweek",popular:true},
@@ -736,21 +654,6 @@ section{scroll-margin-top:90px}
     {town:"Del Mar",zips:["92014"]}
   ];
 
-  function money(n){return "$"+n.toFixed(2)}
-
-  /* ---------- Plans ---------- */
-  document.getElementById("planGrid").innerHTML=PLANS.map(function(p){
-    var slug=["taste","weekday","daily","mix","stockup","spread"][PLANS.indexOf(p)];
-    return '<article class="plan'+(p.popular?' popular':'')+'">'+
-      (p.popular?'<span class="pop">Most popular</span>':'')+
-      '<div class="plan-top"><h3>'+p.name+'</h3><div class="plan-count"><div><b>'+p.meals+'</b><small>meals</small></div></div></div>'+
-      '<div class="plan-price"><b>'+money(p.price)+'</b><span>/ week</span></div>'+
-      '<div><span class="plan-per">'+money(p.price/p.meals)+' per meal</span></div>'+
-      '<p>'+p.note+'</p>'+
-      '<a class="btn '+(p.popular?'btn-red':'btn-ghost')+'" href="subscriptions.html#'+slug+'">Choose plan</a></article>';
-  }).join("");
-
-  /* ---------- Illustrated bowls (placeholders for Shopify meal photos) ---------- */
   function rng(seed){return function(){seed=(seed*9301+49297)%233280;return seed/233280}}
   function bowl(m,i,bg){
     var r=rng(i*97+13),s='<svg viewBox="0 0 300 300" aria-hidden="true"><rect width="300" height="300" fill="'+bg+'"/>';
@@ -768,53 +671,15 @@ section{scroll-margin-top:90px}
     s+='<path d="M232 60 l40 -40" stroke="#2b1d16" stroke-width="5" stroke-linecap="round"/><path d="M244 70 l40 -40" stroke="#2b1d16" stroke-width="5" stroke-linecap="round"/>';
     return s+'</svg>';
   }
-  var BG=["#4dc0bf","#f9cb38","#f28141","#cca673","#f7a8a8"];
-  document.getElementById("menuGrid").innerHTML=MEALS.map(function(m,i){
-    return '<article class="meal"><div class="meal-img">'+bowl(m,i,BG[i])+'<span class="meal-tag">'+m.tag+'</span></div>'+
-      '<div class="meal-body"><h3>'+m.name+'</h3><p>'+m.desc+'</p>'+
-      '<div class="meal-foot"><b>$18</b><a href="#menu">View details →</a></div></div></article>';
-  }).join("");
-  var art=document.getElementById("alcArt");
-  art.innerHTML='<rect width="500" height="400" fill="#f9cb38"/>'+
-    '<g transform="translate(-10 40) scale(1.05)">'+bowl(MEALS[1],1,"#f9cb38").replace(/^<svg[^>]*>|<\/svg>$/g,"")+'</g>'+
-    '<g transform="translate(250 -20) scale(.85)">'+bowl(MEALS[0],0,"none").replace(/^<svg[^>]*>|<\/svg>$/g,"").replace('<rect width="300" height="300" fill="none"/>','')+'</g>';
-
-  /* ---------- Delivery area ---------- */
-  var areaList=document.getElementById("areaList");
-  areaList.innerHTML=AREAS.map(function(a){return '<div class="area" data-town="'+a.town+'" tabindex="0"><strong>'+a.town+'</strong><span>'+a.zips.join(", ")+'</span></div>'}).join("");
-  function highlight(town){
-    document.querySelectorAll("[data-town]").forEach(function(el){
-      var t=el.getAttribute("data-town");
-      el.classList.toggle("active",t===town||(town==="Cardiff-by-the-Sea"&&t==="Cardiff-by-the-Sea"));
-    });
-  }
-  document.querySelectorAll("[data-town]").forEach(function(el){
-    el.addEventListener("click",function(){highlight(el.getAttribute("data-town"))});
-    el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();highlight(el.getAttribute("data-town"))}});
-  });
-  var zipForm=document.getElementById("zipForm"),zipInput=document.getElementById("zipInput"),zipResult=document.getElementById("zipResult");
-  zipInput.addEventListener("input",function(){zipInput.value=zipInput.value.replace(/\D/g,"").slice(0,5)});
-  zipForm.addEventListener("submit",function(e){
-    e.preventDefault();
-    var z=zipInput.value.trim();
-    if(!/^\d{5}$/.test(z)){zipResult.className="zip-result no";zipResult.textContent="Enter a 5-digit ZIP code.";return}
-    var hit=AREAS.filter(function(a){return a.zips.indexOf(z)>-1})[0];
-    if(hit){zipResult.className="zip-result ok";zipResult.textContent="Yes! We deliver to "+z+" ("+hit.town+") every Monday, 4:00–7:30 AM. Free for subscribers.";highlight(hit.town)}
-    else{zipResult.className="zip-result no";zipResult.textContent=z+" is outside our delivery area for now. You can still order for free pickup at one of our drop locations below.";highlight("")}
-  });
-
-  /* ---------- Mobile nav ---------- */
+  var SLOTS=[MEALS[0],MEALS[1],
+    {base:"#cfe8a9",noodle:false,top:["#cf2122","#f5ebd0","#6bbf59","#f9cb38","#2f7a3a"]},
+    {base:"#f3ead6",noodle:false,top:["#f28141","#6b3f2a","#a3d98f","#cca673","#cf2122"]},
+    {base:"#e3953a",noodle:false,top:["#f5ebd0","#6bbf59","#fff3c4","#b5563f","#2f7a3a"]}];
+  var BG=["#4dc0bf","#f9cb38","#f7a8a8","#cca673","#f28141"];
+  SLOTS.forEach(function(m,i){var el=document.getElementById("slot"+i);if(el)el.innerHTML=bowl(m,i+11,BG[i])});
   var mt=document.getElementById("menuToggle"),mn=document.getElementById("mobileNav");
   mt.addEventListener("click",function(){var open=mn.hidden;mn.hidden=!open;mt.setAttribute("aria-expanded",String(open))});
   mn.addEventListener("click",function(e){if(e.target.tagName==="A"){mn.hidden=true;mt.setAttribute("aria-expanded","false")}});
-
-  /* ---------- Newsletter (preview only) ---------- */
-  document.getElementById("nlForm").addEventListener("submit",function(e){
-    e.preventDefault();
-    var v=document.getElementById("nlEmail").value.trim(),msg=document.getElementById("nlMsg");
-    msg.textContent=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?"Thanks for subscribing! (Preview: no email was sent.)":"Enter a valid email address.";
-  });
-
   /* ---------- Order countdown (America/Los_Angeles) ----------
      Menu opens Tue 08:00, closes Thu 14:00, delivery Mon 04:00–07:30.
      Times are handled as Pacific wall-clock values stored in UTC fields. */
@@ -897,3 +762,5 @@ section{scroll-margin-top:90px}
   });
 })();
 </script>
+</body>
+</html>
