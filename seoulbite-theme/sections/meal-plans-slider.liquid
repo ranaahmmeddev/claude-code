@@ -2,10 +2,9 @@
   Video Slider / testimonial carousel.
   - Mobile: 1 slide, tablet: 2, desktop: "Slides per view" (default 3).
   - Each slide accepts (in priority order):
-      1. Uploaded Shopify video (video picker)
-      2. Video file URL (paste a .mp4 link from Content > Files)
-      3. YouTube / Vimeo URL
-      4. Fallback image
+      1. Video file URL (paste a .mp4 link from Content > Files)
+      2. YouTube / Vimeo URL
+      3. Fallback image
 {%- endcomment -%}
 
 {%- liquid
@@ -293,7 +292,7 @@
             {%- liquid
               assign has_video = false
               assign file_url = block.settings.video_file_url | strip
-              if block.settings.video != blank or file_url != blank
+              if file_url != blank
                 assign has_video = true
               endif
             -%}
@@ -307,18 +306,7 @@
               {{ block.shopify_attributes }}
             >
               <div class="video-slider__media{% unless has_video or block.settings.video_url != blank or block.settings.image != blank %} video-slider__media--empty{% endunless %}">
-                {%- if block.settings.video != blank -%}
-                  {{
-                    block.settings.video
-                    | video_tag:
-                      image_size: '800x',
-                      muted: true,
-                      loop: true,
-                      playsinline: true,
-                      controls: false,
-                      preload: 'metadata'
-                  }}
-                {%- elsif file_url != blank -%}
+                {%- if file_url != blank -%}
                   <video
                     src="{{ file_url | escape }}"
                     {% if block.settings.image != blank %}poster="{{ block.settings.image | image_url: width: 800 }}"{% endif %}
@@ -720,16 +708,10 @@
       "name": "Slide",
       "settings": [
         {
-          "type": "video",
-          "id": "video",
-          "label": "Video (uploaded)",
-          "info": "Use MP4. Wait until the video finishes processing in Content > Files before selecting it."
-        },
-        {
           "type": "text",
           "id": "video_file_url",
-          "label": "OR video file URL (.mp4)",
-          "info": "If the picker shows an error, copy the video link from Content > Files and paste it here."
+          "label": "Video URL (.mp4)",
+          "info": "Upload the video in Content > Files, click the link icon to copy its URL, and paste it here."
         },
         {
           "type": "video_url",
