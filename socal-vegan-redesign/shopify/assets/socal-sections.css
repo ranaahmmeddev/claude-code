@@ -11,12 +11,12 @@
 .socal-eyebrow {
   display: block;
   margin: 0 0 0.75rem;
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
 .socal-accent-text {
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
 }
 .socal-heading {
   margin-bottom: 0;
@@ -117,7 +117,7 @@
   font-variant-numeric: tabular-nums;
 }
 .socal-stats--accent .socal-stats__value {
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
 }
 
 /* ---------- Story ---------- */
@@ -162,7 +162,7 @@
 }
 .socal-story__signature {
   margin: 0;
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
 }
 
 /* ---------- Statement ---------- */
@@ -246,6 +246,7 @@
   margin-bottom: 0.5rem;
   border-radius: 50%;
   border: 1px solid var(--color-borders-main);
+  background: var(--color-background-main);
   color: var(--socal-accent);
 }
 .socal-card__title {
@@ -285,7 +286,7 @@
   flex: 0 0 auto;
   width: 1.25rem;
   height: 1.25rem;
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
 }
 .socal-partners__name {
   display: flex;
@@ -328,6 +329,6 @@
   color: var(--color-text-main);
 }
 .socal-cta__stars {
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
   letter-spacing: 0.1em;
 }

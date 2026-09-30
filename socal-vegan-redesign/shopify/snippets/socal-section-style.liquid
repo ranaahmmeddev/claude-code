@@ -3,6 +3,11 @@
   to the theme accent) mapped onto the theme's accent variables, so theme
   buttons and links hover in the same accent.
 
+  When the section has a background color:
+  - accent-colored text switches to the theme text color if the accent does
+    not reach a 4.5:1 contrast on that background (fills and lines keep the accent);
+  - secondary text and borders get a little stronger so they stay readable.
+
   Accepts:
   - section: {Object} the section object.
 {%- endcomment -%}
@@ -17,5 +22,17 @@
   else
     assign accent_foreground = '#ffffff'
   endif
+
+  assign accent_text = accent
+  assign has_background = false
+  assign background = section.settings.section_background_color
+  if background != blank and background != 'rgba(0,0,0,0)'
+    assign has_background = true
+    assign accent_contrast = accent | color_contrast: background
+    if accent_contrast < 4.5
+      assign accent_text = settings.color_text_main
+    endif
+  endif
 -%}
---socal-accent: {{ accent }}; --socal-accent-foreground: {{ accent_foreground }}; --color-accent-main: {{ accent }}; --color-foreground-accent-main: {{ accent_foreground }};
+--socal-accent: {{ accent }}; --socal-accent-foreground: {{ accent_foreground }}; --socal-accent-text: {{ accent_text }}; --color-accent-main: {{ accent }}; --color-foreground-accent-main: {{ accent_foreground }};
+{%- if has_background %} --color-secondary-text-main: {{ settings.color_text_main | color_modify: 'alpha', 0.85 }}; --color-borders-main: {{ settings.color_text_main | color_modify: 'alpha', 0.25 }};{% endif -%}

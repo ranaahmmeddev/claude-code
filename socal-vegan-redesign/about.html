@@ -488,12 +488,12 @@ section{scroll-margin-top:90px}
 .socal-eyebrow {
   display: block;
   margin: 0 0 0.75rem;
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
 .socal-accent-text {
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
 }
 .socal-heading {
   margin-bottom: 0;
@@ -594,7 +594,7 @@ section{scroll-margin-top:90px}
   font-variant-numeric: tabular-nums;
 }
 .socal-stats--accent .socal-stats__value {
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
 }
 
 /* ---------- Story ---------- */
@@ -639,7 +639,7 @@ section{scroll-margin-top:90px}
 }
 .socal-story__signature {
   margin: 0;
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
 }
 
 /* ---------- Statement ---------- */
@@ -723,6 +723,7 @@ section{scroll-margin-top:90px}
   margin-bottom: 0.5rem;
   border-radius: 50%;
   border: 1px solid var(--color-borders-main);
+  background: var(--color-background-main);
   color: var(--socal-accent);
 }
 .socal-card__title {
@@ -762,7 +763,7 @@ section{scroll-margin-top:90px}
   flex: 0 0 auto;
   width: 1.25rem;
   height: 1.25rem;
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
 }
 .socal-partners__name {
   display: flex;
@@ -805,9 +806,13 @@ section{scroll-margin-top:90px}
   color: var(--color-text-main);
 }
 .socal-cta__stars {
-  color: var(--socal-accent);
+  color: var(--socal-accent-text, var(--socal-accent));
   letter-spacing: 0.1em;
 }
+
+/* Local 4.2.1: sections with a background color (assets/theme.css) */
+.local-theme .container--has-background{padding-top:var(--container-vertical-space);padding-bottom:var(--container-vertical-space)}
+@media (max-width:767px){.local-theme .container--has-background{padding-top:calc(var(--container-vertical-space) / 2);padding-bottom:calc(var(--container-vertical-space) / 2)}}
 </style>
 </head>
 <body>
@@ -857,8 +862,7 @@ section{scroll-margin-top:90px}
 <div id="shopify-section-about_hero" class="shopify-section">
 
 <div class="container--large container--vertical-space">
-  <div class="socal-section socal-about-hero socal-about-hero--image-right" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;
-">
+  <div class="socal-section socal-about-hero socal-about-hero--image-right" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --socal-accent-text: #cf2122; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;">
 
     <div class="socal-about-hero__text"><p class="socal-eyebrow text-size--small text-weight--bold">About The SoCal Vegan</p><h1 class="h1 socal-about-hero__title">Real food. <span class="socal-accent-text">Plant-powered.</span> Made for your week.</h1><div class="socal-copy rte text-size--large text-color--secondary"><p>Meet Sharon, the founder and cook behind The SoCal Vegan, creating flavorful, satisfying plant-based meals that make eating well feel easy.</p></div><div class="socal-buttons"><a class="button button--solid button--regular" href="shopify://pages/a-la-carte">Shop this week&#x27;s menu</a><a class="button button--outline button--regular" href="shopify://pages/subscriptions">Explore subscriptions</a></div></div>
     <div class="socal-about-hero__media socal-media"><figure 
@@ -885,9 +889,8 @@ section{scroll-margin-top:90px}
 </div></div>
 <div id="shopify-section-about_stats" class="shopify-section">
 
-<div class="container--large container--vertical-space-grid">
-  <div class="socal-section socal-stats socal-stats--accent" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;
- --socal-columns: 5;"><div class="socal-stats__item" >
+<div class="container--large container--vertical-space container--has-background">
+  <div class="socal-section socal-stats socal-stats--accent" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --socal-accent-text: #1d1d1d; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff; --color-secondary-text-main: rgba(29,29,29,0.85); --color-borders-main: rgba(29,29,29,0.25); --socal-columns: 5;"><div class="socal-stats__item" >
         <span class="h3 socal-stats__value">2023</span>
         <span class="text-size--small text-color--secondary">Cooking for North County since</span>
       </div><div class="socal-stats__item" >
@@ -903,12 +906,15 @@ section{scroll-margin-top:90px}
         <span class="h3 socal-stats__value">4</span>
         <span class="text-size--small text-color--secondary">Partner pickup spots</span>
       </div></div>
-</div></div>
+</div><style>
+    #shopify-section-about_stats {
+      background-color: #f9cb38;
+    }
+  </style></div>
 <div id="shopify-section-about_story" class="shopify-section">
 
 <div class="container--large container--vertical-space">
-  <div class="socal-section socal-story" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;
-">
+  <div class="socal-section socal-story" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --socal-accent-text: #cf2122; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;">
 
     <div class="socal-story__side"><p class="socal-eyebrow text-size--small text-weight--bold">Founder &amp; cook</p><h2 class="h1 socal-heading">Hi, I&#x27;m Sharon.</h2><p class="socal-story__tagline text-size--large text-color--secondary">Vegan eats specialist. Recipe whisperer. Spice fanatic.</p><div class="socal-story__photo socal-media"><figure 
 	class="lazy-image 
@@ -936,14 +942,12 @@ section{scroll-margin-top:90px}
 <div id="shopify-section-about_mission" class="shopify-section">
 
 <div class="container--large container--vertical-space">
-  <div class="socal-section socal-statement socal-statement--accent" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;
-"><p class="socal-eyebrow text-size--small text-weight--bold">Our mission</p><h2 class="h2 socal-statement__text">Make delicious plant-based meals easy and convenient for busy people in North County San Diego.</h2></div>
+  <div class="socal-section socal-statement socal-statement--accent" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --socal-accent-text: #cf2122; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;"><p class="socal-eyebrow text-size--small text-weight--bold">Our mission</p><h2 class="h2 socal-statement__text">Make delicious plant-based meals easy and convenient for busy people in North County San Diego.</h2></div>
 </div></div>
 <div id="shopify-section-about_menu_mix" class="shopify-section">
 
-<div class="container--large container--vertical-space">
-  <div class="socal-section socal-cards" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;
- --socal-columns: 5; --socal-columns-mobile: 2;"><div class="socal-cards__head">
+<div class="container--large container--vertical-space container--has-background">
+  <div class="socal-section socal-cards" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --socal-accent-text: #1d1d1d; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff; --color-secondary-text-main: rgba(29,29,29,0.85); --color-borders-main: rgba(29,29,29,0.25); --socal-columns: 5; --socal-columns-mobile: 2;"><div class="socal-cards__head">
         <div><p class="socal-eyebrow text-size--small text-weight--bold">What we cook</p><h2 class="h2 socal-heading">A balanced five, every week.</h2></div><div class="socal-copy rte text-color--secondary"><p>Creative, globally inspired vegan cooking with bold flavors. Each weekly menu is built around a mix like this, so there's always something for lunch, dinner and in-between.</p></div></div><div class="socal-cards__grid"><article class="socal-card" ><div class="socal-card__media"><figure 
 	class="lazy-image 
 		  
@@ -1027,24 +1031,30 @@ section{scroll-margin-top:90px}
         </article><article class="socal-card" ><div class="socal-card__media"><span class="socal-placeholder"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><rect width="100" height="100" fill="none"/><path d="M30 62l14-16 10 11 8-8 14 13z"/><circle cx="62" cy="38" r="5"/></svg></span></div><div class="socal-card__body"><h3 class="h4 socal-card__title">Soup, curry or stew</h3><div class="socal-card__text rte text-size--small text-color--secondary"><p>Warming, spoonable and made to reheat beautifully.</p></div></div>
         </article></div>
   </div>
-</div></div>
+</div><style>
+    #shopify-section-about_menu_mix {
+      background-color: #cca673;
+    }
+  </style></div>
 <div id="shopify-section-about_values" class="shopify-section">
 
-<div class="container--large container--vertical-space">
-  <div class="socal-section socal-cards" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;
- --socal-columns: 4; --socal-columns-mobile: 1;"><div class="socal-cards__head">
+<div class="container--large container--vertical-space container--has-background">
+  <div class="socal-section socal-cards" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --socal-accent-text: #1d1d1d; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff; --color-secondary-text-main: rgba(29,29,29,0.85); --color-borders-main: rgba(29,29,29,0.25); --socal-columns: 4; --socal-columns-mobile: 1;"><div class="socal-cards__head">
         <div><p class="socal-eyebrow text-size--small text-weight--bold">What we stand for</p><h2 class="h2 socal-heading">Why North County eats with us.</h2></div><div class="socal-copy rte text-color--secondary"><p>Making flavorful plant-based eating convenient, approachable and enjoyable for our community.</p></div></div><div class="socal-cards__grid"><article class="socal-card" ><div class="socal-card__body"><span class="socal-card__icon"><svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14zM5 19l7-7"/></svg></span><h3 class="h4 socal-card__title">100% plant-based</h3><div class="socal-card__text rte text-size--small text-color--secondary"><p>Flavorful meals made entirely from plant-based ingredients.</p></div></div>
         </article><article class="socal-card" ><div class="socal-card__body"><span class="socal-card__icon"><svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 14a4 4 0 1 1 2-7 4 4 0 0 1 6 0 4 4 0 1 1 2 7v5H7zM7 16h10"/></svg></span><h3 class="h4 socal-card__title">Chef-crafted</h3><div class="socal-card__text rte text-size--small text-color--secondary"><p>Thoughtfully prepared weekly meals with variety built into every menu.</p></div></div>
         </article><article class="socal-card" ><div class="socal-card__body"><span class="socal-card__icon"><svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span><h3 class="h4 socal-card__title">Fresh weekly variety</h3><div class="socal-card__text rte text-size--small text-color--secondary"><p>A rotating selection of meals so your menu never gets boring.</p></div></div>
         </article><article class="socal-card" ><div class="socal-card__body"><span class="socal-card__icon"><svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span><h3 class="h4 socal-card__title">Local &amp; convenient</h3><div class="socal-card__text rte text-size--small text-color--secondary"><p>Local delivery and pickup options designed around your week.</p></div></div>
         </article></div>
   </div>
-</div></div>
+</div><style>
+    #shopify-section-about_values {
+      background-color: #4dc0bf;
+    }
+  </style></div>
 <div id="shopify-section-about_partners" class="shopify-section">
 
 <div class="container--large container--vertical-space">
-  <div class="socal-section socal-partners" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;
-">
+  <div class="socal-section socal-partners" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --socal-accent-text: #cf2122; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;">
 
     <div><p class="socal-eyebrow text-size--small text-weight--bold">Rooted in North County</p><h2 class="h2 socal-heading">Cooked in Carlsbad. Delivered up and down the coast.</h2><div class="socal-copy rte text-color--secondary"><p>Every Monday before sunrise, meals head out to Oceanside, Vista, Carlsbad, Leucadia/Encinitas, Cardiff-by-the-Sea and Del Mar, plus four local partners who host our pickup spots.</p></div><div class="socal-buttons"><a class="button button--solid button--regular" href="shopify://pages/a-la-carte">See the delivery area</a></div></div><ul class="socal-partners__list" role="list"><li class="socal-partners__item" >
             <span class="socal-partners__name"><svg class="socal-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span class="text-weight--bold">CrossFit Trifecta</span></span><span class="socal-partners__city text-size--small text-color--secondary">Vista</span></li><li class="socal-partners__item" >
@@ -1054,16 +1064,19 @@ section{scroll-margin-top:90px}
 </div></div>
 <div id="shopify-section-about_cta" class="shopify-section">
 
-<div class="container--large container--vertical-space">
-  <div class="socal-section socal-cta" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff;
-">
+<div class="container--large container--vertical-space container--has-background">
+  <div class="socal-section socal-cta" style="--socal-accent: #cf2122; --socal-accent-foreground: #ffffff; --socal-accent-text: #1d1d1d; --color-accent-main: #cf2122; --color-foreground-accent-main: #ffffff; --color-secondary-text-main: rgba(29,29,29,0.85); --color-borders-main: rgba(29,29,29,0.25);">
 
     <div><h2 class="h2 socal-heading">Ready to make plant-based eating easier?</h2><div class="socal-copy rte text-color--secondary"><p>Explore this week's menu and choose the option that works best for your lifestyle.</p></div><a class="socal-cta__review text-size--small text-weight--bold" href="#" >
           <span class="socal-cta__stars" aria-hidden="true">★★★★★</span>See what customers say on Google
         </a></div>
     <div class="socal-cta__actions"><div class="socal-buttons"><a class="button button--solid button--regular" href="shopify://pages/a-la-carte">View this week&#x27;s menu</a><a class="button button--outline button--regular" href="shopify://pages/subscriptions">Explore subscriptions</a></div><div class="socal-cta__meta rte text-size--small text-color--secondary"><p>Questions? Email <strong>hello@thesocalvegan.com</strong></p></div></div>
   </div>
-</div></div>
+</div><style>
+    #shopify-section-about_cta {
+      background-color: #f28141;
+    }
+  </style></div>
 </main>
 
 <div class="stripe" aria-hidden="true"></div>

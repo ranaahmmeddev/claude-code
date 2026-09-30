@@ -33,8 +33,8 @@
       "type": "socal-stats",
       "settings": {
         "accent_color": "#cf2122",
-        "section_background_color": "rgba(0,0,0,0)",
-        "descrease_margin": true,
+        "section_background_color": "#f9cb38",
+        "descrease_margin": false,
         "remove_margin": false,
         "section_visibility": "always",
         "accent_values": true
@@ -158,7 +158,7 @@
       "type": "socal-cards",
       "settings": {
         "accent_color": "#cf2122",
-        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_color": "#cca673",
         "descrease_margin": false,
         "remove_margin": false,
         "section_visibility": "always",
@@ -229,7 +229,7 @@
       "type": "socal-cards",
       "settings": {
         "accent_color": "#cf2122",
-        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_color": "#4dc0bf",
         "descrease_margin": false,
         "remove_margin": false,
         "section_visibility": "always",
@@ -342,7 +342,7 @@
       "type": "socal-cta",
       "settings": {
         "accent_color": "#cf2122",
-        "section_background_color": "rgba(0,0,0,0)",
+        "section_background_color": "#f28141",
         "descrease_margin": false,
         "remove_margin": false,
         "section_visibility": "always",
