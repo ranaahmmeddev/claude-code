@@ -1,0 +1,747 @@
+{%- comment -%}
+  Video Slider / testimonial carousel.
+  - Mobile: 1 slide, tablet: 2, desktop: "Slides per view" (default 3).
+  - Each slide accepts (in priority order):
+      1. Video file URL (paste a .mp4 link from Content > Files)
+      2. YouTube / Vimeo URL
+      3. Fallback image
+{%- endcomment -%}
+
+{%- liquid
+  assign per_lg = section.settings.slides_per_view | default: 3
+  assign per_md = per_lg
+  if per_md > 2
+    assign per_md = 2
+  endif
+  assign slide_count = section.blocks.size
+-%}
+
+{%- style -%}
+  #VideoSlider-{{ section.id }} {
+    --vs-accent: {{ section.settings.accent_color }};
+    --vs-badge-text: {{ section.settings.badge_text_color }};
+    --vs-gap: {{ section.settings.column_gap | times: 0.6 | round: 0 }}px;
+    --vs-radius: {{ section.settings.image_radius }}px;
+    --vs-ratio: {{ section.settings.slide_ratio }};
+    --vs-per: 1;
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #VideoSlider-{{ section.id }} {
+      --vs-per: {{ per_md }};
+      --vs-gap: {{ section.settings.column_gap }}px;
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    #VideoSlider-{{ section.id }} { --vs-per: {{ per_lg }}; }
+  }
+
+  {%- if section.settings.background_color != blank -%}
+    #VideoSlider-{{ section.id }}-wrapper { background: {{ section.settings.background_color }}; }
+  {%- endif -%}
+
+  {%- if section.settings.text_color != blank -%}
+    #VideoSlider-{{ section.id }} { color: {{ section.settings.text_color }}; }
+  {%- endif -%}
+{%- endstyle -%}
+
+{% stylesheet %}
+.video-slider {
+  text-align: center;
+}
+
+.video-slider__header {
+  max-width: 76rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.video-slider__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--vs-accent);
+  color: var(--vs-badge-text);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0.9rem 1.6rem;
+  border-radius: 0.5rem;
+}
+
+.video-slider__heading {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.video-slider__heading--small { font-size: clamp(2.4rem, 4vw, 3.8rem); }
+.video-slider__heading--medium { font-size: clamp(2.8rem, 5vw, 5rem); }
+.video-slider__heading--large { font-size: clamp(3.4rem, 6.5vw, 6.4rem); }
+
+.video-slider__subheading {
+  margin: 0;
+  line-height: 1.5;
+  opacity: 0.85;
+  font-size: clamp(1.5rem, 1.6vw, 1.8rem);
+}
+.video-slider__subheading p { margin: 0; }
+
+.video-slider__carousel {
+  display: block;
+  position: relative;
+  margin: clamp(2.4rem, 4vw, 4.8rem) auto 0;
+  max-width: 120rem;
+}
+
+.video-slider__track {
+  display: flex;
+  gap: var(--vs-gap);
+  margin: 0;
+  padding: 0 0 0.4rem;
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.video-slider__track::-webkit-scrollbar { display: none; }
+
+.video-slider__slide {
+  flex: 0 0 calc((100% - (var(--vs-per) - 1) * var(--vs-gap)) / var(--vs-per));
+  min-width: 0;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.video-slider__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--vs-ratio);
+  overflow: hidden;
+  border-radius: var(--vs-radius);
+  background: #111;
+}
+
+.video-slider__media--empty {
+  background: rgba(var(--color-foreground), 0.05);
+}
+
+.video-slider__media video,
+.video-slider__media iframe,
+.video-slider__media img,
+.video-slider__media .placeholder-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  display: block;
+}
+
+/* Scale iframes up so YouTube/Vimeo fill portrait tiles without black bars */
+.video-slider__media iframe {
+  pointer-events: none;
+}
+
+.video-slider__controls {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.video-slider__icon-btn {
+  pointer-events: auto;
+  width: 4rem;
+  height: 4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.video-slider__icon-btn:hover { background: rgba(0, 0, 0, 0.75); transform: scale(1.05); }
+.video-slider__icon-btn svg { width: 1.8rem; height: 1.8rem; }
+.video-slider__icon-btn [data-when] { display: none; }
+.video-slider__icon-btn[aria-pressed="true"] [data-when="on"],
+.video-slider__icon-btn[aria-pressed="false"] [data-when="off"] { display: block; }
+
+.video-slider__caption {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.video-slider__arrow {
+  position: absolute;
+  top: calc(50% - 2.2rem);
+  z-index: 3;
+  width: 4.4rem;
+  height: 4.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 50%;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  box-shadow: 0 0.4rem 1.4rem rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.video-slider__arrow:hover { transform: scale(1.06); }
+.video-slider__arrow[disabled] { opacity: 0; pointer-events: none; }
+.video-slider__arrow svg { width: 1.6rem; height: 1.6rem; }
+.video-slider__arrow--prev { left: 0.8rem; }
+.video-slider__arrow--next { right: 0.8rem; }
+
+@media screen and (min-width: 1300px) {
+  .video-slider__arrow--prev { left: -2.2rem; }
+  .video-slider__arrow--next { right: -2.2rem; }
+}
+
+.video-slider__dots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+.video-slider__dot {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  border: 0;
+  border-radius: 1rem;
+  background: rgba(var(--color-foreground), 0.25);
+  cursor: pointer;
+  transition: width 0.25s ease, background 0.25s ease;
+}
+.video-slider__dot[aria-current="true"] {
+  width: 2.6rem;
+  background: rgb(var(--color-foreground));
+}
+.video-slider__dots[hidden],
+.video-slider__arrow[hidden] { display: none; }
+
+.video-slider__cta {
+  margin-top: clamp(2.4rem, 4vw, 4rem);
+}
+{% endstylesheet %}
+
+<div id="VideoSlider-{{ section.id }}-wrapper" class="color-{{ section.settings.color_scheme }} gradient">
+  <div
+    id="VideoSlider-{{ section.id }}"
+    class="video-slider page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  >
+    <div class="video-slider__header">
+      {%- if section.settings.badge_text != blank -%}
+        <span class="video-slider__badge">{{ section.settings.badge_text }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="video-slider__heading video-slider__heading--{{ section.settings.heading_size }}">
+          {{- section.settings.heading -}}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <div class="video-slider__subheading rte">{{ section.settings.subheading }}</div>
+      {%- endif -%}
+    </div>
+
+    {%- if slide_count > 0 -%}
+      <video-slider
+        class="video-slider__carousel"
+        data-autoplay="{{ section.settings.autoplay }}"
+      >
+        <button type="button" class="video-slider__arrow video-slider__arrow--prev" data-prev aria-label="Previous slide" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+
+        <ul class="video-slider__track" data-track role="list">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign has_video = false
+              assign file_url = block.settings.video_file_url | strip
+              if file_url != blank
+                assign has_video = true
+              endif
+            -%}
+            <li
+              class="video-slider__slide"
+              data-slide
+              data-block-id="{{ block.id }}"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="{{ forloop.index }} / {{ forloop.length }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="video-slider__media{% unless has_video or block.settings.video_url != blank or block.settings.image != blank %} video-slider__media--empty{% endunless %}">
+                {%- if file_url != blank -%}
+                  <video
+                    src="{{ file_url | escape }}"
+                    {% if block.settings.image != blank %}poster="{{ block.settings.image | image_url: width: 800 }}"{% endif %}
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                  ></video>
+                {%- elsif block.settings.video_url != blank -%}
+                  {%- liquid
+                    if block.settings.video_url.type == 'youtube'
+                      assign embed = block.settings.video_url | external_video_url: autoplay: 1, mute: 1, loop: 1, playlist: block.settings.video_url.id, controls: 0, playsinline: 1, rel: 0
+                    else
+                      assign embed = block.settings.video_url | external_video_url: autoplay: 1, muted: 1, loop: 1, background: 1
+                    endif
+                  -%}
+                  <iframe
+                    src="{{ embed }}"
+                    loading="lazy"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowfullscreen
+                    title="{{ block.settings.caption | default: 'Customer video' | escape }}"
+                  ></iframe>
+                {%- elsif block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 900
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '300, 450, 600, 750, 900',
+                      sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 90vw'
+                  }}
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+
+                {%- if has_video -%}
+                  <div class="video-slider__controls">
+                    <button type="button" class="video-slider__icon-btn" data-play aria-pressed="false" aria-label="Play / pause">
+                      <svg data-when="off" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                      <svg data-when="on" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+                    </button>
+                    {%- if section.settings.show_sound_toggle -%}
+                      <button type="button" class="video-slider__icon-btn" data-sound aria-pressed="false" aria-label="Sound on / off">
+                        <svg data-when="off" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63Zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71ZM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3ZM12 4 9.91 6.09 12 8.18V4Z"/></svg>
+                        <svg data-when="on" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3Zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02ZM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77Z"/></svg>
+                      </button>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.caption != blank -%}
+                <p class="video-slider__caption">{{ block.settings.caption }}</p>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        <button type="button" class="video-slider__arrow video-slider__arrow--next" data-next aria-label="Next slide" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+        <div class="video-slider__dots" data-dots hidden></div>
+      </video-slider>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="video-slider__cta">
+        <a
+          {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+          class="button{% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+        >
+          {{- section.settings.button_label -}}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  if (!customElements.get('video-slider')) {
+    customElements.define(
+      'video-slider',
+      class VideoSlider extends HTMLElement {
+        connectedCallback() {
+          this.track = this.querySelector('[data-track]');
+          this.slides = Array.from(this.querySelectorAll('[data-slide]'));
+          this.prevBtn = this.querySelector('[data-prev]');
+          this.nextBtn = this.querySelector('[data-next]');
+          this.dotsEl = this.querySelector('[data-dots]');
+          this.autoplay = this.dataset.autoplay === 'true';
+          if (!this.track || !this.slides.length) return;
+
+          this.prevBtn.addEventListener('click', () => this.goTo(this.index() - 1));
+          this.nextBtn.addEventListener('click', () => this.goTo(this.index() + 1));
+          this.track.addEventListener('scroll', () => {
+            cancelAnimationFrame(this.raf);
+            this.raf = requestAnimationFrame(() => this.update());
+          }, { passive: true });
+          new ResizeObserver(() => this.build()).observe(this.track);
+
+          this.setupVideos();
+          this.build();
+
+          // Theme editor: jump to the selected slide
+          document.addEventListener('shopify:block:select', (e) => {
+            if (!this.isConnected) return;
+            const i = this.slides.findIndex((s) => s.dataset.blockId === e.detail.blockId);
+            if (i > -1) this.goTo(i, false);
+          });
+        }
+
+        perView() {
+          const w = this.slides[0].getBoundingClientRect().width;
+          const gap = parseFloat(getComputedStyle(this.track).columnGap) || 0;
+          return Math.max(1, Math.round((this.track.clientWidth + gap) / (w + gap)));
+        }
+
+        maxIndex() {
+          return Math.max(0, this.slides.length - this.perView());
+        }
+
+        index() {
+          const step = this.slides.length > 1 ? this.slides[1].offsetLeft - this.slides[0].offsetLeft : 1;
+          return Math.min(this.maxIndex(), Math.round(this.track.scrollLeft / step));
+        }
+
+        goTo(i, smooth = true) {
+          const target = Math.max(0, Math.min(this.maxIndex(), i));
+          const left = this.slides[target].offsetLeft - this.slides[0].offsetLeft;
+          this.track.scrollTo({ left, behavior: smooth ? 'smooth' : 'auto' });
+        }
+
+        build() {
+          const pages = this.maxIndex() + 1;
+          const scrollable = pages > 1;
+          this.prevBtn.hidden = this.nextBtn.hidden = this.dotsEl.hidden = !scrollable;
+          if (this.dotsEl.childElementCount !== pages) {
+            this.dotsEl.innerHTML = '';
+            for (let i = 0; i < pages; i++) {
+              const dot = document.createElement('button');
+              dot.type = 'button';
+              dot.className = 'video-slider__dot';
+              dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+              dot.addEventListener('click', () => this.goTo(i));
+              this.dotsEl.appendChild(dot);
+            }
+          }
+          this.update();
+        }
+
+        update() {
+          const i = this.index();
+          this.prevBtn.disabled = i <= 0;
+          this.nextBtn.disabled = i >= this.maxIndex();
+          Array.from(this.dotsEl.children).forEach((d, n) => d.setAttribute('aria-current', n === i ? 'true' : 'false'));
+        }
+
+        setupVideos() {
+          this.slides.forEach((slide) => {
+            const video = slide.querySelector('video');
+            if (!video) return;
+            video.muted = true;
+            video.playsInline = true;
+            video.removeAttribute('controls');
+
+            const playBtn = slide.querySelector('[data-play]');
+            const soundBtn = slide.querySelector('[data-sound]');
+            const sync = () => {
+              if (playBtn) playBtn.setAttribute('aria-pressed', video.paused ? 'false' : 'true');
+              if (soundBtn) soundBtn.setAttribute('aria-pressed', video.muted ? 'false' : 'true');
+            };
+            ['play', 'pause', 'volumechange'].forEach((ev) => video.addEventListener(ev, sync));
+
+            const toggle = () => {
+              video.dataset.userPaused = video.paused ? '' : '1';
+              video.paused ? video.play().catch(() => {}) : video.pause();
+            };
+            video.addEventListener('click', toggle);
+            if (playBtn) playBtn.addEventListener('click', toggle);
+            if (soundBtn) {
+              soundBtn.addEventListener('click', () => {
+                const unmute = video.muted;
+                // Only one video plays sound at a time
+                if (unmute) this.querySelectorAll('video').forEach((v) => { if (v !== video) v.muted = true; });
+                video.muted = !unmute;
+                if (unmute) { video.dataset.userPaused = ''; video.play().catch(() => {}); }
+              });
+            }
+            sync();
+          });
+
+          // Play videos that are visible, pause the ones scrolled away
+          const videos = Array.from(this.querySelectorAll('video'));
+          if (!videos.length) return;
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              const v = entry.target;
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+                if (this.autoplay && !v.dataset.userPaused) v.play().catch(() => {});
+              } else if (!v.paused) {
+                v.pause();
+              }
+            });
+          }, { threshold: [0, 0.6] });
+          videos.forEach((v) => io.observe(v));
+        }
+      }
+    );
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Video Slider",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Overrides the color scheme background. Leave empty to use the scheme."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "info": "Overrides the color scheme text. Leave empty to use the scheme."
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Badge background",
+      "default": "#E89F3C"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Don't take our word for it..."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p><em>See what our customers have to say</em></p>"
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Slides per view (desktop)",
+      "info": "Tablet shows up to 2, mobile always shows 1.",
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "slide_ratio",
+      "label": "Slide shape",
+      "options": [
+        { "value": "9 / 16", "label": "Reel / Story (9:16)" },
+        { "value": "3 / 4", "label": "Portrait (3:4)" },
+        { "value": "4 / 5", "label": "Tall portrait (4:5)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "16 / 9", "label": "Landscape (16:9)" }
+      ],
+      "default": "9 / 16"
+    },
+    {
+      "type": "header",
+      "content": "Video playback"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay videos (muted)",
+      "info": "Videos play when visible and pause when scrolled away.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sound_toggle",
+      "label": "Show sound button on videos",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "label": "Use outline button style",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between slides",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Corner radius",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_file_url",
+          "label": "Video URL (.mp4)",
+          "info": "Upload the video in Content > Files, click the link icon to copy its URL, and paste it here."
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "OR YouTube / Vimeo URL",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Poster / fallback image",
+          "info": "Shown before the video loads, or instead of a video."
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption below slide"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Slider",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}
