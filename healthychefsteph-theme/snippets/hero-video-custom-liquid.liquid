@@ -1,0 +1,107 @@
+<style>
+  .hero-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 40px;
+    padding: 60px 20px;
+    min-height: 100vh;
+  }
+  .hero-text {
+    flex: 1;
+    min-width: 300px;
+    padding-left: clamp(20px, 11vw, 220px);
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .hero-text h1 {
+    font-size: clamp(40px, 4.6vw, 74px);
+    font-weight: bold;
+    margin-bottom: 25px;
+    line-height: 1.15;
+  }
+  .hero-text p {
+    font-size: 22px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .hero-video {
+    flex: 1.6;
+    min-width: 400px;
+    padding: 30px;
+    display: flex;
+  }
+  .hero-video video {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    background: #f2f2f2;
+  }
+  @media (max-width: 768px) {
+    .hero-wrapper {
+      flex-direction: column;
+      padding: 30px 20px;
+      gap: 20px;
+      min-height: unset;
+    }
+    .hero-text {
+      padding-left: 0;
+      padding-top: 20px;
+      min-width: unset;
+    }
+    .hero-text h1 {
+      font-size: 36px;
+    }
+    .hero-text p {
+      font-size: 17px;
+    }
+    .hero-video {
+      min-width: unset;
+      padding: 0;
+    }
+    .hero-video video {
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>
+<div class="hero-wrapper">
+  <div class="hero-text">
+    <h1>FRESH CHEF-CRAFTED<br>HIGH-PROTEIN MEALS<br>IN CHARLOTTE</h1>
+    <p>HealthyChefSteph makes fitness goals taste good, with fresh, high protein meals made in Charlotte and ready to eat in minutes.</p>
+    <div class="hero-buttons">
+      <a href="https://healthychefsteph.com/collections/meal-plans?_kx=8SJjIDm_wmTp818Q3weAoQ.SzPE2x" style="background: #C8102E; color: white; padding: 20px 40px; text-decoration: none; font-weight: bold; border-radius: 4px; font-size: 20px;">All Meal Packages</a>
+      <a href="/pages/how-it-works" style="background: white; color: #C8102E; border: 2px solid #C8102E; padding: 20px 40px; text-decoration: none; font-weight: bold; border-radius: 4px; font-size: 20px;">How It Works</a>
+    </div>
+  </div>
+  <div class="hero-video">
+    {%- comment -%} Use an MP4 (H.264) link from Content > Files. iPhone .mov files do not play in Chrome. {%- endcomment -%}
+    <video
+      src="https://cdn.shopify.com/videos/c/o/v/4f7976cf1b9f4c7aa901ea06900b94f9.mov"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    ></video>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.hero-video video').forEach(function (v) {
+    v.muted = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  });
+</script>
